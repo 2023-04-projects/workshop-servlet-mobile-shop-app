@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script>
+	function fun() {
+
+		var mmn = document.getElementById("mmn").value;
+		if (mmn == "") {
+
+			alert("PlaceEnterMobileModelNumber");
+			document.getElementById("mmn").focus();
+			return false;
+		}
+		document.getElementById("s").submit();
+
+	}
+</script>
+</head>
+<body>
+	<form action="search" id="s">
+		<table border="3">
+			<tr>
+				<td>MobileModelNumber :<input type="text" id="mmn"
+					target="target_right" /></td>
+			</tr>
+
+
+			<tr>
+				<td><a href="modify_product.html">
+
+						<input type="button" value="Search" onclick="fun()"/> 
+				</a></td>
+			</tr>
+
+		</table>
+	</form>
+</body>
+</html>
