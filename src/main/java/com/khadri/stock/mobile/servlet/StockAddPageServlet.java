@@ -25,7 +25,7 @@ public class StockAddPageServlet extends HttpServlet {
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Entered StockAddServlet doGet(-,-)");
+		System.out.println("Entered StockAddPageServlet doGet(-,-)");
 
 		List<String> stockTypes = Arrays.asList("Mobile", "Charger", "PowerBank", "HeadSet", "BackCover");
 
@@ -36,7 +36,7 @@ public class StockAddPageServlet extends HttpServlet {
 		stringBuffer.append("<html>");
 		stringBuffer.append("<head><title>Add Stock Details</title></head>");
 		stringBuffer.append("<body>");
-		stringBuffer.append("<form action='stockaddpage' method='post'>");
+		stringBuffer.append("<form action='stockadd' method='post'>");
 		stringBuffer.append("<table>");
 		stringBuffer.append("<thead><h2>Add Stock Details</h2></thead>");
 		stringBuffer.append("<tbody>");

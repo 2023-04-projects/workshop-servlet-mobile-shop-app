@@ -17,8 +17,8 @@ public class StockAddServlet extends HttpServlet {
 		stockDao = new StockDao();
 	}
 
-	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Entered StockAddServlet doGet(-,-)");
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("Entered StockAddServlet doPost(-,-)");
 
 		String type = req.getParameter("type");
 		//String arrivedDateTime = req.getParameter("arrivedDateTime");
