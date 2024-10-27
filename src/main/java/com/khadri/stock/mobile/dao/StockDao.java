@@ -10,68 +10,57 @@ import com.khadri.stock.mobile.form.StockForm;
 
 public class StockDao {
 	Connection con;
-	PreparedStatement pstmt ;
-	
-	public StockForm getInsertStock(String type){
+	PreparedStatement pstmt;
+
+	public StockForm selectStockTypeRecord(String type) {
 		System.out.println("StockDao insertStock(-)");
+		StockForm form = null;
 		int result = 0;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-			 DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_mobile_shop",
-					"root", "root");
-		        Statement stmt = con.createStatement();
-		        ResultSet rs=  stmt.executeQuery("SELECT * FROM stock WHERE type = '"+type+"'");
-		        
-		        rs.updateString(1,type );
+			DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_mobile_shop", "root", "root");
+			Statement stmt = con.createStatement();
+			ResultSet rs = stmt.executeQuery("SELECT * FROM stock WHERE type = '" + type + "'");
 
-		        if (rs.next()) {
-		            return new StockForm(result, rs.getString("type"), rs.getInt("qty"));
-		        }
-		       
-		}  catch (Exception e) {
-			// TODO: handle exception
+			rs.updateString(1, type);
+
+			if (rs.next()) {
+				form = new StockForm(result, rs.getString("type"), rs.getInt("qty"));
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception Occured : " + e);
 		}
-		return null;
-		
-	}
-		    public void updateStockQty(String type, int qty) throws Exception {
-		        String sql = "UPDATE stock SET qty = ? WHERE type = ?";
-		        PreparedStatement ps = con.prepareStatement(sql);
-		        ps.setInt(1, qty);
-		        ps.setString(2, type);
-		        ps.executeUpdate();
-		    }
+		return form;
 
-		    public void insertIntoStock(String type, int qty) throws Exception {
-		        String sql = "INSERT INTO stock (type, qty) VALUES (?, ?)";
-		        PreparedStatement ps = con.prepareStatement(sql);
-		        ps.setString(1, type);
-		        ps.setInt(2, qty);
-		        ps.executeUpdate();
-		    }
-		  
-		    public void insertMobileTypeData() throws Exception {
-		     //   Connection conn = DatabaseConnection.getConnection();
-		        String sql = "INSERT INTO mobile (specific_fields) VALUES (values)";
-		        PreparedStatement ps = con.prepareStatement(sql);
-		        // set values for specific_fields
-		        ps.executeUpdate();
-		    }
 	}
-		
-		
-		
-		
-	//Class.forName("com.mysql.cj.jdbc.Driver");
-	
-	//pstmt = con.prepareStatement("insert into stock values(?,?,?,?,?)");
-		
-		
-		
-		
-		
-		
-		
-		
-	
+
+	public void updateStockQty(String type, int qty) throws Exception {
+		String sql = "UPDATE stock SET qty = ? WHERE type = ?";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setInt(1, qty);
+		ps.setString(2, type);
+		ps.executeUpdate();
+	}
+
+	public void insertIntoStock(String type, int qty) throws Exception {
+		String sql = "INSERT INTO stock (type, qty) VALUES (?, ?)";
+		PreparedStatement ps = con.prepareStatement(sql);
+		ps.setString(1, type);
+		ps.setInt(2, qty);
+		ps.executeUpdate();
+	}
+
+	public void insertMobileTypeData(StockForm form) throws Exception {
+		// Connection conn = DatabaseConnection.getConnection();
+		String sql = "INSERT INTO mobile (specific_fields) VALUES (values)";
+		PreparedStatement ps = con.prepareStatement(sql);
+		// set values for specific_fields form values
+		ps.executeUpdate();
+	}
+}
+
+// Class.forName("com.mysql.cj.jdbc.Driver");
+
+// pstmt = con.prepareStatement("insert into stock values(?,?,?,?,?)");

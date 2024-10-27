@@ -11,7 +11,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class StockAddServlet extends HttpServlet {
- StockDao stockDao = new StockDao();
+	StockDao stockDao = new StockDao();
+
 //StockForm form = new StockForm();
 	public void init() throws ServletException {
 		stockDao = new StockDao();
@@ -21,40 +22,41 @@ public class StockAddServlet extends HttpServlet {
 		System.out.println("Entered StockAddServlet doPost(-,-)");
 
 		String type = req.getParameter("type");
-		//String arrivedDateTime = req.getParameter("arrivedDateTime");
-		//String productBrand = req.getParameter("productBrand");
-		//String productPrice = req.getParameter("productPrice");
-		//String productModel = req.getParameter("productModel");
-	
-		if(type !=null) {
+		// String arrivedDateTime = req.getParameter("arrivedDateTime");
+		// String productBrand = req.getParameter("productBrand");
+		// String productPrice = req.getParameter("productPrice");
+		// String productModel = req.getParameter("productModel");
+
+		if (type != null) {
 			System.out.println("entered in to if block");
 			try {
-				StockForm form = stockDao.getInsertStock(type);
-				if(form!=null) {
+				StockForm form = stockDao.selectStockTypeRecord(type);
+
+				if (form != null) {
 					System.out.println("entered in to if form block");
-
-					int qty=form.getQty()+1;
-					stockDao. updateStockQty(type,qty);
-				}else {
+					int qty = form.getQty() + 1;
+					stockDao.updateStockQty(type, qty);
+					insertIntoStockType(type, form);
+				} else {
 					System.out.println("entered in to else block");
-
 					stockDao.insertIntoStock(type, 1);
+					insertIntoStockType(type, form);
 				}
-			
-				insertIntoStockType(type);
+				insertIntoStockType(type, form);
 				System.out.println("inserted Successfully");
 
-			}catch(Exception e) {
+			} catch (Exception e) {
 				System.out.println("@@@@@@@Something went wrong@@@@@@@");
 
 				e.printStackTrace();
 			}
 		}
 	}
-	private void insertIntoStockType(String type)throws Exception{
+
+	private void insertIntoStockType(String type, StockForm stockForm) throws Exception {
 		switch (type) {
 		case "mobile":
-			 stockDao.insertMobileTypeData();
+			stockDao.insertMobileTypeData(stockForm);
 			break;
 
 		default:
