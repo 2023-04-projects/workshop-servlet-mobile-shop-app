@@ -11,18 +11,20 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class StockAddServlet extends HttpServlet {
-private final StockDao stockDao = new StockDao();
+ StockDao stockDao = new StockDao();
 //StockForm form = new StockForm();
 	public void init() throws ServletException {
-
+		stockDao = new StockDao();
 	}
 
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		System.out.println("Entered StockAddServlet doGet(-,-)");
+
 		String type = req.getParameter("type");
-		String arrivedDateTime = req.getParameter("arrivedDateTime");
-		String productBrand = req.getParameter("productBrand");
-		String productPrice = req.getParameter("productPrice");
-		String productModel = req.getParameter("productModel");
+		//String arrivedDateTime = req.getParameter("arrivedDateTime");
+		//String productBrand = req.getParameter("productBrand");
+		//String productPrice = req.getParameter("productPrice");
+		//String productModel = req.getParameter("productModel");
 	
 		if(type !=null) {
 			System.out.println("entered in to if block");

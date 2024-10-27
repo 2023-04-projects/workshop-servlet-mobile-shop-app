@@ -8,11 +8,11 @@
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 	<servlet>
-		<servlet-name>stockaddpage1</servlet-name>
+		<servlet-name>sap</servlet-name>
 		<servlet-class>com.khadri.stock.mobile.servlet.StockAddPageServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>stockaddpage1</servlet-name>
+		<servlet-name>sap</servlet-name>
 		<url-pattern>/stockaddpage</url-pattern>
 	</servlet-mapping>
 	<servlet>

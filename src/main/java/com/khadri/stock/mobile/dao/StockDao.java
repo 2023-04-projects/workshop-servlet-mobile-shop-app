@@ -21,7 +21,7 @@ public class StockDao {
 			 DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_mobile_shop",
 					"root", "root");
 		        Statement stmt = con.createStatement();
-		        ResultSet rs=  stmt.executeQuery("SELECT * FROM stock WHERE type = ?");
+		        ResultSet rs=  stmt.executeQuery("SELECT * FROM stock WHERE type = '"+type+"'");
 		        
 		        rs.updateString(1,type );
 
