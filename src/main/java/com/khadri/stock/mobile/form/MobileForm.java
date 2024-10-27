@@ -1,39 +1,50 @@
 package com.khadri.stock.mobile.form;
 
+import java.sql.Date;
+
 public class MobileForm {
-	private int mobileModelNo;
-	private String mobileName;
 	private String mobileBrand;
-	private Double mobileCost;
-	private int mobileQuantity;
+	private Double mobileprice;
+	private String mobileModel;
+	private Date arrivedDate;
 
-	public MobileForm(int mobileModelNo, String mobileName, String mobileBrand, Double mobileCost, int mobileQuantity) {
+	public MobileForm(String mobileBrand, Double mobileprice, String mobileModel, Date arrivedDate) {
 		super();
-		this.mobileModelNo = mobileModelNo;
-		this.mobileName = mobileName;
 		this.mobileBrand = mobileBrand;
-		this.mobileCost = mobileCost;
-		this.mobileQuantity = mobileQuantity;
-	}
-
-	public int getMobileModelNo() {
-		return mobileModelNo;
-	}
-
-	public String getMobileName() {
-		return mobileName;
+		this.mobileprice = mobileprice;
+		this.mobileModel = mobileModel;
+		this.arrivedDate = arrivedDate;
 	}
 
 	public String getMobileBrand() {
 		return mobileBrand;
 	}
 
-public Double getMobileCost() {		
-		return mobileCost;
+	public Double getMobileprice() {
+		return mobileprice;
 	}
 
-	public int getMobileQuantity() {
-		return mobileQuantity;
+	public String getMobileModel() {
+		return mobileModel;
+	}
+
+	public Date getArrivedDate() {
+		return arrivedDate;
 	}
 
 }
+//select * from stock if mobile
+//we need to write switch case
+//if it is execute it should execute it should update in if block table set =1+1 update in if block only u should write
+
+//call select *for stock if 
+
+
+
+
+
+
+
+
+
+

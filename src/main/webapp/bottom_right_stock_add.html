@@ -1,6 +1,6 @@
 <html>
 <body>
-	<form action="stockadd" method="post">
+	<form action="stockaddpage" method="post">
 
 
 		<table>
@@ -9,24 +9,33 @@
 			</thead>
 			<tbody>
 				<tr>
-					<td>Mobile Model No:<input type="text" name="mobileModelNo"></td>
-				</tr>
-				<tr>
-					<td>Mobile Name:<input type="text" name="mobileName"></td>
+					<td><label>type:</label><select name="type">
+							<option>--select--</option>
+							<option>Mobile</option>
+							<option>Charger</option>
+							<option>PowerBank</option>
+							<option>HeadSet</option>
+							<option>BackCover</option>
+					</select></td>
 				</tr>
 
 				<tr>
-					<td>Mobile Brand:<input type="text" name="mobileBrand"></td>
+					<td>arriver_date_time:<input type="datetime-local"
+						name="arrived_date_time"></td>
 				</tr>
 
 				<tr>
-					<td>Mobile Cost:<input type="text" name="mobileCost"></td>
+					<td>Product_brand:<input type="text" name="Product_brand"></td>
+				</tr>
+
+				<tr>
+					<td>product_price:<input type="text" name="product_price"></td>
 				</tr>
 				<tr>
-					<td>Mobile Quantity:<input type="number" name="mobileQuantity"></td>
+					<td>product_model:<input type="text" name="product_model"></td>
 				</tr>
 				<tr>
-					<td><input type="submit" value="AddProduct"></td>
+					<td><input type="submit" value="AddStock"></td>
 				</tr>
 			</tbody>
 		</table>

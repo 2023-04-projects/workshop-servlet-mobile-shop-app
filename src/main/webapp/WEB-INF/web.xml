@@ -3,28 +3,25 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
-	<display-name>workshop-servlet-mobile-shop-app222</display-name>
+	<display-name>workshop-servlet-mobile-shop-app</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 	</welcome-file-list>
 	<servlet>
-		<servlet-name>stockadd</servlet-name>
-		<servlet-class>com.khadri.stock.servlet.AddMobileServlet</servlet-class>
+		<servlet-name>stockaddpage1</servlet-name>
+		<servlet-class>com.khadri.stock.mobile.servlet.StockAddPageServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>stockadd</servlet-name>
+		<servlet-name>stockaddpage1</servlet-name>
+		<url-pattern>/stockaddpage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>stockadd1</servlet-name>
+		<servlet-class>com.khadri.stock.mobile.servlet.StockAddServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>stockadd1</servlet-name>
 		<url-pattern>/stockadd</url-pattern>
 	</servlet-mapping>
-	<context-param>
-		<param-name>url</param-name>
-		<param-value>jdbc:MySQL://localhost:3306/2024_batch</param-value>
-	</context-param>
-	<context-param>
-		<param-name>username</param-name>
-		<param-value>root</param-value>
-	</context-param>
-	<context-param>
-		<param-name>password</param-name>
-		<param-value>root</param-value>
-	</context-param>
+	
 </web-app>
