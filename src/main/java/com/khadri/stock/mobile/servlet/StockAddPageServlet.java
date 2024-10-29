@@ -5,23 +5,17 @@ import java.io.PrintWriter;
 import java.util.Arrays;
 import java.util.List;
 
-import com.khadri.stock.mobile.dao.StockDao;
-import com.khadri.stock.mobile.form.MobileForm;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class StockAddPageServlet extends HttpServlet {
-			
+
 	private static final long serialVersionUID = 1L;
-	private StockDao dao;
-	PrintWriter pw;
-	MobileForm form;
 
 	public void init() throws ServletException {
-		dao = new StockDao();
+
 	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -45,7 +39,8 @@ public class StockAddPageServlet extends HttpServlet {
 		stockTypes.forEach(type -> stringBuffer.append("<option>" + type + "</option>"));
 		stringBuffer.append("</select></td></tr>");
 
-		stringBuffer.append("<tr><td>Arrived Date/Time:<input type='datetime-local' name='arrived_date_time'></td></tr>");
+		stringBuffer
+				.append("<tr><td>Arrived Date/Time:<input type='datetime-local' name='arrived_date_time'></td></tr>");
 
 		stringBuffer.append("<tr><td>Product Brand:<input type='text' name='Product_brand'></td></tr>");
 
@@ -63,34 +58,5 @@ public class StockAddPageServlet extends HttpServlet {
 
 		pw.println(stringBuffer.toString());
 	}
-	
-			
-			
-}		
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
-			
 
-		
-
-
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+}

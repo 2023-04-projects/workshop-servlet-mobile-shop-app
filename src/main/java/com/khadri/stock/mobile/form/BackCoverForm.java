@@ -3,35 +3,33 @@ package com.khadri.stock.mobile.form;
 import java.sql.Date;
 
 public class BackCoverForm {
-	
-	private String backCoverBrand;
-	private Double backCoverprice;
-	private String backCoverModel;
-	private Date arrivedDate;
-	
-	public BackCoverForm(String backCoverBrand, Double backCoverprice, String backCoverModel, Date arrivedDate) {
+	private String productBrand;
+	private Double productPrice;
+	private String productModel;
+	private Date arrivedDateTime;
+
+	public BackCoverForm(String productBrand, Double productPrice, String productModel, Date arrivedDateTime) {
 		super();
-		this.backCoverBrand = backCoverBrand;
-		this.backCoverprice = backCoverprice;
-		this.backCoverModel = backCoverModel;
-		this.arrivedDate = arrivedDate;
+		this.productBrand = productBrand;
+		this.productPrice = productPrice;
+		this.productModel = productModel;
+		this.arrivedDateTime = arrivedDateTime;
 	}
 
-	public String getBackCoverBrand() {
-		return backCoverBrand;
+	public String getProductBrand() {
+		return productBrand;
 	}
 
-	public Double getBackCoverprice() {
-		return backCoverprice;
+	public Double getProductPrice() {
+		return productPrice;
 	}
 
-	public String getBackCoverModel() {
-		return backCoverModel;
+	public String getProductModel() {
+		return productModel;
 	}
 
-	public Date getArrivedDate() {
-		return arrivedDate;
+	public Date getArrivedDateTime() {
+		return arrivedDateTime;
 	}
-
 
 }

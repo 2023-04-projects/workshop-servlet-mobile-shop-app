@@ -5,13 +5,13 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
-import com.khadri.stock.mobile.form.MobileForm;
+import com.khadri.stock.mobile.form.PowerBankForm;
 
-public class MobileDao {
-	MobileForm mobileForm;
+public class PowerBankDao {
+	PowerBankForm powerBankForm;
 	Connection con;
 
-	public void insertMobile(MobileForm mobileForm) throws SQLException {
+	public void insertPowerBank(PowerBankForm powerBankForm) throws SQLException {
 
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
@@ -19,11 +19,11 @@ public class MobileDao {
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_mobile_shop", "root", "root");
 
 			PreparedStatement statement = con.prepareStatement(
-					"INSERT INTO mobile (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
-			statement.setString(1, mobileForm.getProductBrand());
-			statement.setDouble(2, mobileForm.getProductPrice());
-			statement.setString(3, mobileForm.getProductModel());
-			statement.setDate(4, mobileForm.getArrivedDateTime());
+					"INSERT INTO powerbank (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
+			statement.setString(1, powerBankForm.getProductBrand());
+			statement.setDouble(2, powerBankForm.getProductPrice());
+			statement.setString(3, powerBankForm.getProductModel());
+			statement.setDate(4, powerBankForm.getArrivedDateTime());
 
 			statement.executeUpdate();
 		} catch (ClassNotFoundException e) {

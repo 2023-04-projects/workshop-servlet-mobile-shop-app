@@ -4,38 +4,32 @@ import java.sql.Date;
 
 public class MobileForm {
 	private String productBrand;
-	private Double productprice;
+	private Double productPrice;
 	private String productModel;
 	private Date arrivedDateTime;
-	public MobileForm(String productBrand, Double productprice, String productModel, Date arrivedDateTime) {
+
+	public MobileForm(String productBrand, Double productPrice, String productModel, Date arrivedDateTime) {
 		super();
 		this.productBrand = productBrand;
-		this.productprice = productprice;
+		this.productPrice = productPrice;
 		this.productModel = productModel;
 		this.arrivedDateTime = arrivedDateTime;
 	}
+
 	public String getProductBrand() {
 		return productBrand;
 	}
-	public Double getProductprice() {
-		return productprice;
+
+	public Double getProductPrice() {
+		return productPrice;
 	}
+
 	public String getProductModel() {
 		return productModel;
 	}
+
 	public Date getArrivedDateTime() {
 		return arrivedDateTime;
 	}
 
-	
-
 }
-
-
-
-
-
-
-
-
-

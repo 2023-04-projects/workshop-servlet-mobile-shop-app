@@ -3,34 +3,29 @@ package com.khadri.stock.mobile.form;
 import java.sql.Date;
 
 public class HeadSetForm {
-
-	private String headSetBrand;
-	private Double headSetprice;
-	private String headSetModel;
-	private Date arrivedDate;
-
-	public HeadSetForm(String headSetBrand, Double headSetprice, String headSetModel, Date arrivedDate) {
+	private String productBrand;
+	private Double productPrice;
+	private String productModel;
+	private Date arrivedDateTime;
+	public HeadSetForm(String productBrand, Double productPrice, String productModel, Date arrivedDateTime) {
 		super();
-		this.headSetBrand = headSetBrand;
-		this.headSetprice = headSetprice;
-		this.headSetModel = headSetModel;
-		this.arrivedDate = arrivedDate;
+		this.productBrand = productBrand;
+		this.productPrice = productPrice;
+		this.productModel = productModel;
+		this.arrivedDateTime = arrivedDateTime;
+	}
+	public String getProductBrand() {
+		return productBrand;
+	}
+	public Double getProductPrice() {
+		return productPrice;
+	}
+	public String getProductModel() {
+		return productModel;
+	}
+	public Date getArrivedDateTime() {
+		return arrivedDateTime;
 	}
 
-	public String getHeadSetBrand() {
-		return headSetBrand;
-	}
-
-	public Double getHeadSetprice() {
-		return headSetprice;
-	}
-
-	public String getHeadSetModel() {
-		return headSetModel;
-	}
-
-	public Date getArrivedDate() {
-		return arrivedDate;
-	}
-
+	
 }

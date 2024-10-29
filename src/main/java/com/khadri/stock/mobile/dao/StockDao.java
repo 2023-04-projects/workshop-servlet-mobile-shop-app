@@ -6,13 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
-import com.khadri.stock.mobile.form.MobileForm;
 import com.khadri.stock.mobile.form.StockForm;
 
 public class StockDao {
 	Connection con;
 	PreparedStatement pstmt;
-	
 
 	public StockForm selectStockTypeRecord(String type) {
 		System.out.println("StockDao insertStock(-)");
@@ -54,5 +52,4 @@ public class StockDao {
 		ps.executeUpdate();
 	}
 
-	
 }

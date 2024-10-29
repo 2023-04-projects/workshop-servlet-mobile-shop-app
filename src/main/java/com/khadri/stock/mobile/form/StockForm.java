@@ -3,8 +3,8 @@ package com.khadri.stock.mobile.form;
 public class StockForm {
 
 	private int id;
-	 private String type;
-	 private int qty;
+	private String type;
+	private int qty;
 
 	public StockForm(int id, String type, int qty) {
 		super();
@@ -12,14 +12,16 @@ public class StockForm {
 		this.type = type;
 		this.qty = qty;
 	}
+
 	public int getId() {
 		return id;
 	}
+
 	public String getType() {
 		return type;
 	}
+
 	public int getQty() {
 		return qty;
 	}
 }
-

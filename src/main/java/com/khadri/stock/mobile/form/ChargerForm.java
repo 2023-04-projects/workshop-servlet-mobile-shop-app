@@ -3,33 +3,33 @@ package com.khadri.stock.mobile.form;
 import java.sql.Date;
 
 public class ChargerForm {
+	private String productBrand;
+	private Double productPrice;
+	private String productModel;
+	private Date arrivedDateTime;
 
-		private String chargerBrand;
-		private Double chargerprice;
-		private String chargerModel;
-		private Date arrivedDate ;
-		
-		public ChargerForm(String chargerBrand, Double chargerprice, String chargerModel, Date arrivedDate) {
-			super();
-			this.chargerBrand = chargerBrand;
-			this.chargerprice = chargerprice;
-			this.chargerModel = chargerModel;
-			this.arrivedDate = arrivedDate;
-		}
+	public ChargerForm(String productBrand, Double productPrice, String productModel, Date arrivedDateTime) {
+		super();
+		this.productBrand = productBrand;
+		this.productPrice = productPrice;
+		this.productModel = productModel;
+		this.arrivedDateTime = arrivedDateTime;
+	}
 
-		public String getChargerBrand() {
-			return chargerBrand;
-		}
+	public String getProductBrand() {
+		return productBrand;
+	}
 
-		public Double getChargerprice() {
-			return chargerprice;
-		}
+	public Double getProductPrice() {
+		return productPrice;
+	}
 
-		public String getChargeMrodel() {
-			return chargerModel;
-		}
+	public String getProductModel() {
+		return productModel;
+	}
 
-		public Date getArrivedDate() {
-			return arrivedDate;
-		}
+	public Date getArrivedDateTime() {
+		return arrivedDateTime;
+	}
+
 }
