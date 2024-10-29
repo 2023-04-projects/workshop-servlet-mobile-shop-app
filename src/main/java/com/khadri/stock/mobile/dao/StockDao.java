@@ -12,7 +12,7 @@ import com.khadri.stock.mobile.form.StockForm;
 public class StockDao {
 	Connection con;
 	PreparedStatement pstmt;
-	private MobileForm form;
+	
 
 	public StockForm selectStockTypeRecord(String type) {
 		System.out.println("StockDao insertStock(-)");
@@ -54,16 +54,5 @@ public class StockDao {
 		ps.executeUpdate();
 	}
 
-	public void insertMobileTypeData(MobileForm form) throws Exception {
-		con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_mobile_shop", "root", "root");
-
-		PreparedStatement ps = con.prepareStatement(
-				"INSERT INTO mobile (mobileBrand, mobilePrice, mobileModel, arrivedDate) VALUES (values)");
-		ps.setString(1, form.getMobileBrand());
-		ps.setDouble(2, form.getMobileprice());
-		ps.setString(3, form.getMobileModel());
-		ps.setDate(4, form.getArrivedDate());
-		// set values for specific_fields form values
-		ps.executeUpdate();
-	}
+	
 }
