@@ -29,7 +29,7 @@ public class ProductModifySearchPageServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//RequestDispatcher requestDispatcher = req.getRequestDispatcher("/ProductModifyServlet");
 		//requestDispatcher.forward(req, resp);   
-		System.out.println("Entered into ProductSearchProductServlet dopost(-,-)");
+		System.out.println("Entered into ProductModifySearchPageServlet dopost(-,-)");
 		String productId = req.getParameter("Id");
 		PrintWriter pw = resp.getWriter();
 		if (productId == null || productId.isEmpty()) {
@@ -37,7 +37,7 @@ public class ProductModifySearchPageServlet extends HttpServlet {
 			sb.append("<html><body><table><thead><h2>Search Product</h2></thead>");
 			sb.append("<form action = 'productmodify' method = 'get'");
 			sb.append("<tbody><tr><td>ProductId :<input type= 'text' name ='Id'><td/></tr>");
-			sb.append("<tr><td><input type='submit' value='scarch'></td></tr>");
+			sb.append("<tr><td><input type='submit' value='search'></td></tr>");
 			sb.append("<table border='1'>");
 			sb.append("<thead>");
 			sb.append("<tr>");
@@ -55,7 +55,7 @@ public class ProductModifySearchPageServlet extends HttpServlet {
 			sb.append("<html><body><table><thead><h2>Search Product</h2></thead>");
 			sb.append("<form action = 'modifyForm' method = 'get'");
 			sb.append("<tbody><tr><td>ProductId :<input type= 'text' name ='Id'><td/></tr>");
-			sb.append("<tr><td><input type='submit' value='scarch'></td></tr>");
+			sb.append("<tr><td><input type='submit' value='search'></td></tr>");
 
 			sb.append("<table border='1'>");
 			sb.append("<thead>");

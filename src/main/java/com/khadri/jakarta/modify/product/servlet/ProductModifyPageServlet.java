@@ -26,8 +26,8 @@ public class ProductModifyPageServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Entered into ModifyDynaGrossaryServlet doGet(-,-)");
-		List<ProductForm> listOfGrossaries = new ArrayList<>();
+		System.out.println("Entered into ModifyPageServlet doGet(-,-)");
+		List<ProductForm> listOfProduct = new ArrayList<>();
 		PrintWriter pw = resp.getWriter();
 		String productId = req.getParameter("Id");
 
@@ -51,7 +51,7 @@ public class ProductModifyPageServlet extends HttpServlet {
 		sb.append("<tbody>");
 		sb.append("<tbody>");
 
-		listOfGrossaries.stream().forEach(eachForm -> {
+		listOfProduct.stream().forEach(eachForm -> {
 
 			sb.append("<tr>");
 			sb.append("<td><a href='modify_product.html' target='bottom_right'> " + eachForm.getId() + "</a></td>");
