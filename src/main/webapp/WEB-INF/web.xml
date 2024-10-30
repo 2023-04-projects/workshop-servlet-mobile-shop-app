@@ -3,7 +3,7 @@
 	xmlns="http://xmlns.jcp.org/xml/ns/javaee"
 	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
 	id="WebApp_ID" version="4.0">
-	<display-name>workshope-servlet-mobile-shop-app</display-name>
+	<display-name>workshop-servlet-mobile-shop-app</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
 		<welcome-file>index.jsp</welcome-file>
@@ -12,16 +12,44 @@
 		<welcome-file>default.jsp</welcome-file>
 		<welcome-file>default.htm</welcome-file>
 	</welcome-file-list>
-
-
-
+	<servlet>
+		<servlet-name>add</servlet-name>
+		<servlet-class>com.khadri.jakarta.product.add.servlet.ProductAddServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>add</servlet-name>
+		<url-pattern>/add</url-pattern>
+	</servlet-mapping>
 	<servlet>
 		<servlet-name>modify</servlet-name>
-		<servlet-class>com.khadri.jakartha.servlet.modify.ModifyServlet</servlet-class>
+		<servlet-class>com.khadri.jakarta.modify.product.servlet.ProductModifyScarchPageServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>modify</servlet-name>
-		<url-pattern>/modify</url-pattern>
-
+		<url-pattern>/productmodify</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>modifyproduct</servlet-name>
+		<servlet-class>com.khadri.jakarta.modify.product.servlet.ProductModifyPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>modifyproduct</servlet-name>
+		<url-pattern>/modifyForm</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>view</servlet-name>
+		<servlet-class>com.khadri.jakarta.view.product.servlet.ViewProductServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>view</servlet-name>
+		<url-pattern>/productview</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>viewall</servlet-name>
+		<servlet-class>com.khadri.jakarta.view.product.servlet.ViewAllProducts</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>viewall</servlet-name>
+		<url-pattern>/productviewall</url-pattern>
 	</servlet-mapping>
 </web-app>

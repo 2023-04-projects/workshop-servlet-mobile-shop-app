@@ -1,37 +1,27 @@
 <!DOCTYPE html>
 <html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Modify search page</title>
+</head>
 <body>
-	<form action="modify" method="post">
-		<table border="3">
-			<thead>
-				<h2>ModifyMobileProduct</h2>
-			</thead>
-			<tbody>
-				<tr>
-					<td>MobileModelNumber :</td>
-					<td><input type="text" name="MobileModelNumber"></td>
-				</tr>
-				<tr>
-					<td>MobileName :</td>
-					<td><input type="text" name="MobileName"></td>
-				</tr>
-				<tr>
-					<td>MobileBrand :</td>
-					<td><input type="text" name="MobileBrand"></td>
-				</tr>
-				<tr>
-					<td>Mobile Cost :</td>
-					<td><input type="text" name="MobileCost"></td>
-				</tr>
-				<tr>
-					<td>Mobile Qty :</td>
-					<td><input type="numbers" name="MobileQuantity"></td>
-				</tr>
-				<tr>
-					<td><input type="submit" value="ModifyProduct"></td>
-				</tr>
-			</tbody>
-		</table>
-	</form>
+<form action="productmodify" method="get">
+  <table>
+   <tr>
+    <td>Product_Id :</td>
+    <td><input type="text" name="productId"></td>
+   </tr>
+   <tr>
+    <td><input type="submit" name="modify" value="search"></td>
+   </tr>
+   <table border="1">
+    <tbody>
+     <tr>
+      <td><a href="productmodify" target="bottom_right"> 1</a></td>
+      <th>Mobile</th>
+     </tr>
+
+    </tbody>
+    </form>
 </body>
 </html>
