@@ -3,9 +3,6 @@
 <script type="text/javascript">
 
 function formValidation() {
-	 var errorMessages = document.getElementById("errorMessages");
-     errorMessages.innerHTML = ""; 
-     var isValid = true;
      
 	var selectBoxComponent =document.querySelector("#type");
 	var selectedIndex = selectBoxComponent.selectedIndex;
@@ -41,16 +38,8 @@ function formValidation() {
 		}
 }
 </script>
-<head>
-<style>
-        .error {
-            color: red;
-        }
-    </style>
-</head>
 <body>
 	<form action="stockaddpage" method="get" onsubmit="return formValidation()">
-	 <div id="errorMessages" class="error"></div>
 	
 	
 		<table>
