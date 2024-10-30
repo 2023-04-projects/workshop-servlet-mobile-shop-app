@@ -8,7 +8,6 @@ import java.util.List;
 import com.khadri.jakarta.product.dao.ProductDao;
 import com.khadri.jakarta.product.form.ProductForm;
 
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -36,10 +35,10 @@ public class ProductModifyPageServlet extends HttpServlet {
 		}
 
 		StringBuffer sb = new StringBuffer();
-		sb.append("<html><body><table><thead><h2>Search Grocery Item</h2></thead>");
-		//sb.append("<form action='promodify' method='get'>");
+		sb.append("<html><body><table><thead><h2>ProductModify</h2></thead>");
+		sb.append("<form action='modify' method='post'>");
 		sb.append("<tbody><tr><td>ProductId:<input type='text' name='ProductName'></td></tr>");
-		sb.append("<tr><td><input type='submit' value='Search'></td></tr>");
+		sb.append("<tr><td><input type='submit' value='Modify'></td></tr>");
 		sb.append("<table border='1'>");
 		sb.append("<thead>");
 		sb.append("<tr>");

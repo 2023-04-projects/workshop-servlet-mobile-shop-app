@@ -37,6 +37,14 @@
 		<url-pattern>/modifyForm</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>modifyp</servlet-name>
+		<servlet-class>com.khadri.jakarta.modify.product.servlet.ProductModifyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>modifyp</servlet-name>
+		<url-pattern>/modify</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>view</servlet-name>
 		<servlet-class>com.khadri.jakarta.view.product.servlet.ViewProductServlet</servlet-class>
 	</servlet>

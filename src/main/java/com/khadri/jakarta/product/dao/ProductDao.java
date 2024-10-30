@@ -48,7 +48,6 @@ public class ProductDao {
 				int id = resultSet.getInt(1);
 				form.setId(resultSet.getInt(1));
 				form.setName(resultSet.getString(2));
-				System.out.println("viewdatap-----------");
 			}
 			listOfData.add(form);
 
@@ -84,5 +83,28 @@ public class ProductDao {
 		}
 		return listOfData;
 
+	}
+
+	public int updateMovie(ProductForm form) {
+		System.out.println("ProductDao updatePeoduct(-)");
+		int result = 0;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root",
+					"Wellcome@123");
+
+			PreparedStatement pstmt = con.prepareStatement("update product set Name=? where Id=?");
+			pstmt.setInt(1, form.getId());
+			pstmt.setString(2, form.getName());
+
+			result = pstmt.executeUpdate();
+			System.out.println(result + "modified sucessfully!!!");
+
+		} catch (Exception e) {
+			System.out.println("Exception occured" + e.getMessage());
+		}
+		return result;
+		 
 	}
 }
