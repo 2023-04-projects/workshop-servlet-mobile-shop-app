@@ -39,9 +39,10 @@ public class StockAddServlet extends HttpServlet {
 		String productModel = req.getParameter("product_model");
 		String arrivedDateTime = req.getParameter("arrived_date_time");
 
+       
 		if (productPrice != null && !productPrice.isEmpty()) {
 			try {
-			Double.parseDouble(productPrice);
+				Double.parseDouble(productPrice);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 				System.out.println("Invalid price format.");
@@ -81,9 +82,9 @@ public class StockAddServlet extends HttpServlet {
 				} else {
 					System.out.println("entered in to else block");
 					stockDao.insertIntoStock(type, 1);
-					insertIntoStockType(type, form);
-					System.out.println("inserted Successfully");
 				}
+				System.out.println("inserted Successfully");
+				insertIntoStockType(type, form);
 
 			} catch (Exception e) {
 				System.out.println("@@@@@@@Something went wrong@@@@@@@");
@@ -91,8 +92,8 @@ public class StockAddServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
+	
 	}
-
 	private void insertIntoStockType(String type, StockForm form) throws Exception {
 		System.out.println("insertIntoStockType method" + type);
 		switch (type) {
@@ -122,3 +123,4 @@ public class StockAddServlet extends HttpServlet {
 		}
 	}
 }
+
