@@ -30,14 +30,12 @@ public class ProductModifyPageServlet extends HttpServlet {
 		PrintWriter pw = resp.getWriter();
 		String productId = req.getParameter("Id");
 
-		if (productId != null) {
-			// listOfGrossaries = dao.updateProduct(searchName);
-		}
+		 
 
 		StringBuffer sb = new StringBuffer();
 		sb.append("<html><body><table><thead><h2>ProductModify</h2></thead>");
-		sb.append("<form action='modify' method='post'>");
-		sb.append("<tbody><tr><td>ProductId:<input type='text' name='ProductName'></td></tr>");
+		sb.append("<form action='modifyp' method='post'>");
+		sb.append("<tbody><tr><td>ProductId:<input type='text' name='ID'></td></tr>");
 		sb.append("<tr><td><input type='submit' value='Modify'></td></tr>");
 		sb.append("<table border='1'>");
 		sb.append("<thead>");

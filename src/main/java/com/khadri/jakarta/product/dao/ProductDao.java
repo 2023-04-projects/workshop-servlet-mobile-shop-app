@@ -85,18 +85,18 @@ public class ProductDao {
 
 	}
 
-	public int updateMovie(ProductForm form) {
-		System.out.println("ProductDao updatePeoduct(-)");
-		int result = 0;
+	public int updateProduct(ProductForm form) {
+		System.out.println("ProductDao updateProduct(-)");
+		int result = 0 ;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root",
 					"Wellcome@123");
 
-			PreparedStatement pstmt = con.prepareStatement("update product set Name=? where Id=?");
-			pstmt.setInt(1, form.getId());
-			pstmt.setString(2, form.getName());
+			PreparedStatement pstmt = con.prepareStatement("update product set Name=? where ID=?");
+			pstmt.setString(1, form.getName());
+			pstmt.setInt(2, form.getId());
 
 			result = pstmt.executeUpdate();
 			System.out.println(result + "modified sucessfully!!!");

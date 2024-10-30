@@ -11,7 +11,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class ProductModifyServlet  extends HttpServlet{
+public class ProductModifyServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ProductDao dao;
 	private ProductForm form;
@@ -24,13 +24,19 @@ public class ProductModifyServlet  extends HttpServlet{
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("Entered into ModifyMovieServlet doGet(-,-)");
-		String id = req.getParameter("Id");
+		  int result ;
+		System.out.println("Entered into ModifyProductServlet dopost(-,-)");
+		String id = req.getParameter("ID");
 		String name = req.getParameter("Name");
-
-		form.getId();
-		form.getName();
-		int result = dao.updateMovie(form);
+		if (id != null && !id.isEmpty()) {
+			int parseInt = Integer.parseInt(id);
+		    form.setId(parseInt);
+		} else {
+		    System.out.println("ID parameter is missing or empty.");
+		}
+		form.setName(name);
+		result = dao.updateProduct(form);
+		 
 
 		PrintWriter pw = resp.getWriter();
 

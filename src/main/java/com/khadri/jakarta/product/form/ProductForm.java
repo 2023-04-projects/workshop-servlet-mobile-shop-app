@@ -3,6 +3,7 @@ package com.khadri.jakarta.product.form;
 public class ProductForm {
 	private int id;
 	private String name;
+	
 	 
 	public int getId() {
 		return id;

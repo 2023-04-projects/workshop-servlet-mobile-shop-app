@@ -67,7 +67,7 @@ public class ProductModifySearchPageServlet extends HttpServlet {
 			sb.append("<tbody>");
 			listOfForms.stream().forEach(eachProduct -> {
 				sb.append("<tr>");
-				sb.append("<td><a href='modify.html' target='bottom_right'> " + eachProduct.getId()
+				sb.append("<td><a href='/modify?ID="+eachProduct.getId()+"&Name="+eachProduct.getName()+"' target='bottom_right'> " + eachProduct.getId()
 						+ "</a></td>");
 				sb.append("<td>" + eachProduct.getName() + "</td>");
 				sb.append("</tr>");
