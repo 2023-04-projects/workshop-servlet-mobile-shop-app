@@ -5,11 +5,6 @@ import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import com.khadri.stock.mobile.dao.BackCoverDao;
-import com.khadri.stock.mobile.dao.ChargerDao;
-import com.khadri.stock.mobile.dao.HeadSetDao;
-import com.khadri.stock.mobile.dao.MobileDao;
-import com.khadri.stock.mobile.dao.PowerBankDao;
 import com.khadri.stock.mobile.dao.StockDao;
 import com.khadri.stock.mobile.form.BackCoverForm;
 import com.khadri.stock.mobile.form.ChargerForm;
@@ -24,30 +19,18 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class StockAddServlet extends HttpServlet {
-	StockForm form;
-	StockDao stockDao;
-	MobileForm mobileForm;
-	MobileDao mobileDao;
-	ChargerForm chargerForm;
-	ChargerDao chargerDao;
-	PowerBankForm powerBankForm;
-	PowerBankDao powerBankDao;
-	HeadSetForm headSetForm;
-	HeadSetDao headSetDao;
-	BackCoverForm backCoverForm;
-	BackCoverDao backCoverDao;
+	 private StockForm form;
+	 private MobileForm mobileForm;
+	 private ChargerForm  chargerForm;
+	 private PowerBankForm powerBankForm;
+	 private  HeadSetForm headSetForm;
+	 private  BackCoverForm backCoverForm;
+	 private StockDao stockDao;
 
 	public void init() throws ServletException {
 		stockDao = new StockDao();
-		mobileDao = new MobileDao();
-		chargerDao = new ChargerDao();
-		powerBankDao= new PowerBankDao();
-		headSetDao=new HeadSetDao();
-		backCoverDao=new BackCoverDao();
 	}
-
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException, NumberFormatException {
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
 		System.out.println("Entered StockAddServlet doPost(-,-)");
 
 		String type = req.getParameter("type");
@@ -56,10 +39,9 @@ public class StockAddServlet extends HttpServlet {
 		String productModel = req.getParameter("product_model");
 		String arrivedDateTime = req.getParameter("arrived_date_time");
 
-		Double price = 0.0;
 		if (productPrice != null && !productPrice.isEmpty()) {
 			try {
-				price = Double.parseDouble(productPrice);
+			Double.parseDouble(productPrice);
 			} catch (NumberFormatException e) {
 				e.printStackTrace();
 				System.out.println("Invalid price format.");
@@ -89,21 +71,19 @@ public class StockAddServlet extends HttpServlet {
 
 
 		if (type != null) {
-			System.out.println("entered in to if block");
+			System.out.println("entered into if block");
 			try {
 				form = stockDao.selectStockTypeRecord(type);
 				if (form != null) {
-					System.out.println("entered in to if form block");
+					System.out.println("entered into if form block");
 					int qty = form.getQty() + 1;
 					stockDao.updateStockQty(type, qty);
-
-					insertIntoStockType(type, form);
 				} else {
 					System.out.println("entered in to else block");
 					stockDao.insertIntoStock(type, 1);
 					insertIntoStockType(type, form);
+					System.out.println("inserted Successfully");
 				}
-				System.out.println("inserted Successfully");
 
 			} catch (Exception e) {
 				System.out.println("@@@@@@@Something went wrong@@@@@@@");
@@ -118,24 +98,24 @@ public class StockAddServlet extends HttpServlet {
 		switch (type) {
 		case "Mobile":
 			System.out.println("entered into switch case mobile  method");
-			mobileDao.insertMobile(mobileForm);
+			stockDao.insertMobile(mobileForm);
 			System.out.println("inserted into switch case mobile  method");
 			break;
 		case "Charger":
 			System.out.println("entered into switch case charger method");
-			chargerDao.insertCharger(chargerForm);
+			stockDao.insertCharger(chargerForm);
 			break;
 		case "PowerBank":
 			System.out.println("entered into switch case powerbank method");
-			powerBankDao.insertPowerBank(powerBankForm);
+			stockDao.insertPowerBank(powerBankForm);
 			break;
 		case "HeadSet":
 			System.out.println("entered into switch case headset  method");
-			headSetDao.insertHeadSet(headSetForm);
+			stockDao.insertHeadSet(headSetForm);
 			break;
 		case "BackCover":
 			System.out.println("entered into switch case backcover  method");
-			backCoverDao.insertBackCover(backCoverForm);
+			stockDao.insertBackCover(backCoverForm);
 			break;
 		default:
 			break;

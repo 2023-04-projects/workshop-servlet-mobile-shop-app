@@ -2,8 +2,6 @@ package com.khadri.stock.mobile.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.Arrays;
-import java.util.List;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -12,16 +10,8 @@ import jakarta.servlet.http.HttpServletResponse;
 
 public class StockAddPageServlet extends HttpServlet {
 
-	private static final long serialVersionUID = 1L;
-
-	public void init() throws ServletException {
-
-	}
-
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered StockAddPageServlet doGet(-,-)");
-
-		List<String> stockTypes = Arrays.asList("Mobile", "Charger", "PowerBank", "HeadSet", "BackCover");
 
 		resp.setContentType("text/html");
 		PrintWriter pw = resp.getWriter();
