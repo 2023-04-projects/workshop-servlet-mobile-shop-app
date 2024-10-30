@@ -1,13 +1,65 @@
 <html>
+
+<script type="text/javascript">
+
+function formValidation() {
+	 var errorMessages = document.getElementById("errorMessages");
+     errorMessages.innerHTML = ""; 
+     var isValid = true;
+     
+	var selectBoxComponent =document.querySelector("#type");
+	var selectedIndex = selectBoxComponent.selectedIndex;
+	var productBrandComponent = document.getElementById("pbname");
+	var productPriceComponent = document.getElementById("ppname");
+	var productModelComponent = document.getElementById("pmname");
+	var arriveddateComponent = document.getElementById("adt");
+	
+	if (selectedIndex == 0) {
+		alert("Please select type.");
+		return false;
+		}
+	
+	if (productBrandComponent.value == "") {
+		alert("Please enter product brand.");
+		productBrandComponent.focus();
+		return false;
+		}
+	if (productModelComponent.value == "") {
+		alert("Please enter product model.");
+		productModelComponent.focus();
+		return false;
+		}
+	if (productBrandComponent.value == "") {
+		alert("Please enter product brand.");
+		productPriceComponent.focus();
+		return false;
+		}
+	if (arriveddateComponent.value == "") {
+		alert("Please enter arrived date time.");
+		arriveddateComponent.focus();
+		return false;
+		}
+}
+</script>
+<head>
+<style>
+        .error {
+            color: red;
+        }
+    </style>
+</head>
 <body>
-	<form action="stockaddpage" method="get">
+	<form action="stockaddpage" method="get" onsubmit="return formValidation()">
+	 <div id="errorMessages" class="error"></div>
+	
+	
 		<table>
 			<thead>
 				<h2>Add Stock Details</h2>
 			</thead>
 			<tbody>
 				<tr>
-					<td><label>type:</label><select name="type">
+					<td><label>type:</label><select name="type" id="type">
 							<option>--select--</option>
 							<option>Mobile</option>
 							<option>Charger</option>
@@ -19,18 +71,18 @@
 
 				<tr>
 					<td>arrived_date_time:<input type="datetime-local"
-						name="arrived_date_time"></td>
+						name="arrived_date_time" id="adt"></td>
 				</tr>
 
 				<tr>
-					<td>Product_brand:<input type="text" name="Product_brand"></td>
+					<td>Product_brand:<input type="text" name="Product_brand" id="pb"></td>
 				</tr>
 
 				<tr>
-					<td>product_price:<input type="text" name="product_price"></td>
+					<td>product_price:<input type="text" name="product_price" id="pp"></td>
 				</tr>
 				<tr>
-					<td>product_model:<input type="text" name="product_model"></td>
+					<td>product_model:<input type="text" name="product_model" id="pm"></td>
 				</tr>
 				<tr>
 					<td><input type="submit" value="AddStock"></td>
