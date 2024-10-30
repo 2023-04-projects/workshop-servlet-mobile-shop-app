@@ -32,9 +32,6 @@ public class StockAddPageServlet extends HttpServlet {
 		stringBuffer.append("<body>");
 		stringBuffer.append("<script type='text/javascript'>");
 		stringBuffer.append("function formValidation() {");
-		stringBuffer.append("var errorMessages = document.getElementById('errorMessages');");
-		stringBuffer.append("errorMessages.innerHTML = ''; ");
-		stringBuffer.append("var isValid = true; ");
 		stringBuffer.append("var selectBoxComponent = document.querySelector('#type');");
 		stringBuffer.append("var selectedIndex = selectBoxComponent.selectedIndex;");
 		stringBuffer.append("var productBrandComponent = document.getElementById('pb');");
@@ -67,9 +64,7 @@ public class StockAddPageServlet extends HttpServlet {
 		stringBuffer.append("}");
 		stringBuffer.append("}");
 		stringBuffer.append("</script>");
-
-		stringBuffer.append("<form action='stockaddpage' method='get' onsubmit='return formValidation()'>");
-		stringBuffer.append("<div id='errorMessages' class='error'></div>");
+		stringBuffer.append("<form action='stockadd' method='post' onsubmit='return formValidation()'>");
 		stringBuffer.append("<table>");
 		stringBuffer.append("<thead><h2>Add Stock Details</h2></thead>");
 		stringBuffer.append("<tbody>");
