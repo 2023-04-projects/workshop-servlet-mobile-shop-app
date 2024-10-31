@@ -1,4 +1,4 @@
-package com.khadri.stock.mobile.form;
+package com.khadri.jakarta.stock.form;
 
 public class StockForm {
 

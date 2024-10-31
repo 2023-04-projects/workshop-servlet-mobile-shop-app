@@ -1,4 +1,4 @@
-package com.khadri.stock.mobile.servlet;
+package com.khadri.jakarta.stock.servlet.add;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class StockAddPageServlet extends HttpServlet {
+
+	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered StockAddPageServlet doGet(-,-)");
@@ -66,7 +68,8 @@ public class StockAddPageServlet extends HttpServlet {
 		stringBuffer.append("<option>HeadSet</option>");
 		stringBuffer.append("<option>BackCover</option>");
 		stringBuffer.append("</select></td></tr>");
-		stringBuffer.append("<tr><td>Arrived Date/Time:<input type='datetime-local' name='arrived_date_time' id='adt'></td></tr>");
+		stringBuffer.append(
+				"<tr><td>Arrived Date/Time:<input type='datetime-local' name='arrived_date_time' id='adt'></td></tr>");
 		stringBuffer.append("<tr><td>Product Brand:<input type='text' name='Product_brand' id='pb'></td></tr>");
 		stringBuffer.append("<tr><td>Product Price:<input type='text' name='product_price' id='pp'></td></tr>");
 		stringBuffer.append("<tr><td>Product Model:<input type='text' name='product_model' id='pm'></td></tr>");

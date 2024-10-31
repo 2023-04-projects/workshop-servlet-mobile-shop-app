@@ -1,17 +1,17 @@
-package com.khadri.stock.mobile.servlet;
+package com.khadri.jakarta.stock.servlet.add;
 
 import java.io.IOException;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
-import com.khadri.stock.mobile.dao.StockDao;
-import com.khadri.stock.mobile.form.BackCoverForm;
-import com.khadri.stock.mobile.form.ChargerForm;
-import com.khadri.stock.mobile.form.HeadSetForm;
-import com.khadri.stock.mobile.form.MobileForm;
-import com.khadri.stock.mobile.form.PowerBankForm;
-import com.khadri.stock.mobile.form.StockForm;
+import com.khadri.jakarta.stock.dao.StockDao;
+import com.khadri.jakarta.stock.form.BackCoverForm;
+import com.khadri.jakarta.stock.form.ChargerForm;
+import com.khadri.jakarta.stock.form.HeadSetForm;
+import com.khadri.jakarta.stock.form.MobileForm;
+import com.khadri.jakarta.stock.form.PowerBankForm;
+import com.khadri.jakarta.stock.form.StockForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -19,18 +19,22 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 public class StockAddServlet extends HttpServlet {
-	 private StockForm form;
-	 private MobileForm mobileForm;
-	 private ChargerForm  chargerForm;
-	 private PowerBankForm powerBankForm;
-	 private  HeadSetForm headSetForm;
-	 private  BackCoverForm backCoverForm;
-	 private StockDao stockDao;
+
+	private static final long serialVersionUID = 1L;
+
+	private StockForm form;
+	private MobileForm mobileForm;
+	private ChargerForm chargerForm;
+	private PowerBankForm powerBankForm;
+	private HeadSetForm headSetForm;
+	private BackCoverForm backCoverForm;
+	private StockDao stockDao;
 
 	public void init() throws ServletException {
 		stockDao = new StockDao();
 	}
-	protected void doPost(HttpServletRequest req, HttpServletResponse resp)throws ServletException, IOException {
+
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered StockAddServlet doPost(-,-)");
 
 		String type = req.getParameter("type");
@@ -39,7 +43,6 @@ public class StockAddServlet extends HttpServlet {
 		String productModel = req.getParameter("product_model");
 		String arrivedDateTime = req.getParameter("arrived_date_time");
 
-       
 		if (productPrice != null && !productPrice.isEmpty()) {
 			try {
 				Double.parseDouble(productPrice);
@@ -69,8 +72,6 @@ public class StockAddServlet extends HttpServlet {
 		backCoverForm = new BackCoverForm(productBrand, Double.parseDouble(productPrice), productModel, sqlDate);
 		headSetForm = new HeadSetForm(productBrand, Double.parseDouble(productPrice), productModel, sqlDate);
 
-
-
 		if (type != null) {
 			System.out.println("entered into if block");
 			try {
@@ -92,8 +93,9 @@ public class StockAddServlet extends HttpServlet {
 				e.printStackTrace();
 			}
 		}
-	
+
 	}
+
 	private void insertIntoStockType(String type, StockForm form) throws Exception {
 		System.out.println("insertIntoStockType method" + type);
 		switch (type) {
@@ -123,4 +125,3 @@ public class StockAddServlet extends HttpServlet {
 		}
 	}
 }
-

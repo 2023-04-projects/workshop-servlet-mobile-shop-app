@@ -1,14 +1,14 @@
-package com.khadri.stock.mobile.form;
+package com.khadri.jakarta.stock.form;
 
 import java.sql.Date;
 
-public class PowerBankForm {
+public class MobileForm {
 	private String productBrand;
 	private Double productPrice;
 	private String productModel;
 	private Date arrivedDateTime;
 
-	public PowerBankForm(String productBrand, Double productPrice, String productModel, Date arrivedDateTime) {
+	public MobileForm(String productBrand, Double productPrice, String productModel, Date arrivedDateTime) {
 		super();
 		this.productBrand = productBrand;
 		this.productPrice = productPrice;
