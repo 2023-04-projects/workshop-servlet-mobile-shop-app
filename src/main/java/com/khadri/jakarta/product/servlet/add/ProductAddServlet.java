@@ -1,4 +1,4 @@
-package com.khadri.jakarta.modify.product.servlet;
+package com.khadri.jakarta.product.servlet.add;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -11,12 +11,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
-public class ProductModifyServlet extends HttpServlet {
+public class ProductAddServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
+
 	private ProductDao dao;
 	private ProductForm form;
 
-	@Override
 	public void init() throws ServletException {
 		dao = new ProductDao();
 		form = new ProductForm();
@@ -24,27 +25,19 @@ public class ProductModifyServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		  int result ;
-		System.out.println("Entered into ModifyProductServlet dopost(-,-)");
-		String id = req.getParameter("ID");
-		String name = req.getParameter("Name");
-		if (id != null && !id.isEmpty()) {
-			int parseInt = Integer.parseInt(id);
-		    form.setId(parseInt);
-		} else {
-		    System.out.println("ID parameter is missing or empty.");
-		}
+		System.out.println("Entered into AddMobileServlet doPost(-,-)");
+		String name = req.getParameter("productName");
 		form.setName(name);
-		result = dao.updateProduct(form);
-		 
+		int result = dao.insertMobileData(form);
 
 		PrintWriter pw = resp.getWriter();
 
 		if (result == 1) {
-			pw.println(result + "  Modified sucessfully!!!! ");
+			pw.println(result + " Inserted Successfully!!!!!");
 		} else {
 			pw.println("@@@@@Something went wrong@@@@@");
 		}
+
 	}
 
 }

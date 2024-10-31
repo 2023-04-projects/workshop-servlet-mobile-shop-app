@@ -17,7 +17,7 @@ public class ProductDao {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "Wellcome@123");
+					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
 
 			PreparedStatement pstmt = con.prepareStatement("insert into product(Name) values(?)");
 			pstmt.setString(1, form.getName());
@@ -39,13 +39,12 @@ public class ProductDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "Wellcome@123");
+					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
 
 			Statement stmt = con.createStatement();
 			ResultSet resultSet = stmt.executeQuery("select * from product where Id='" + productId + "'");
 			System.out.println("view");
 			while (resultSet.next()) {
-				int id = resultSet.getInt(1);
 				form.setId(resultSet.getInt(1));
 				form.setName(resultSet.getString(2));
 			}
@@ -66,7 +65,7 @@ public class ProductDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "Wellcome@123");
+					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
 
 			Statement stmt = con.createStatement();
 			ResultSet resultSet = stmt.executeQuery("select * from product");
@@ -87,12 +86,12 @@ public class ProductDao {
 
 	public int updateProduct(ProductForm form) {
 		System.out.println("ProductDao updateProduct(-)");
-		int result = 0 ;
+		int result = 0;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
-			Connection con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root",
-					"Wellcome@123");
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
 
 			PreparedStatement pstmt = con.prepareStatement("update product set Name=? where ID=?");
 			pstmt.setString(1, form.getName());
@@ -105,6 +104,6 @@ public class ProductDao {
 			System.out.println("Exception occured" + e.getMessage());
 		}
 		return result;
-		 
+
 	}
 }
