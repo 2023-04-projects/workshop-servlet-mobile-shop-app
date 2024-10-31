@@ -25,7 +25,7 @@ public class ProductModifyPageServlet extends HttpServlet {
 		sb.append("<form action='productmodify' method='post'>");
 		sb.append("<table>");
 		sb.append("<tbody>");
-		sb.append("<tr><td>ProductId :<input type='text' name='ID' value='" + productId + "'></td></tr>");
+		sb.append("<tr><td>ProductId :<input type='text' name='ID' value='" + productId + "' readonly></td></tr>");
 		sb.append("<tr><td>Product Name :<input type='text' name='Name' value='" + productName + "'></td></tr>");
 		sb.append("<tr><td><input type='submit' value='Modify'></td></tr>");
 		sb.append("</tbody>");
