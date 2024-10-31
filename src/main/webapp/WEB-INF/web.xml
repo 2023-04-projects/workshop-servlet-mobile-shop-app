@@ -23,5 +23,53 @@
 		<servlet-name>stockadd1</servlet-name>
 		<url-pattern>/stockadd</url-pattern>
 	</servlet-mapping>
-	
+
+	<servlet>
+		<servlet-name>add</servlet-name>
+		<servlet-class>com.khadri.jakarta.product.servlet.add.ProductAddServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>add</servlet-name>
+		<url-pattern>/add</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>modifysearchpage</servlet-name>
+		<servlet-class>com.khadri.jakarta.product.servlet.modify.ProductModifySearchPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>modifysearchpage</servlet-name>
+		<url-pattern>/productmodifysearchpage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>modifyproduct</servlet-name>
+		<servlet-class>com.khadri.jakarta.product.servlet.modify.ProductModifyPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>modifyproduct</servlet-name>
+		<url-pattern>/productmodifypage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>modifyservletpage</servlet-name>
+		<servlet-class>com.khadri.jakarta.product.servlet.modify.ProductModifyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>modifyservletpage</servlet-name>
+		<url-pattern>/productmodify</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>view</servlet-name>
+		<servlet-class>com.khadri.jakarta.product.servlet.view.ProductViewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>view</servlet-name>
+		<url-pattern>/productview</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>viewall</servlet-name>
+		<servlet-class>com.khadri.jakarta.product.servlet.view.ProductViewAllServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>viewall</servlet-name>
+		<url-pattern>/productviewall</url-pattern>
+	</servlet-mapping>
 </web-app>
