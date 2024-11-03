@@ -21,11 +21,10 @@ public class StockDao {
 	PreparedStatement pstmt;
 	MobileForm mobileForm;
 	ChargerForm chargerForm;
-	PowerBankForm powerBankForm;
-	HeadSetForm headSetForm;
-	BackCoverForm backCoverForm;
 
-	// StockProductForm stockProductForm = new StockProductForm();
+	PowerBankForm powerbankForm;
+	HeadSetForm headsetForm;
+	BackCoverForm backcoverForm;
 
 	public StockForm selectStockTypeRecord(String type) {
 		System.out.println("StockDao insertStock(-)");
@@ -34,7 +33,7 @@ public class StockDao {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM stock WHERE type = '" + type + "'");
 
@@ -52,7 +51,7 @@ public class StockDao {
 
 	public void updateStockQty(String type, int qty) throws Exception {
 		con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-				"root", "root");
+				"root", "Salman@23");
 
 		PreparedStatement ps = con.prepareStatement("UPDATE stock SET qty = ? WHERE type = ?");
 		ps.setInt(1, qty);
@@ -62,7 +61,7 @@ public class StockDao {
 
 	public void insertIntoStock(String type, int qty) throws Exception {
 		con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-				"root", "root");
+				"root", "Salman@23");
 
 		PreparedStatement ps = con.prepareStatement("INSERT INTO stock (type, qty) VALUES (?, ?)");
 		ps.setString(1, type);
@@ -76,7 +75,7 @@ public class StockDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO mobile (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
@@ -98,7 +97,7 @@ public class StockDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO charger(Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
@@ -121,7 +120,7 @@ public class StockDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO headset (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
@@ -143,7 +142,7 @@ public class StockDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO powerbank (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
@@ -165,7 +164,7 @@ public class StockDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO backcover (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
@@ -181,32 +180,31 @@ public class StockDao {
 		}
 	}
 
-	public List<ChargerForm> viewChargerData(String product_brand, String product_model) {
-		System.out.println("stockDao viewChargerData(-)");
-		List<ChargerForm> listOfData = new ArrayList<>();
+
+	public List<MobileForm> viewMobileData(String product_brand, String product_model) {
+		System.out.println("stockDao viewMobileData(-)");
+		List<MobileForm> listOfData = new ArrayList<>();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
 					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 
 			PreparedStatement pstmt = con
-					.prepareStatement("SELECT * FROM charger WHERE product_brand = ? AND product_model = ?");
 
-			// Set parameters
+					.prepareStatement("SELECT * FROM mobile WHERE product_brand = ? AND product_model = ?");
+
 			pstmt.setString(1, product_brand);
 			pstmt.setString(2, product_model);
 
-			// Execute the query
 			ResultSet resultSet = pstmt.executeQuery();
-			System.out.println("Executing viewChargerData query");
+			System.out.println("Executing viewMobileData query");
 
-			// Process the result
 			while (resultSet.next()) {
-				// Use the constructor to create a new MobileForm instance
-				mobileForm = new MobileForm(resultSet.getString("product_brand"), resultSet.getDouble("product_price"),
-						resultSet.getString("product_model"), resultSet.getDate("arrived_date_time"));
+				MobileForm mobileForm = new MobileForm(resultSet.getString("product_brand"),
+						resultSet.getDouble("product_price"), resultSet.getString("product_model"),
+						resultSet.getDate("arrived_date_time"));
 
-				listOfData.add(chargerForm); // Add the populated mobileForm to the list
+				listOfData.add(mobileForm);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -220,33 +218,30 @@ public class StockDao {
 		return listOfData;
 	}
 
-	public List<HeadSetForm> viewHeadSetData(String product_brand, String product_model) {
-		System.out.println("stockDao viewHeadSetData(-)");
-		List<HeadSetForm> listOfData = new ArrayList<>();
+
+	public List<ChargerForm> viewChargerData(String product_brand, String product_model) {
+		System.out.println("stockDao viewChargerData(-)");
+		List<ChargerForm> listOfData = new ArrayList<>();
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
 					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 
 			PreparedStatement pstmt = con
-					.prepareStatement("SELECT * FROM headSet WHERE product_brand = ? AND product_model = ?");
+					
+					.prepareStatement("SELECT * FROM charger WHERE product_brand = ? AND product_model = ?");
 
-			// Set parameters
 			pstmt.setString(1, product_brand);
 			pstmt.setString(2, product_model);
-
-			// Execute the query
 			ResultSet resultSet = pstmt.executeQuery();
-			System.out.println("Executing viewHeadSet query");
+			System.out.println("Executing viewChargerData query");
 
-			// Process the result
 			while (resultSet.next()) {
-				// Use the constructor to create a new MobileForm instance
-				HeadSetForm headSetForm = new HeadSetForm(resultSet.getString("product_brand"),
+				ChargerForm chargerForm = new ChargerForm(resultSet.getString("product_brand"),
 						resultSet.getDouble("product_price"), resultSet.getString("product_model"),
 						resultSet.getDate("arrived_date_time"));
 
-				listOfData.add(headSetForm); // Add the populated mobileForm to the list
+				listOfData.add(chargerForm);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -269,24 +264,55 @@ public class StockDao {
 					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 
 			PreparedStatement pstmt = con
-					.prepareStatement("SELECT * FROM powerBank WHERE product_brand = ? AND product_model = ?");
 
-			// Set parameters
+					.prepareStatement("SELECT * FROM powerbank WHERE product_brand = ? AND product_model = ?");
+
 			pstmt.setString(1, product_brand);
 			pstmt.setString(2, product_model);
-
-			// Execute the query
 			ResultSet resultSet = pstmt.executeQuery();
 			System.out.println("Executing viewPowerBankData query");
 
-			// Process the result
 			while (resultSet.next()) {
-				// Use the constructor to create a new MobileForm instance
-				PowerBankForm powerBankForm = new PowerBankForm(resultSet.getString("product_brand"),
+				PowerBankForm powerbankForm = new PowerBankForm(resultSet.getString("product_brand"),
 						resultSet.getDouble("product_price"), resultSet.getString("product_model"),
 						resultSet.getDate("arrived_date_time"));
 
-				listOfData.add(powerBankForm); // Add the populated mobileForm to the list
+				listOfData.add(powerbankForm);
+			}
+
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException: " + e);
+			e.printStackTrace();
+		} catch (SQLException e) {
+			System.out.println("SQLException: " + e);
+			e.printStackTrace();
+		}
+
+		return listOfData;
+	}
+
+	public List<HeadSetForm> viewHeadSetData(String product_brand, String product_model) {
+		System.out.println("stockDao viewPowerBankData(-)");
+		List<HeadSetForm> listOfData = new ArrayList<>();
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
+
+			PreparedStatement pstmt = con
+					.prepareStatement("SELECT * FROM headset WHERE product_brand = ? AND product_model = ?");
+
+			pstmt.setString(1, product_brand);
+			pstmt.setString(2, product_model);
+			ResultSet resultSet = pstmt.executeQuery();
+			System.out.println("Executing viewHeadSetData query");
+
+			while (resultSet.next()) {
+				HeadSetForm headsetForm = new HeadSetForm(resultSet.getString("product_brand"),
+						resultSet.getDouble("product_price"), resultSet.getString("product_model"),
+						resultSet.getDate("arrived_date_time"));
+
+				listOfData.add(headsetForm);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -309,24 +335,20 @@ public class StockDao {
 					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 
 			PreparedStatement pstmt = con
-					.prepareStatement("SELECT * FROM backCover WHERE product_brand = ? AND product_model = ?");
 
-			// Set parameters
+					.prepareStatement("SELECT * FROM backcover WHERE product_brand = ? AND product_model = ?");
+
 			pstmt.setString(1, product_brand);
 			pstmt.setString(2, product_model);
-
-			// Execute the query
 			ResultSet resultSet = pstmt.executeQuery();
-			System.out.println("Executing viewBackCoverData query");
+			System.out.println("Executing viewHeadSetData query");
 
-			// Process the result
 			while (resultSet.next()) {
-				// Use the constructor to create a new MobileForm instance
-				BackCoverForm backCoverForm = new BackCoverForm(resultSet.getString("product_brand"),
+				BackCoverForm backcoverForm = new BackCoverForm(resultSet.getString("product_brand"),
 						resultSet.getDouble("product_price"), resultSet.getString("product_model"),
 						resultSet.getDate("arrived_date_time"));
 
-				listOfData.add(backCoverForm); // Add the populated mobileForm to the list
+				listOfData.add(backcoverForm);
 			}
 
 		} catch (ClassNotFoundException e) {
@@ -340,45 +362,7 @@ public class StockDao {
 		return listOfData;
 	}
 
-	public List<MobileForm> viewMobileData(String product_brand, String product_model) {
-		System.out.println("stockDao viewMobileData(-)");
-		List<MobileForm> listOfData = new ArrayList<>();
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 
-			PreparedStatement pstmt = con
-					.prepareStatement("SELECT * FROM mobile WHERE product_brand = ? AND product_model = ?");
-
-			// Set parameters
-			pstmt.setString(1, product_brand);
-			pstmt.setString(2, product_model);
-
-			// Execute the query
-			ResultSet resultSet = pstmt.executeQuery();
-			System.out.println("Executing viewMobileData query");
-
-			// Process the result
-			while (resultSet.next()) {
-				// Use the constructor to create a new MobileForm instance
-				MobileForm mobileForm = new MobileForm(resultSet.getString("product_brand"),
-						resultSet.getDouble("product_price"), resultSet.getString("product_model"),
-						resultSet.getDate("arrived_date_time"));
-
-				listOfData.add(mobileForm); // Add the populated mobileForm to the list
-			}
-
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException: " + e);
-			e.printStackTrace();
-		} catch (SQLException e) {
-			System.out.println("SQLException: " + e);
-			e.printStackTrace();
-		}
-
-		return listOfData;
-	}
 
 	public boolean deleteMobile(String product_brand, String product_model) {
 
@@ -519,4 +503,62 @@ public class StockDao {
 		return deleted;
 
 	}
+
+	public void updateMobilePrice(Double productPrice, String productModel) throws Exception {
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+
+	    con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
+	            "root", "root");
+
+	    PreparedStatement ps = con.prepareStatement("UPDATE mobile SET product_price = ? WHERE product_model = ?");
+	    ps.setDouble(1, productPrice);
+	    ps.setString(2, productModel);
+	    ps.executeUpdate();
+	}
+	public void updateChargerPrice(Double productPrice, String productModel) throws Exception {
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+
+	    con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
+	            "root", "root");
+
+	    PreparedStatement ps = con.prepareStatement("UPDATE charger SET product_price = ? WHERE product_model = ?");
+	    ps.setDouble(1, productPrice);
+	    ps.setString(2, productModel);
+	    ps.executeUpdate();
+	}
+	public void updatePowerBankPrice(Double productPrice, String productModel) throws Exception {
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+
+	    con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
+	            "root", "root");
+
+	    PreparedStatement ps = con.prepareStatement("UPDATE powerbank SET product_price = ? WHERE product_model = ?");
+	    ps.setDouble(1, productPrice);
+	    ps.setString(2, productModel);
+	    ps.executeUpdate();
+	}
+	public void updateHeadSetPrice(Double productPrice, String productModel) throws Exception {
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+
+	    con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
+	            "root", "root");
+
+	    PreparedStatement ps = con.prepareStatement("UPDATE headset SET product_price = ? WHERE product_model = ?");
+	    ps.setDouble(1, productPrice);
+	    ps.setString(2, productModel);
+	    ps.executeUpdate();
+	}
+	public void updateBackCoverPrice(Double productPrice, String productModel) throws Exception {
+	    Class.forName("com.mysql.cj.jdbc.Driver");
+
+	    con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
+	            "root", "root");
+
+	    PreparedStatement ps = con.prepareStatement("UPDATE backcover SET product_price = ? WHERE product_model = ?");
+	    ps.setDouble(1, productPrice);
+	    ps.setString(2, productModel);
+	    ps.executeUpdate();
+	}
+
+
 }

@@ -17,9 +17,9 @@ public class ProductDao {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
+					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app", "root", "Salman@23");
 
-			PreparedStatement pstmt = con.prepareStatement("insert into product(Name) values(?)");
+			PreparedStatement pstmt = con.prepareStatement("insert into product(productName) values(?)");
 			pstmt.setString(1, form.getName());
 
 			result = pstmt.executeUpdate();
@@ -39,7 +39,7 @@ public class ProductDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
+					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app", "root", "Salman@23");
 
 			Statement stmt = con.createStatement();
 			ResultSet resultSet = stmt.executeQuery("select * from product where Id='" + productId + "'");
@@ -65,7 +65,7 @@ public class ProductDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
+					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app", "root", "Salman@23");
 
 			Statement stmt = con.createStatement();
 			ResultSet resultSet = stmt.executeQuery("select * from product");
@@ -91,7 +91,7 @@ public class ProductDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
+					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app", "root", "Salman@23");
 
 			PreparedStatement pstmt = con.prepareStatement("update product set Name=? where ID=?");
 			pstmt.setString(1, form.getName());
@@ -106,4 +106,30 @@ public class ProductDao {
 		return result;
 
 	}
+
+	public int deleteProductData(ProductForm form) {
+		int result = 0;
+		System.out.println("productDao DeleteProductData(-)");
+		List<ProductForm> listOfData = new ArrayList<>();
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app", "root", "Salman@23");
+
+			Statement stmt = con.createStatement();
+			ResultSet resultSet = stmt.executeQuery("delete from product where Id=?");
+			while (resultSet.next()) {
+				form.setId(resultSet.getInt(1));
+				form.setName(resultSet.getString(2));
+			}
+			listOfData.add(form);
+
+		} catch (Exception e) {
+			System.out.println("Exception occured" + e.getMessage());
+		}
+		return result;
+
+	}
+
 }

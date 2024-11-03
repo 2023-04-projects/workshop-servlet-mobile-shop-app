@@ -25,6 +25,31 @@
 	</servlet-mapping>
 
 	<servlet>
+		<servlet-name>stockmodifysearchpageservlet</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.modify.StockModifySearchPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>stockmodifysearchpageservlet</servlet-name>
+		<url-pattern>/stockmodifysearchpage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>stockmodifypage</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.modify.StockModifyPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>stockmodifypage</servlet-name>
+		<url-pattern>/stockmodify</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>stockmodify</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.modify.StockModifyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>stockmodify</servlet-name>
+		<url-pattern>/stockmodifyservlet</url-pattern>
+	</servlet-mapping>
+
+	<servlet>
 		<servlet-name>add</servlet-name>
 		<servlet-class>com.khadri.jakarta.product.servlet.add.ProductAddServlet</servlet-class>
 	</servlet>
@@ -81,35 +106,35 @@
 		<url-pattern>/productviewall</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>stockmodifysearchpageservlet</servlet-name>
-		<servlet-class>com.khadri.jakarta.stock.servlet.modify.StockModifySearchPageServlet</servlet-class>
+		<servlet-name>deletesearchpage</servlet-name>
+		<servlet-class>com.khdari.jakarta.product.delete.ProductDeleteSearchPageServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>stockmodifysearchpageservlet</servlet-name>
-		<url-pattern>/stockmodifysearchpage</url-pattern>
+		<servlet-name>deletesearchpage</servlet-name>
+		<url-pattern>/productdeletesearchpage</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>stockmodifypage</servlet-name>
-		<servlet-class>com.khadri.jakarta.stock.servlet.modify.StockModifyPageServlet</servlet-class>
+		<servlet-name>deleteproduct</servlet-name>
+		<servlet-class>com.khdari.jakarta.product.delete.ProductDeletePageServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>stockmodifypage</servlet-name>
-		<url-pattern>/stockmodify</url-pattern>
+		<servlet-name>deleteproduct</servlet-name>
+		<url-pattern>/productdeletepage</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>stockmodify</servlet-name>
-		<servlet-class>com.khadri.jakarta.stock.servlet.modify.StockModifyServlet</servlet-class>
+		<servlet-name>deleteservletpage</servlet-name>
+		<servlet-class>com.khdari.jakarta.product.servlet.delete.ProductDeleteServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>stockmodify</servlet-name>
-		<url-pattern>/stockmodifyservlet</url-pattern>
+		<servlet-name>deleteservletpage</servlet-name>
+		<url-pattern>/productdelete</url-pattern>
 	</servlet-mapping>
 	<servlet>
-		<servlet-name>stockdeletepage</servlet-name>
-		<servlet-class>com.khadri.jakarta.stock.servlet.delete.StockDeletePageServlet</servlet-class>
+		<servlet-name>stockview</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.view.StockViewServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
-		<servlet-name>stockdeletepage</servlet-name>
-		<url-pattern>/StockDeletePageServlet</url-pattern>
+		<servlet-name>stockview</servlet-name>
+		<url-pattern>/StockViewServlet</url-pattern>
 	</servlet-mapping>
 </web-app>
