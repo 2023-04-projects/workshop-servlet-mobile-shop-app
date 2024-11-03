@@ -123,7 +123,13 @@
 		<url-pattern>/productdelete</url-pattern>
 	</servlet-mapping>
 
+	<servlet>
+		<servlet-name>stockview</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.view.StockViewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>stockview</servlet-name>
+		<url-pattern>/StockViewServlet</url-pattern>
+	</servlet-mapping>
 
-
-	
 </web-app>
