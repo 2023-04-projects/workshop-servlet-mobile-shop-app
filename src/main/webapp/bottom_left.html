@@ -2,30 +2,67 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Home Page</title>
+<style type="text/css">
+.vertical-menu {
+	width: 200px; /* Set a width if you like */
+}
+
+.vertical-menu a {
+	background-color: #eee; /* Grey background color */
+	color: black; /* Black text color */
+	display: block; /* Make the links appear below each other */
+	padding: 12px; /* Add some padding */
+	text-decoration: none; /* Remove underline from links */
+}
+
+.vertical-menu a:hover {
+	background-color: #ccc; /* Dark grey background on mouse-over */
+}
+
+.vertical-menu a.active {
+	background-color: #04AA6D;
+	/* Add a green color to the "active/current" link */
+	color: white;
+}
+</style>
 </head>
 <body>
+
+	<div class="vertical-menu">
+		<a href="#" class="active">Product_Details</a>
+		<a href="add_product.html" target="bottom_right">Add</a>
+		<a href="productmodifysearchpage" target="bottom_right">Modify</a>
+		<a href="productview" target="bottom_right">View</a>
+		<a href="productviewall" target="bottom_right">ViewAll</a>
+	</div>
+
+ 
 	<table>
 		<thead>
-			<h2>Product_Details</h2>
+			<h2>Stock details</h2>
 		</thead>
-		<tr>
-			<td><a href="add_product.html" target="bottom_right">Add</a></td>
-		</tr>
-		<br>
-		<tr>
-			<td><a href="productmodifysearchpage" target="bottom_right">Modify</a></td>
-		</tr>
-		<br>
-		<tr>
-			<td><a href="productview" target="bottom_right">View</a></td>
-		</tr>
-		<br>
-		<tr>
-			<td><a href="productviewall" target="bottom_right">ViewAll</a></td>
-		</tr>
-		</td>
-		</tr>
+		<tbody>
+			<tr>
+				<td><a href="stockaddpage" target="bottom_right">add</a></td>
+			</tr>
+			<tr>
+				<td><a href="stockmodifysearchpageServlet"
+					target="bottom_right">modify</a></td>
+			</tr>
+			<tr>
+				<td><a href="StockViewServlet"
+					target="bottom_right">view</a></td>
+			</tr>
+			<tr>
+				<td><a href="bottom_right_stock_viewall.html"
+					target="bottom_right">viewAll</a></td>
+			</tr>
+			<tr>
+				<td><a href="StockDeletePageServlet"
+					target="bottom_right">delete</a></td>
+			</tr>
+		</tbody>
 	</table>
 </body>
 </html>

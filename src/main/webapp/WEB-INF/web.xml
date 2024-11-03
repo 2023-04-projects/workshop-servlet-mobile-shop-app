@@ -6,12 +6,24 @@
 	<display-name>workshop-servlet-mobile-shop-app</display-name>
 	<welcome-file-list>
 		<welcome-file>index.html</welcome-file>
-		<welcome-file>index.jsp</welcome-file>
-		<welcome-file>index.htm</welcome-file>
-		<welcome-file>default.html</welcome-file>
-		<welcome-file>default.jsp</welcome-file>
-		<welcome-file>default.htm</welcome-file>
 	</welcome-file-list>
+	<servlet>
+		<servlet-name>sap</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.add.StockAddPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>sap</servlet-name>
+		<url-pattern>/stockaddpage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>stockadd1</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.add.StockAddServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>stockadd1</servlet-name>
+		<url-pattern>/stockadd</url-pattern>
+	</servlet-mapping>
+
 	<servlet>
 		<servlet-name>add</servlet-name>
 		<servlet-class>com.khadri.jakarta.product.servlet.add.ProductAddServlet</servlet-class>
@@ -53,11 +65,51 @@
 		<url-pattern>/productview</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>StockView</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.view.StockViewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StockView</servlet-name>
+		<url-pattern>/StockViewServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>viewall</servlet-name>
 		<servlet-class>com.khadri.jakarta.product.servlet.view.ProductViewAllServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>viewall</servlet-name>
 		<url-pattern>/productviewall</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>stockmodifysearchpageservlet</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.modify.StockModifySearchPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>stockmodifysearchpageservlet</servlet-name>
+		<url-pattern>/stockmodifysearchpage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>stockmodifypage</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.modify.StockModifyPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>stockmodifypage</servlet-name>
+		<url-pattern>/stockmodify</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>stockmodify</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.modify.StockModifyServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>stockmodify</servlet-name>
+		<url-pattern>/stockmodifyservlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>stockdeletepage</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.delete.StockDeletePageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>stockdeletepage</servlet-name>
+		<url-pattern>/StockDeletePageServlet</url-pattern>
 	</servlet-mapping>
 </web-app>
