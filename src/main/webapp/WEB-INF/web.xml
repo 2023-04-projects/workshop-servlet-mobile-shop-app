@@ -90,6 +90,14 @@
 		<url-pattern>/productview</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>StockView</servlet-name>
+		<servlet-class>com.khadri.jakarta.stock.servlet.view.StockViewServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>StockView</servlet-name>
+		<url-pattern>/StockViewServlet</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>viewall</servlet-name>
 		<servlet-class>com.khadri.jakarta.product.servlet.view.ProductViewAllServlet</servlet-class>
 	</servlet>
@@ -97,7 +105,7 @@
 		<servlet-name>viewall</servlet-name>
 		<url-pattern>/productviewall</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet>
 		<servlet-name>deletesearchpage</servlet-name>
 		<servlet-class>com.khdari.jakarta.product.delete.ProductDeleteSearchPageServlet</servlet-class>

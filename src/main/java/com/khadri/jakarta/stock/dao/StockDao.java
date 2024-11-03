@@ -9,7 +9,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.khadri.jakarta.product.form.ProductForm;
 import com.khadri.jakarta.stock.form.BackCoverForm;
 import com.khadri.jakarta.stock.form.ChargerForm;
 import com.khadri.jakarta.stock.form.HeadSetForm;
@@ -22,6 +21,7 @@ public class StockDao {
 	PreparedStatement pstmt;
 	MobileForm mobileForm;
 	ChargerForm chargerForm;
+
 	PowerBankForm powerbankForm;
 	HeadSetForm headsetForm;
 	BackCoverForm backcoverForm;
@@ -180,6 +180,7 @@ public class StockDao {
 		}
 	}
 
+
 	public List<MobileForm> viewMobileData(String product_brand, String product_model) {
 		System.out.println("stockDao viewMobileData(-)");
 		List<MobileForm> listOfData = new ArrayList<>();
@@ -189,6 +190,7 @@ public class StockDao {
 					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "ruhi@9022");
 
 			PreparedStatement pstmt = con
+
 					.prepareStatement("SELECT * FROM mobile WHERE product_brand = ? AND product_model = ?");
 
 			pstmt.setString(1, product_brand);
@@ -216,6 +218,7 @@ public class StockDao {
 		return listOfData;
 	}
 
+
 	public List<ChargerForm> viewChargerData(String product_brand, String product_model) {
 		System.out.println("stockDao viewChargerData(-)");
 		List<ChargerForm> listOfData = new ArrayList<>();
@@ -225,6 +228,7 @@ public class StockDao {
 					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "ruhi@9022");
 
 			PreparedStatement pstmt = con
+					
 					.prepareStatement("SELECT * FROM charger WHERE product_brand = ? AND product_model = ?");
 
 			pstmt.setString(1, product_brand);
@@ -260,6 +264,7 @@ public class StockDao {
 					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "ruhi@9022");
 
 			PreparedStatement pstmt = con
+
 					.prepareStatement("SELECT * FROM powerbank WHERE product_brand = ? AND product_model = ?");
 
 			pstmt.setString(1, product_brand);
@@ -330,6 +335,7 @@ public class StockDao {
 					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "ruhi@9022");
 
 			PreparedStatement pstmt = con
+
 					.prepareStatement("SELECT * FROM backcover WHERE product_brand = ? AND product_model = ?");
 
 			pstmt.setString(1, product_brand);
@@ -354,6 +360,148 @@ public class StockDao {
 		}
 
 		return listOfData;
+	}
+
+
+
+	public boolean deleteMobile(String product_brand, String product_model) {
+
+		boolean deleted = false;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
+
+			PreparedStatement pstmt = con
+					.prepareStatement("DELETE FROM mobile WHERE  product_brand = ? AND product_model = ?");
+			pstmt.setString(1, product_brand);
+			pstmt.setString(2, product_model);
+
+			int rowsAffected = pstmt.executeUpdate();
+			deleted = rowsAffected > 0; // If rowsAffected is more than 0, deletion was successful
+		} catch (SQLException e) {
+			System.out.println("SQLException occured:" + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("ClassNotFoundException occured:" + cnfe);
+			cnfe.printStackTrace();
+		}
+
+		return deleted;
+
+	}
+
+	public boolean deleteCharger(String product_brand, String product_model) {
+
+		boolean deleted = false;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
+
+			PreparedStatement pstmt = con
+					.prepareStatement("DELETE FROM charger WHERE  product_brand = ? AND product_model = ?");
+			pstmt.setString(1, product_brand);
+			pstmt.setString(2, product_model);
+
+			int rowsAffected = pstmt.executeUpdate();
+			deleted = rowsAffected > 0; // If rowsAffected is more than 0, deletion was successful
+		} catch (SQLException e) {
+			System.out.println("SQLException occured:" + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("ClassNotFoundException occured:" + cnfe);
+			cnfe.printStackTrace();
+		}
+
+		return deleted;
+
+	}
+
+	public boolean deletePowerBank(String product_brand, String product_model) {
+
+		boolean deleted = false;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
+
+			PreparedStatement pstmt = con
+					.prepareStatement("DELETE FROM powerbank WHERE  product_brand = ? AND product_model = ?");
+			pstmt.setString(1, product_brand);
+			pstmt.setString(2, product_model);
+
+			int rowsAffected = pstmt.executeUpdate();
+			deleted = rowsAffected > 0; // If rowsAffected is more than 0, deletion was successful
+		} catch (SQLException e) {
+			System.out.println("SQLException occured:" + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("ClassNotFoundException occured:" + cnfe);
+			cnfe.printStackTrace();
+		}
+
+		return deleted;
+
+	}
+
+	public boolean deleteHeadSet(String product_brand, String product_model) {
+
+		boolean deleted = false;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
+
+			PreparedStatement pstmt = con
+					.prepareStatement("DELETE FROM headset WHERE  product_brand = ? AND product_model = ?");
+			pstmt.setString(1, product_brand);
+			pstmt.setString(2, product_model);
+
+			int rowsAffected = pstmt.executeUpdate();
+			deleted = rowsAffected > 0; // If rowsAffected is more than 0, deletion was successful
+		} catch (SQLException e) {
+			System.out.println("SQLException occured:" + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("ClassNotFoundException occured:" + cnfe);
+			cnfe.printStackTrace();
+		}
+
+		return deleted;
+
+	}
+
+	public boolean deleteBackCover(String product_brand, String product_model) {
+
+		boolean deleted = false;
+		try {
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
+
+			PreparedStatement pstmt = con
+					.prepareStatement("DELETE FROM backcover WHERE  product_brand = ? AND product_model = ?");
+			pstmt.setString(1, product_brand);
+			pstmt.setString(2, product_model);
+
+			int rowsAffected = pstmt.executeUpdate();
+			deleted = rowsAffected > 0; // If rowsAffected is more than 0, deletion was successful
+		} catch (SQLException e) {
+			System.out.println("SQLException occured:" + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException cnfe) {
+			System.out.println("ClassNotFoundException occured:" + cnfe);
+			cnfe.printStackTrace();
+		}
+
+		return deleted;
+
 	}
 
 	public void updateMobilePrice(Double productPrice, String productModel) throws Exception {
@@ -415,4 +563,6 @@ public class StockDao {
 		ps.setString(2, productModel);
 		ps.executeUpdate();
 	}
+
 }
+
