@@ -72,4 +72,29 @@
 		<servlet-name>viewall</servlet-name>
 		<url-pattern>/productviewall</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>deletesearchpage</servlet-name>
+		<servlet-class>com.khdari.jakarta.product.delete.ProductDeleteSearchPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deletesearchpage</servlet-name>
+		<url-pattern>/productdeletesearchpage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>deleteproduct</servlet-name>
+		<servlet-class>com.khdari.jakarta.product.delete.ProductDeletePageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deleteproduct</servlet-name>
+		<url-pattern>/productdeletepage</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>deleteservletpage</servlet-name>
+		<servlet-class>com.khdari.jakarta.product.servlet.delete.ProductDeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deleteservletpage</servlet-name>
+		<url-pattern>/productdelete</url-pattern>
+	</servlet-mapping>
+
 </web-app>

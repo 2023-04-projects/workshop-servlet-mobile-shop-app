@@ -25,7 +25,7 @@ public class StockDao {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM stock WHERE type = '" + type + "'");
 
@@ -43,7 +43,7 @@ public class StockDao {
 
 	public void updateStockQty(String type, int qty) throws Exception {
 		con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-				"root", "root");
+				"root", "Salman@23");
 
 		PreparedStatement ps = con.prepareStatement("UPDATE stock SET qty = ? WHERE type = ?");
 		ps.setInt(1, qty);
@@ -53,7 +53,7 @@ public class StockDao {
 
 	public void insertIntoStock(String type, int qty) throws Exception {
 		con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-				"root", "root");
+				"root", "Salman@23");
 
 		PreparedStatement ps = con.prepareStatement("INSERT INTO stock (type, qty) VALUES (?, ?)");
 		ps.setString(1, type);
@@ -67,7 +67,7 @@ public class StockDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO mobile (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
@@ -89,7 +89,7 @@ public class StockDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO charger(Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
@@ -112,7 +112,7 @@ public class StockDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO headset (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
@@ -134,7 +134,7 @@ public class StockDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO powerbank (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
@@ -156,7 +156,7 @@ public class StockDao {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 
 			con = DriverManager.getConnection("jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app",
-					"root", "root");
+					"root", "Salman@23");
 
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO backcover (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
