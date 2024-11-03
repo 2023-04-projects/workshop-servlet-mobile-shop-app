@@ -36,20 +36,38 @@ public class ProductModifySearchPageServlet extends HttpServlet {
 		StringBuffer sb = new StringBuffer();
 
 		sb.append("<html>");
+		sb.append("<head>");
+		sb.append("<title>Modify Product Details</title>");
+		sb.append("<script type='text/javascript'>");
+		sb.append("function validateForm() {");
+		sb.append("var id = document.getElementById('productId').value;");
+		sb.append("if (id == '') {");
+		sb.append("alert('Please enter a Product ID ..!');");
+		sb.append("return false;");
+		sb.append("}");
+		sb.append("if(isNaN(productIdComponent)) { ");
+		sb.append("alert('Product Id Must be a number')");
+		sb.append("productIdComponent.focus();");
+		sb.append("return false");
+		sb.append("}");
+		sb.append("return true;");
+		sb.append("}");
+		sb.append("</script>");
+		sb.append("</head>");
 		sb.append("<body>");
 		sb.append("<thead><h2>Search Product</h2></thead>");
 
 		if (productId == null || productId.isEmpty()) {
-			sb.append("<form action = 'productmodifysearchpage' method = 'get'");
+			sb.append("<form action = 'productmodifysearchpage' method = 'get' onsubmit ='validateForm()' ");
 			sb.append("<table border='1'>");
 			sb.append("<tbody>");
-			sb.append("<tr><td>ProductId :<input type= 'text' name ='Id'><td/></tr>");
+			sb.append("<tr><td>ProductId :<input type= 'text' name ='Id' id = 'productId'><td/></tr>");
 			sb.append("<tr><td><input type='submit' value='search'></td></tr>");
 			sb.append("</tbody>");
 			sb.append("</table>");
 			sb.append("<table border='1'>");
 			sb.append("<tr>");
-			sb.append("<th>ProductId</th>");
+			sb.append("<th>ProductId</th>"); 
 			sb.append("<th>ProductName</th>");
 			sb.append("</tr>");
 			sb.append("</table>");

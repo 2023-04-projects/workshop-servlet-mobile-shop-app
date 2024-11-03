@@ -17,7 +17,7 @@ public class ProductDao {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 
 			PreparedStatement pstmt = con.prepareStatement("insert into product(Name) values(?)");
 			pstmt.setString(1, form.getName());
