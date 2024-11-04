@@ -1,7 +1,6 @@
 package com.khadri.jakarta.product.dao;
 
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -9,15 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.khadri.jakarta.product.form.ProductForm;
+import com.khadri.jakartha.jdbc.prepare.connection.JdbcConnectionUtil;
 
 public class ProductDao {
+	Connection con;
+
 	public int insertMobileData(ProductForm form) {
 		System.out.println("ProductDao insertMovieData(-)");
 		int result = 0;
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
+			con = JdbcConnectionUtil.getConnection();
 
 			PreparedStatement pstmt = con.prepareStatement("insert into product(Name) values(?)");
 			pstmt.setString(1, form.getName());
@@ -36,10 +36,7 @@ public class ProductDao {
 		System.out.println("productDao ViewProductData(-)");
 		List<ProductForm> listOfData = new ArrayList<>();
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
+			con = JdbcConnectionUtil.getConnection();
 
 			Statement stmt = con.createStatement();
 			ResultSet resultSet = stmt.executeQuery("select * from product where Id='" + productId + "'");
@@ -62,10 +59,7 @@ public class ProductDao {
 		System.out.println("ProductDao selectproduct(-)");
 		List<ProductForm> listOfData = new ArrayList<>();
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
+			con = JdbcConnectionUtil.getConnection();
 
 			Statement stmt = con.createStatement();
 			ResultSet resultSet = stmt.executeQuery("select * from product");
@@ -88,10 +82,7 @@ public class ProductDao {
 		System.out.println("ProductDao updateProduct(-)");
 		int result = 0;
 		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_servlet_mobile_shop_app_product", "root", "root");
+			con = JdbcConnectionUtil.getConnection();
 
 			PreparedStatement pstmt = con.prepareStatement("update product set Name=? where ID=?");
 			pstmt.setString(1, form.getName());
