@@ -39,13 +39,36 @@ public class StockViewServlet extends HttpServlet {
 		resp.setContentType("text/html");
 		PrintWriter pw = resp.getWriter();
 
-		StringBuilder sb = new StringBuilder();
+		StringBuffer sb = new StringBuffer();
 
 		sb.append("<html>");
+		sb.append("<head><title>Add Stock Details</title></head>");
 		sb.append("<body>");
+		sb.append("<script type='text/javascript'>");
+		sb.append("function formValidation() {");
+		sb.append("var selectBoxComponent = document.querySelector('#type');");
+		sb.append("var selectedIndex = selectBoxComponent.selectedIndex;");
+		sb.append("var productBrandComponent = document.getElementById('product_brand');");
+		sb.append("var productModelComponent = document.getElementById('product_model');");
+		sb.append("if (selectedIndex == 0) {");
+		sb.append("alert('Please select type ..!');");
+		sb.append("return false;");
+		sb.append("} ");
+		sb.append("if(productBrandComponent.value == '') {");
+		sb.append("alert('Please enter a product brand ..!');");
+		sb.append("productBrandComponent.focus();");
+		sb.append("return false;");
+		sb.append("} ");
+		sb.append("if (productModelComponent.value == '') {");
+		sb.append("alert('Please enter product model.');");
+		sb.append("productModelComponent.focus();");
+		sb.append("return false;");
+		sb.append("} ");
+		sb.append("}");
+		sb.append("</script>");
+		
 		sb.append("<h2>Search Type</h2>");
-
-		sb.append("<form action='StockViewServlet' method='get'>");
+		sb.append("<form action='StockViewServlet' method='get' onsubmit='return formValidation()'>");
 		sb.append("<label>Type:</label>");
 		sb.append("<select name='type' id='type'>");
 		sb.append("<option value=''>--select--</option>");
@@ -57,8 +80,8 @@ public class StockViewServlet extends HttpServlet {
 		sb.append("</select>");
 		sb.append("<br/>");
 
-		sb.append("Product Brand: <input type='text' name='product_brand'><br/>");
-		sb.append("Product Model: <input type='text' name='product_model'><br/>");
+		sb.append("Product Brand: <input type='text' name='product_brand' id ='product_brand'><br/>");
+		sb.append("Product Model: <input type='text' name='product_model' id = 'product_model'><br/>");
 		sb.append("<input type='submit' value='Search'>");
 		sb.append("</form>");
 

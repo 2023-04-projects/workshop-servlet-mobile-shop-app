@@ -32,7 +32,7 @@ public class StockDao {
 		StockForm form = null;
 		int result = 0;
 		try {
-			con = JdbcConnectionUtil.getConnection(req);
+			con = JdbcConnectionUtil.getConnection();
 
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM stock WHERE type = '" + type + "'");

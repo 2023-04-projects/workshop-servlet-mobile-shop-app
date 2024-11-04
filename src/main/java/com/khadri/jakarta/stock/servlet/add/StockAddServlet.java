@@ -75,7 +75,7 @@ public class StockAddServlet extends HttpServlet {
 		if (type != null) {
 			System.out.println("entered into if block");
 			try {
-				form = stockDao.selectStockTypeRecord(type);
+				form = stockDao.selectStockTypeRecord(type, req);
 				if (form != null) {
 					System.out.println("entered into if form block");
 					int qty = form.getQty() + 1;

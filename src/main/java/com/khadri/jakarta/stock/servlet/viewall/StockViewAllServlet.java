@@ -36,13 +36,24 @@ public class StockViewAllServlet extends HttpServlet {
 		resp.setContentType("text/html");
 		PrintWriter pw = resp.getWriter();
 
-		StringBuilder sb = new StringBuilder();
+		StringBuffer sb = new StringBuffer();
 
 		sb.append("<html>");
+		sb.append("<head><title>Add Stock Details</title></head>");
 		sb.append("<body>");
+		sb.append("<script type='text/javascript'>");
+		sb.append("function formValidation() {");
+		sb.append("var selectBoxComponent = document.querySelector('#type');");
+		sb.append("var selectedIndex = selectBoxComponent.selectedIndex;");
+		sb.append("if (selectedIndex == 0) {");
+		sb.append("alert('Please select type ..!');");
+		sb.append("return false;");
+		sb.append("} ");
+		sb.append("}");
+		sb.append("</script>");
 		sb.append("<h2>Search Type</h2>");
 
-		sb.append("<form action='stockviewallservlet' method='get'>");
+		sb.append("<form action='stockviewallservlet' method='get' onsubmit ='formValidation()'>");
 		sb.append("<label>Type:</label>");
 		sb.append("<select name='type' id='type'>");
 		sb.append("<option value=''>--select--</option>");

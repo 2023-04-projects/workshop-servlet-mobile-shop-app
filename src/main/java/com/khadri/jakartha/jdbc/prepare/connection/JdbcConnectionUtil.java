@@ -15,11 +15,11 @@ public class JdbcConnectionUtil {
 
 	private static Connection con;
 
-	public static Connection getConnection(HttpServletRequest req) {
+	public static Connection getConnection() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			//Properties properties = new Properties();
-			//properties.load(new FileReader(new File("db.properties")));
+			Properties properties = new Properties();
+			properties.load(new FileReader(new File("db.properties")));
 
 			String url = properties.getProperty("URL");
 			String user = properties.getProperty("USER");
