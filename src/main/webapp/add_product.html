@@ -1,19 +1,27 @@
 
 <!DOCTYPE html>
 <html>
-<body>
-	<form action="add" method="post">
+<script>
+		function validateForm() {
+			var pName = document.getElementById("productName").value;
+			if (pName == "") {
+				alert(" Please Enter a Product Name ..!");
+				return false;
+			}
+			return true;
+		}
+	</script>
+<body bgcolor="#eee">
+	<form action="add" method="post" onsubmit="return validateForm()">
 		<table border="3">
 			<thead>
 				<h2>AddMobileProduct</h2>
 			</thead>
 			<tbody>
-				 
 				<tr>
 					<td>Product Name :</td>
-					<td><input type="text" name="productName"></td>
+					<td><input type="text" name="productName" id="productName"></td>
 				</tr>
- 
 				<tr>
 					<td><input type="submit" value="AddProduct"></td>
 				</tr>
