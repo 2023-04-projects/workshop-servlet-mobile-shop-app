@@ -11,6 +11,7 @@ import com.khadri.jakarta.stock.form.HeadSetForm;
 import com.khadri.jakarta.stock.form.MobileForm;
 import com.khadri.jakarta.stock.form.PowerBankForm;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,8 +28,8 @@ public class StockViewServlet extends HttpServlet {
 	private List<BackCoverForm> listOfBackCoverForm;
 
 	public void init() throws ServletException {
-		stockDao = new StockDao();
-	}
+		ServletContext context = getServletContext();
+		stockDao = new StockDao(context);	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered into StockViewServlet doGet(-,-)");

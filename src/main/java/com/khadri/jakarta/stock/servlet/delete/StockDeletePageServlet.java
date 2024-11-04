@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import com.khadri.jakarta.stock.dao.StockDao;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -16,8 +17,8 @@ public class StockDeletePageServlet extends HttpServlet {
 	private StockDao stockDao;
 
 	public void init() throws ServletException {
-		stockDao = new StockDao();
-	}
+		ServletContext context = getServletContext();
+		stockDao = new StockDao(context);	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {

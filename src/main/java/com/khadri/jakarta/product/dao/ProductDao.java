@@ -8,101 +8,100 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
+
 import com.khadri.jakarta.product.form.ProductForm;
 
+import jakarta.servlet.ServletContext;
+
 public class ProductDao {
-	Connection con;
+    private String jdbcUrl;
+    private String jdbcUser;
+    private String jdbcPassword;
+    
+    public ProductDao(ServletContext context) {
+        this.jdbcUrl = context.getInitParameter("jdbcUrl");
+        this.jdbcUser = context.getInitParameter("jdbcUser");
+        this.jdbcPassword = context.getInitParameter("jdbcPassword");
+    }
 
-	public int insertMobileData(ProductForm form) {
-		System.out.println("ProductDao insertMovieData(-)");
-		int result = 0;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+    private Connection getConnection() throws Exception {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+        return DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
+    }
 
-			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
-			PreparedStatement pstmt = con.prepareStatement("insert into product(Name) values(?)");
-			pstmt.setString(1, form.getName());
+    public int insertMobileData(ProductForm form) {
+        System.out.println("ProductDao insertMovieData(-)");
+        int result = 0;
+        try (Connection con = getConnection();
+             PreparedStatement pstmt = con.prepareStatement("INSERT INTO product(Name) VALUES(?)")) {
+             
+            pstmt.setString(1, form.getName());
+            result = pstmt.executeUpdate();
 
-			result = pstmt.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
+        return result;
+    }
 
-		} catch (Exception e) {
-			System.out.println("Exception occured" + e.getMessage());
-		}
-		return result;
-	}
+    public List<ProductForm> viewProductData(String productId) {
+        System.out.println("ProductDao viewProductData(-)");
+        List<ProductForm> listOfData = new ArrayList<>();
+        
+        try (Connection con = getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet resultSet = stmt.executeQuery("SELECT * FROM product WHERE Id='" + productId + "'")) {
+            
+            if (resultSet.next()) {
+                ProductForm form = new ProductForm();
+                form.setId(resultSet.getInt(1));
+                form.setName(resultSet.getString(2));
+                listOfData.add(form);
+            }
 
-	public List<ProductForm> viewProductData(String productId) {
-		ProductForm form = new ProductForm();
+        } catch (Exception e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
+        return listOfData;
+    }
 
-		System.out.println("productDao ViewProductData(-)");
-		List<ProductForm> listOfData = new ArrayList<>();
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
+    public List<ProductForm> selectProductData() {
+        System.out.println("ProductDao selectProductData(-)");
+        List<ProductForm> listOfData = new ArrayList<>();
+        
+        try (Connection con = getConnection();
+             Statement stmt = con.createStatement();
+             ResultSet resultSet = stmt.executeQuery("SELECT * FROM product")) {
+            
+            while (resultSet.next()) {
+                ProductForm form = new ProductForm();
+                form.setId(resultSet.getInt(1));
+                form.setName(resultSet.getString(2));
+                listOfData.add(form);
+            }
 
-			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");		
-			Statement stmt = con.createStatement();
-			ResultSet resultSet = stmt.executeQuery("select * from product where Id='" + productId + "'");
-			System.out.println("view");
-			while (resultSet.next()) {
-				form.setId(resultSet.getInt(1));
-				form.setName(resultSet.getString(2));
-			}
-			listOfData.add(form);
+        } catch (Exception e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
+        return listOfData;
+    }
 
-		} catch (Exception e) {
-			System.out.println("Exception occured" + e.getMessage());
-		}
-		return listOfData;
+    public int updateProduct(ProductForm form) {
+        System.out.println("ProductDao updateProduct(-)");
+        int result = 0;
+        
+        try (Connection con = getConnection();
+             PreparedStatement pstmt = con.prepareStatement("UPDATE product SET Name=? WHERE ID=?")) {
+            
+            pstmt.setString(1, form.getName());
+            pstmt.setInt(2, form.getId());
 
-	}
+            result = pstmt.executeUpdate();
+            System.out.println(result + " record(s) modified successfully!");
 
-	public List<ProductForm> selectProductData() {
-
-		System.out.println("ProductDao selectproduct(-)");
-		List<ProductForm> listOfData = new ArrayList<>();
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
-			Statement stmt = con.createStatement();
-			ResultSet resultSet = stmt.executeQuery("select * from product");
-
-			while (resultSet.next()) {
-				ProductForm form = new ProductForm();
-				form.setId(resultSet.getInt(1));
-				form.setName(resultSet.getString(2));
-				listOfData.add(form);
-			}
-
-		} catch (Exception e) {
-			System.out.println("Exception occured" + e.getMessage());
-		}
-		return listOfData;
-
-	}
-
-	public int updateProduct(ProductForm form) {
-		System.out.println("ProductDao updateProduct(-)");
-		int result = 0;
-		try {
-			Class.forName("com.mysql.cj.jdbc.Driver");
-
-			Connection con = DriverManager.getConnection(
-					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
-			PreparedStatement pstmt = con.prepareStatement("update product set Name=? where ID=?");
-			pstmt.setString(1, form.getName());
-			pstmt.setInt(2, form.getId());
-
-			result = pstmt.executeUpdate();
-			System.out.println(result + "modified sucessfully!!!");
-
-		} catch (Exception e) {
-			System.out.println("Exception occured" + e.getMessage());
-		}
-		return result;
-
-	}
+        } catch (Exception e) {
+            System.out.println("Exception occurred: " + e.getMessage());
+        }
+        return result;
+    }
 }

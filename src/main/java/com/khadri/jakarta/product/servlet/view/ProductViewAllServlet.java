@@ -7,6 +7,7 @@ import java.util.List;
 import com.khadri.jakarta.product.dao.ProductDao;
 import com.khadri.jakarta.product.form.ProductForm;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,8 +20,8 @@ public class ProductViewAllServlet extends HttpServlet {
 	private List<ProductForm> listOfForms;
 
 	public void init() throws ServletException {
-		dao = new ProductDao();
-	}
+		ServletContext context = getServletContext();
+		dao = new ProductDao(context);	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
