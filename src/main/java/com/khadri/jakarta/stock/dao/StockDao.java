@@ -1,6 +1,7 @@
 package com.khadri.jakarta.stock.dao;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -14,9 +15,7 @@ import com.khadri.jakarta.stock.form.HeadSetForm;
 import com.khadri.jakarta.stock.form.MobileForm;
 import com.khadri.jakarta.stock.form.PowerBankForm;
 import com.khadri.jakarta.stock.form.StockForm;
-import com.khadri.jakartha.jdbc.prepare.connection.JdbcConnectionUtil;
 
-import jakarta.servlet.http.HttpServletRequest;
 
 public class StockDao {
 	Connection con;
@@ -27,13 +26,15 @@ public class StockDao {
 	HeadSetForm headsetForm;
 	BackCoverForm backcoverForm;
 
-	public StockForm selectStockTypeRecord(String type, HttpServletRequest req) {
+	public StockForm selectStockTypeRecord(String type) {
 		System.out.println("StockDao insertStock(-)");
 		StockForm form = null;
 		int result = 0;
 		try {
-			con = JdbcConnectionUtil.getConnection(req);
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			Statement stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM stock WHERE type = '" + type + "'");
 
@@ -53,13 +54,19 @@ public class StockDao {
 
 		PreparedStatement ps;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
+
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			ps = con.prepareStatement("UPDATE stock SET qty = ? WHERE type = ?");
 			ps.setInt(1, qty);
 			ps.setString(2, type);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQLException:" + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
 			e.printStackTrace();
 		}
 	}
@@ -68,8 +75,10 @@ public class StockDao {
 
 		PreparedStatement ps;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			ps = con.prepareStatement("INSERT INTO stock (type, qty) VALUES (?, ?)");
 			ps.setString(1, type);
 			ps.setInt(2, qty);
@@ -77,14 +86,19 @@ public class StockDao {
 		} catch (SQLException e) {
 			System.out.println("SQLException:" + e);
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 	}
 
 	public void insertMobile(MobileForm mobileForm) {
 
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO mobile (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
 			statement.setString(1, mobileForm.getProductBrand());
@@ -97,13 +111,18 @@ public class StockDao {
 		} catch (SQLException sqle) {
 			System.out.println("SqlException " + sqle);
 			sqle.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 	}
 
 	public void insertCharger(ChargerForm chargerForm) {
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO charger(Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
 			statement.setString(1, chargerForm.getProductBrand());
@@ -115,14 +134,19 @@ public class StockDao {
 		} catch (SQLException sqle) {
 			System.out.println("SqlException " + sqle);
 			sqle.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 	}
 
 	public void insertHeadSet(HeadSetForm headSetForm) {
 
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO headset (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
 			statement.setString(1, headSetForm.getProductBrand());
@@ -134,14 +158,19 @@ public class StockDao {
 		} catch (SQLException sqle) {
 			System.out.println("SqlException " + sqle);
 			sqle.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 	}
 
 	public void insertPowerBank(PowerBankForm powerBankForm) {
 
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO powerbank (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
 			statement.setString(1, powerBankForm.getProductBrand());
@@ -153,14 +182,19 @@ public class StockDao {
 		} catch (SQLException sqle) {
 			System.out.println("SqlException " + sqle);
 			sqle.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 	}
 
 	public void insertBackCover(BackCoverForm backCoverForm) {
 
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement statement = con.prepareStatement(
 					"INSERT INTO backcover (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
 			statement.setString(1, backCoverForm.getProductBrand());
@@ -172,6 +206,9 @@ public class StockDao {
 		} catch (SQLException sqle) {
 			System.out.println("SqlException " + sqle);
 			sqle.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 	}
 
@@ -179,8 +216,10 @@ public class StockDao {
 		System.out.println("stockDao viewMobileData(-)");
 		List<MobileForm> listOfData = new ArrayList<>();
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con
 
 					.prepareStatement("SELECT * FROM mobile WHERE product_brand = ? AND product_model = ?");
@@ -202,6 +241,9 @@ public class StockDao {
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e);
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 
 		return listOfData;
@@ -211,8 +253,10 @@ public class StockDao {
 		System.out.println("stockDao viewChargerData(-)");
 		List<ChargerForm> listOfData = new ArrayList<>();
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con
 
 					.prepareStatement("SELECT * FROM charger WHERE product_brand = ? AND product_model = ?");
@@ -233,6 +277,9 @@ public class StockDao {
 		} catch (SQLException sqle) {
 			System.out.println("SQLException: " + sqle);
 			sqle.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 
 		return listOfData;
@@ -242,8 +289,10 @@ public class StockDao {
 		System.out.println("stockDao viewPowerBankData(-)");
 		List<PowerBankForm> listOfData = new ArrayList<>();
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con
 
 					.prepareStatement("SELECT * FROM powerbank WHERE product_brand = ? AND product_model = ?");
@@ -264,6 +313,9 @@ public class StockDao {
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e);
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 
 		return listOfData;
@@ -273,8 +325,10 @@ public class StockDao {
 		System.out.println("stockDao viewPowerBankData(-)");
 		List<HeadSetForm> listOfData = new ArrayList<>();
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con
 					.prepareStatement("SELECT * FROM headset WHERE product_brand = ? AND product_model = ?");
 
@@ -294,6 +348,9 @@ public class StockDao {
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e);
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 
 		return listOfData;
@@ -303,8 +360,10 @@ public class StockDao {
 		System.out.println("stockDao viewBackCoverData(-)");
 		List<BackCoverForm> listOfData = new ArrayList<>();
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con
 
 					.prepareStatement("SELECT * FROM backcover WHERE product_brand = ? AND product_model = ?");
@@ -325,6 +384,9 @@ public class StockDao {
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e);
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 
 		return listOfData;
@@ -334,8 +396,10 @@ public class StockDao {
 
 		boolean deleted = false;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con
 					.prepareStatement("DELETE FROM mobile WHERE  product_brand = ? AND product_model = ?");
 			pstmt.setString(1, product_brand);
@@ -345,6 +409,9 @@ public class StockDao {
 			deleted = rowsAffected > 0;
 		} catch (SQLException e) {
 			System.out.println("SQLException occured:" + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
 			e.printStackTrace();
 		}
 
@@ -356,8 +423,10 @@ public class StockDao {
 
 		boolean deleted = false;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con
 					.prepareStatement("DELETE FROM charger WHERE  product_brand = ? AND product_model = ?");
 			pstmt.setString(1, product_brand);
@@ -367,6 +436,9 @@ public class StockDao {
 			deleted = rowsAffected > 0;
 		} catch (SQLException e) {
 			System.out.println("SQLException occured:" + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
 			e.printStackTrace();
 		}
 
@@ -378,8 +450,10 @@ public class StockDao {
 
 		boolean deleted = false;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con
 					.prepareStatement("DELETE FROM powerbank WHERE  product_brand = ? AND product_model = ?");
 			pstmt.setString(1, product_brand);
@@ -389,6 +463,9 @@ public class StockDao {
 			deleted = rowsAffected > 0;
 		} catch (SQLException e) {
 			System.out.println("SQLException occured:" + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
 			e.printStackTrace();
 		}
 
@@ -400,8 +477,10 @@ public class StockDao {
 
 		boolean deleted = false;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con
 					.prepareStatement("DELETE FROM headset WHERE  product_brand = ? AND product_model = ?");
 			pstmt.setString(1, product_brand);
@@ -412,6 +491,9 @@ public class StockDao {
 		} catch (SQLException e) {
 			System.out.println("SQLException occured:" + e);
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 		return deleted;
 
@@ -421,8 +503,10 @@ public class StockDao {
 
 		boolean deleted = false;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con
 					.prepareStatement("DELETE FROM backcover WHERE  product_brand = ? AND product_model = ?");
 			pstmt.setString(1, product_brand);
@@ -432,6 +516,9 @@ public class StockDao {
 			deleted = rowsAffected > 0;
 		} catch (SQLException e) {
 			System.out.println("SQLException occured:" + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
 			e.printStackTrace();
 		}
 
@@ -443,14 +530,19 @@ public class StockDao {
 
 		PreparedStatement ps;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			ps = con.prepareStatement("UPDATE mobile SET product_price = ? WHERE product_model = ?");
 			ps.setDouble(1, productPrice);
 			ps.setString(2, productModel);
 			ps.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQLException:" + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
 			e.printStackTrace();
 		}
 	}
@@ -459,8 +551,10 @@ public class StockDao {
 
 		PreparedStatement ps;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			ps = con.prepareStatement("UPDATE charger SET product_price = ? WHERE product_model = ?");
 			ps.setDouble(1, productPrice);
 			ps.setString(2, productModel);
@@ -469,6 +563,9 @@ public class StockDao {
 			System.out.println("SQLException:" + e);
 
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 	}
 
@@ -476,8 +573,10 @@ public class StockDao {
 
 		PreparedStatement ps;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			ps = con.prepareStatement("UPDATE powerbank SET product_price = ? WHERE product_model = ?");
 			ps.setDouble(1, productPrice);
 			ps.setString(2, productModel);
@@ -486,6 +585,9 @@ public class StockDao {
 			System.out.println("SQLException:" + e);
 
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 	}
 
@@ -493,8 +595,10 @@ public class StockDao {
 
 		PreparedStatement ps;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			ps = con.prepareStatement("UPDATE headset SET product_price = ? WHERE product_model = ?");
 			ps.setDouble(1, productPrice);
 			ps.setString(2, productModel);
@@ -503,6 +607,9 @@ public class StockDao {
 			System.out.println("SQLException:" + e);
 
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 	}
 
@@ -510,8 +617,10 @@ public class StockDao {
 
 		PreparedStatement ps;
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			ps = con.prepareStatement("UPDATE backcover SET product_price = ? WHERE product_model = ?");
 			ps.setDouble(1, productPrice);
 			ps.setString(2, productModel);
@@ -520,6 +629,9 @@ public class StockDao {
 			System.out.println("SQLException:" + e);
 
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 	}
 
@@ -527,8 +639,10 @@ public class StockDao {
 		System.out.println("stockDao ViewAllMobileData(-)");
 		List<MobileForm> listOfData = new ArrayList<>();
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM mobile  ");
 			ResultSet resultSet = pstmt.executeQuery();
 			System.out.println("Executing ViewAllMobileData ");
@@ -544,6 +658,9 @@ public class StockDao {
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e);
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 
 		return listOfData;
@@ -553,8 +670,10 @@ public class StockDao {
 		System.out.println("stockDao ViewAllChargerData(-)");
 		List<ChargerForm> listOfData = new ArrayList<>();
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM charger ");
 
 			ResultSet resultSet = pstmt.executeQuery();
@@ -571,6 +690,9 @@ public class StockDao {
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e);
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 
 		return listOfData;
@@ -580,8 +702,10 @@ public class StockDao {
 		System.out.println("stockDao ViewAllPowerBankData(-)");
 		List<PowerBankForm> listOfData = new ArrayList<>();
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM powerbank ");
 
 			ResultSet resultSet = pstmt.executeQuery();
@@ -598,6 +722,9 @@ public class StockDao {
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e);
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 
 		return listOfData;
@@ -607,8 +734,10 @@ public class StockDao {
 		System.out.println("stockDao viewPowerBankData(-)");
 		List<HeadSetForm> listOfData = new ArrayList<>();
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM headset ");
 
 			ResultSet resultSet = pstmt.executeQuery();
@@ -625,6 +754,9 @@ public class StockDao {
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e);
 			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
+			e.printStackTrace();
 		}
 
 		return listOfData;
@@ -634,8 +766,10 @@ public class StockDao {
 		System.out.println("stockDao ViewAllBackCoverData(-)");
 		List<BackCoverForm> listOfData = new ArrayList<>();
 		try {
-			con = JdbcConnectionUtil.getConnection();
+			Class.forName("com.mysql.cj.jdbc.Driver");
 
+			Connection con = DriverManager.getConnection(
+					"jdbc:MySQL://localhost:3306/2024_batch_workshop_servlet_mobile_shop_app", "root", "root");
 			PreparedStatement pstmt = con
 					.prepareStatement("SELECT * FROM backcover WHERE product_brand = ? AND product_model = ?");
 
@@ -652,6 +786,9 @@ public class StockDao {
 
 		} catch (SQLException e) {
 			System.out.println("SQLException: " + e);
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			System.out.println("ClassNotFoundException:" + e);
 			e.printStackTrace();
 		}
 
