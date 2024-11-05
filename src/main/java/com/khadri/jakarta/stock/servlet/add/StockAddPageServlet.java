@@ -70,9 +70,12 @@ public class StockAddPageServlet extends HttpServlet {
 		stringBuffer.append("</select></td></tr>");
 		stringBuffer.append(
 				"<tr><td>Arrived Date/Time:<input type='datetime-local' name='arrived_date_time' id='arrived_date_time'></td></tr>");
-		stringBuffer.append("<tr><td>Product Brand:<input type='text' name='Product_brand' id='Product_brand'></td></tr>");
-		stringBuffer.append("<tr><td>Product Price:<input type='text' name='product_price' id='product_price'></td></tr>");
-		stringBuffer.append("<tr><td>Product Model:<input type='text' name='product_model' id='product_model'></td></tr>");
+		stringBuffer
+				.append("<tr><td>Product Brand:<input type='text' name='Product_brand' id='Product_brand'></td></tr>");
+		stringBuffer
+				.append("<tr><td>Product Price:<input type='text' name='product_price' id='product_price'></td></tr>");
+		stringBuffer
+				.append("<tr><td>Product Model:<input type='text' name='product_model' id='product_model'></td></tr>");
 		stringBuffer.append("<tr><td><input type='submit' value='AddStock'></td></tr>");
 		stringBuffer.append("</tbody>");
 		stringBuffer.append("</table>");

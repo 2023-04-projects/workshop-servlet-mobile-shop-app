@@ -14,11 +14,11 @@ public class StockModifyPageServlet extends HttpServlet {
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered into StockModifyPageServlet doGet(-,-)");
-		
+
 		resp.setContentType("text/html");
-		
+
 		String type = req.getParameter("type");
-		
+
 		PrintWriter pw = resp.getWriter();
 		StringBuffer sb = new StringBuffer();
 
@@ -60,7 +60,8 @@ public class StockModifyPageServlet extends HttpServlet {
 			sb.append("</select><br/>");
 
 			sb.append("<label>Product Brand:</label><input type='text' name='product_brand' id ='product_brand'><br/>");
-			sb.append("<label>Product Model:</label><input type='text' name='product_model' id = 'product_model'><br/>");
+			sb.append(
+					"<label>Product Model:</label><input type='text' name='product_model' id = 'product_model'><br/>");
 			sb.append("<input type='submit' value='search'>");
 			sb.append("</form>");
 			sb.append("</table>");

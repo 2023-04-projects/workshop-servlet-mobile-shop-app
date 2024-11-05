@@ -10,8 +10,12 @@ import java.util.List;
 import com.khadri.jakarta.product.form.ProductForm;
 import com.khadri.jakartha.jdbc.prepare.connection.JdbcConnectionUtil;
 
+import jakarta.servlet.ServletContext;
 public class ProductDao {
 	Connection con;
+
+	public ProductDao(ServletContext context) {
+	}
 
 	public int insertMobileData(ProductForm form) {
 		System.out.println("ProductDao insertMovieData(-)");

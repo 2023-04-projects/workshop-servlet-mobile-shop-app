@@ -46,7 +46,6 @@ public class StockDao {
 			e.printStackTrace();
 		}
 		return form;
-
 	}
 
 	public void updateStockQty(String type, int qty) {
@@ -179,8 +178,6 @@ public class StockDao {
 		System.out.println("stockDao viewMobileData(-)");
 		List<MobileForm> listOfData = new ArrayList<>();
 		try {
-			con = JdbcConnectionUtil.getConnection();
-
 			PreparedStatement pstmt = con
 
 					.prepareStatement("SELECT * FROM mobile WHERE product_brand = ? AND product_model = ?");

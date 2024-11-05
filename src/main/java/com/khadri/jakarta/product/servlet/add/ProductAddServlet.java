@@ -6,6 +6,7 @@ import java.io.PrintWriter;
 import com.khadri.jakarta.product.dao.ProductDao;
 import com.khadri.jakarta.product.form.ProductForm;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -19,8 +20,9 @@ public class ProductAddServlet extends HttpServlet {
 	private ProductForm form;
 
 	public void init() throws ServletException {
-		dao = new ProductDao();
-		form = new ProductForm();
+		ServletContext context = getServletContext();
+		form = new ProductForm(); 
+		dao = new ProductDao(context);
 	}
 
 	@Override
