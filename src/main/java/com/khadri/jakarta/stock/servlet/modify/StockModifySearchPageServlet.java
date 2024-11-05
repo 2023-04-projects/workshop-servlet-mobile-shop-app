@@ -26,7 +26,8 @@ public class StockModifySearchPageServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		ServletContext context = getServletContext();
-		stockDao = new StockDao(context);	}
+		stockDao = new StockDao(context);
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

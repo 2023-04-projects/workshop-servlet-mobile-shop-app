@@ -1,4 +1,4 @@
-package com.khadri.jakarta.product.servlet.view;
+package com.khadri.jakarta.product.servlet.viewall;
 
 import java.io.IOException;
 import java.io.PrintWriter;

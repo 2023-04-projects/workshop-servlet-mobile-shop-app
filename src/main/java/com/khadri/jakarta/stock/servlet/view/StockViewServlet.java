@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
 
+import com.khadri.jakarta.product.dao.ProductDao;
+import com.khadri.jakarta.product.form.ProductForm;
 import com.khadri.jakarta.stock.dao.StockDao;
 import com.khadri.jakarta.stock.form.BackCoverForm;
 import com.khadri.jakarta.stock.form.ChargerForm;
@@ -21,6 +23,7 @@ public class StockViewServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 	private StockDao stockDao;
+	private ProductDao productDao;
 	private List<MobileForm> listOfMobileForm;
 	private List<ChargerForm> listOfChargerForm;
 	private List<HeadSetForm> listOfHeadSetForm;
@@ -29,10 +32,15 @@ public class StockViewServlet extends HttpServlet {
 
 	public void init() throws ServletException {
 		ServletContext context = getServletContext();
-		stockDao = new StockDao(context);	}
+		stockDao = new StockDao(context);
+		productDao = new ProductDao(context);
+	}
 
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered into StockViewServlet doGet(-,-)");
+
+		List<ProductForm> listOfProducts = productDao.selectProductData();
+
 		String type = req.getParameter("type");
 		String product_brand = req.getParameter("product_brand");
 		String product_model = req.getParameter("product_model");
@@ -50,11 +58,12 @@ public class StockViewServlet extends HttpServlet {
 		sb.append("<label>Type:</label>");
 		sb.append("<select name='type' id='type'>");
 		sb.append("<option value=''>--select--</option>");
-		sb.append("<option value='Mobile'>Mobile</option>");
-		sb.append("<option value='Charger'>Charger</option>");
-		sb.append("<option value='PowerBank'>PowerBank</option>");
-		sb.append("<option value='HeadSet'>HeadSet</option>");
-		sb.append("<option value='BackCover'>BackCover</option>");
+		listOfProducts.stream().forEach(eachProduct -> {
+			sb.append("<option value='" + eachProduct.getName() + "'>");
+			sb.append(eachProduct.getName());
+			sb.append("</option>");
+
+		});
 		sb.append("</select>");
 		sb.append("<br/>");
 

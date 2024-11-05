@@ -36,11 +36,11 @@ public class StockDao {
 		this.jdbcPassword = context.getInitParameter("jdbcPassword");
 	}
 
-	 private Connection getConnection() throws Exception {
-	        Class.forName("com.mysql.cj.jdbc.Driver");
-	        return DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
-	    }
-
+	private Connection getConnection() throws Exception {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		return DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
+	}
+ 
 	public StockForm selectStockTypeRecord(String type) {
 		System.out.println("StockDao insertStock(-)");
 		StockForm form = null;
@@ -57,7 +57,7 @@ public class StockDao {
 			e.printStackTrace();
 		}
 		return form;
-
+		
 	}
 
 	public void updateStockQty(String type, int qty) throws Exception {
@@ -450,7 +450,7 @@ public class StockDao {
 
 	}
 
-	public boolean deletePowerBank(String product_brand, String product_model)  {
+	public boolean deletePowerBank(String product_brand, String product_model) {
 
 		boolean deleted = false;
 		try {
