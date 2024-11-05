@@ -12,7 +12,7 @@ import com.khadri.jakarta.product.form.ProductForm;
 
 public class ProductDao {
 	public int insertMobileData(ProductForm form) {
-		System.out.println("ProductDao insertMovieData(-)");
+		System.out.println("ProductDao insertProductData(-)");
 		int result = 0;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
