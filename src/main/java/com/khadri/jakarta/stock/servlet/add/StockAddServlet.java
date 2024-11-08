@@ -13,6 +13,7 @@ import com.khadri.jakarta.stock.form.MobileForm;
 import com.khadri.jakarta.stock.form.PowerBankForm;
 import com.khadri.jakarta.stock.form.StockForm;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -31,8 +32,9 @@ public class StockAddServlet extends HttpServlet {
 	private StockDao stockDao;
 
 	public void init() throws ServletException {
-		stockDao = new StockDao();
-	}
+		ServletContext context = getServletContext();
+		stockDao = new StockDao(context);
+		}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered StockAddServlet doPost(-,-)");
@@ -75,8 +77,7 @@ public class StockAddServlet extends HttpServlet {
 		if (type != null) {
 			System.out.println("entered into if block");
 			try {
-				form = stockDao.selectStockTypeRecord(type, req);
-
+				form = stockDao.selectStockTypeRecord(type);
 				if (form != null) {
 					System.out.println("entered into if form block");
 					int qty = form.getQty() + 1;

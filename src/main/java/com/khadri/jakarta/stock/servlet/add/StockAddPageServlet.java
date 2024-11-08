@@ -2,6 +2,10 @@ package com.khadri.jakarta.stock.servlet.add;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.List;
+
+import com.khadri.jakarta.product.dao.ProductDao;
+import com.khadri.jakarta.product.form.ProductForm;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -12,8 +16,17 @@ public class StockAddPageServlet extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
 
+	private ProductDao productDao;
+
+	@Override
+	public void init() throws ServletException {
+		productDao = new ProductDao(getServletContext());
+	}
+
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered StockAddPageServlet doGet(-,-)");
+
+		List<ProductForm> listOfProducts = productDao.selectProductData();
 
 		resp.setContentType("text/html");
 		PrintWriter pw = resp.getWriter();
@@ -26,10 +39,10 @@ public class StockAddPageServlet extends HttpServlet {
 		stringBuffer.append("function formValidation() {");
 		stringBuffer.append("var selectBoxComponent = document.querySelector('#type');");
 		stringBuffer.append("var selectedIndex = selectBoxComponent.selectedIndex;");
-		stringBuffer.append("var productBrandComponent = document.getElementById('Product_brand');");
-		stringBuffer.append("var productPriceComponent = document.getElementById('product_price');");
-		stringBuffer.append("var productModelComponent = document.getElementById('product_model');");
-		stringBuffer.append("var arriveddateComponent = document.getElementById('arrived_date_time');");
+		stringBuffer.append("var productBrandComponent = document.getElementById('pb');");
+		stringBuffer.append("var productPriceComponent = document.getElementById('pp');");
+		stringBuffer.append("var productModelComponent = document.getElementById('pm');");
+		stringBuffer.append("var arriveddateComponent = document.getElementById('adt');");
 		stringBuffer.append("if (selectedIndex == 0) {");
 		stringBuffer.append("alert('Please select type.');");
 		stringBuffer.append("return false;");
@@ -62,20 +75,17 @@ public class StockAddPageServlet extends HttpServlet {
 		stringBuffer.append("<tbody>");
 		stringBuffer.append("<tr><td><label>Type:</label><select name='type' id='type'>");
 		stringBuffer.append("<option>--select--</option>");
-		stringBuffer.append("<option>Mobile</option>");
-		stringBuffer.append("<option>Charger</option>");
-		stringBuffer.append("<option>PowerBank</option>");
-		stringBuffer.append("<option>HeadSet</option>");
-		stringBuffer.append("<option>BackCover</option>");
+		listOfProducts.stream().forEach(eachProduct -> {
+			stringBuffer.append("<option value='" + eachProduct.getName() + "'>");
+			stringBuffer.append(eachProduct.getName());
+			stringBuffer.append("</option>");
+		});
 		stringBuffer.append("</select></td></tr>");
 		stringBuffer.append(
-				"<tr><td>Arrived Date/Time:<input type='datetime-local' name='arrived_date_time' id='arrived_date_time'></td></tr>");
-		stringBuffer
-				.append("<tr><td>Product Brand:<input type='text' name='Product_brand' id='Product_brand'></td></tr>");
-		stringBuffer
-				.append("<tr><td>Product Price:<input type='text' name='product_price' id='product_price'></td></tr>");
-		stringBuffer
-				.append("<tr><td>Product Model:<input type='text' name='product_model' id='product_model'></td></tr>");
+				"<tr><td>Arrived Date/Time:<input type='datetime-local' name='arrived_date_time' id='adt'></td></tr>");
+		stringBuffer.append("<tr><td>Product Brand:<input type='text' name='Product_brand' id='pb'></td></tr>");
+		stringBuffer.append("<tr><td>Product Price:<input type='text' name='product_price' id='pp'></td></tr>");
+		stringBuffer.append("<tr><td>Product Model:<input type='text' name='product_model' id='pm'></td></tr>");
 		stringBuffer.append("<tr><td><input type='submit' value='AddStock'></td></tr>");
 		stringBuffer.append("</tbody>");
 		stringBuffer.append("</table>");

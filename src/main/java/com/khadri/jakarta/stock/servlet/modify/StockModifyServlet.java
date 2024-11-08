@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import com.khadri.jakarta.stock.dao.StockDao;
 
+import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,7 +18,8 @@ public class StockModifyServlet extends HttpServlet {
 	private StockDao stockDao;
 
 	public void init() throws ServletException {
-		stockDao = new StockDao();
+		ServletContext context = getServletContext();
+		stockDao = new StockDao(context);
 	}
 
 	@Override
