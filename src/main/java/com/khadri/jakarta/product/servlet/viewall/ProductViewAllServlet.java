@@ -26,32 +26,51 @@ public class ProductViewAllServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-		System.out.println("Entered into ProductViewProductServlet dopost(-,-)");
+		System.out.println("Entered into ProductViewProductServlet doGet(-,-)");
 
 		String productId = req.getParameter("getId()");
 		PrintWriter pw = resp.getWriter();
+
+		StringBuffer sb = new StringBuffer();
+		sb.append("<html><head><title>Product View</title>");
+		sb.append("<script>");
+		sb.append("function validateForm() {");
+		sb.append("var productId = document.getElementById('productId').value;");
+		sb.append("if(productId == '' || isNaN(productId)) {");
+		sb.append("alert('Please enter a valid Product ID');");
+		sb.append("return false;");
+		sb.append("}");
+		sb.append("return true;");
+		sb.append("}");
+		sb.append("</script>");
+		sb.append("</head>");
+
+		sb.append("<body>");
+		sb.append("<form onsubmit='return validateForm()' method='get'>");
+		sb.append("  <label for='productId'>Enter Product ID:</label>");
+		sb.append("  <input type='text' id='productId' name='getId()'>");
+		sb.append("  <input type='submit' value='View Product'>");
+		sb.append("</form>");
+
 		if (productId == null || productId.isEmpty()) {
 			listOfForms = dao.selectProductData();
-			StringBuffer sb = new StringBuffer();
 			sb.append("<table border='1'>");
-			sb.append("<thead>");
-			sb.append("<tr>");
-			sb.append("<th>ProductId</th>");
-			sb.append("<th>ProductName</th>");
-			sb.append("</tr>");
-			sb.append("</thead>");
+			sb.append("<thead><tr><th>ProductId</th><th>ProductName</th></tr></thead>");
 			sb.append("<tbody>");
-			sb.append("<tbody>");
-			listOfForms.stream().forEach(eachProduct -> {
+			listOfForms.forEach(eachProduct -> {
 				sb.append("<tr>");
-				sb.append("<td>" + eachProduct.getId() + "</td>");
-				sb.append("<td>" + eachProduct.getName() + "</td>");
+				sb.append("<td>").append(eachProduct.getId()).append("</td>");
+				sb.append("<td>").append(eachProduct.getName()).append("</td>");
 				sb.append("</tr>");
 			});
 			sb.append("</tbody>");
-			pw.println(sb);
+			sb.append("</table>");
+		} else {
 
 		}
 
+		sb.append("</body>");
+		sb.append("</html>");
+		pw.println(sb.toString());
 	}
 }

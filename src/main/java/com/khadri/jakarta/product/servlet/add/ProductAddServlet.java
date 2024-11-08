@@ -20,8 +20,8 @@ public class ProductAddServlet extends HttpServlet {
 	private ProductForm form;
 
 	public void init() throws ServletException {
-		form = new ProductForm();  
 		ServletContext context = getServletContext();
+		form = new ProductForm(); 
 		dao = new ProductDao(context);
 	}
 
