@@ -66,6 +66,14 @@
 		<url-pattern>/productmodifysearchpage</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>deletesearchpage</servlet-name>
+		<servlet-class>com.khadri.jakarta.product.servlet.delete.ProductDeleteSearchPageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deletesearchpage</servlet-name>
+		<url-pattern>/productdeletesearchpage</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>modifyproduct</servlet-name>
 		<servlet-class>com.khadri.jakarta.product.servlet.modify.ProductModifyPageServlet</servlet-class>
 	</servlet>
@@ -74,12 +82,28 @@
 		<url-pattern>/productmodifypage</url-pattern>
 	</servlet-mapping>
 	<servlet>
+		<servlet-name>deleteproduct</servlet-name>
+		<servlet-class>com.khadri.jakarta.product.servlet.delete.ProductDeletePageServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deleteproduct</servlet-name>
+		<url-pattern>/productdeletepage</url-pattern>
+	</servlet-mapping>
+	<servlet>
 		<servlet-name>modifyservletpage</servlet-name>
 		<servlet-class>com.khadri.jakarta.product.servlet.modify.ProductModifyServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>modifyservletpage</servlet-name>
 		<url-pattern>/productmodify</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>deleteservletpage</servlet-name>
+		<servlet-class>com.khadri.jakarta.product.servlet.delete.ProductDeleteServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>deleteservletpage</servlet-name>
+		<url-pattern>/productdelete</url-pattern>
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>view</servlet-name>
@@ -136,7 +160,7 @@
 
 <context-param>
     <param-name>jdbcPassword</param-name>
-    <param-value>root</param-value>
+    <param-value>Wellcome@123</param-value>
 </context-param>
 	
 </web-app>

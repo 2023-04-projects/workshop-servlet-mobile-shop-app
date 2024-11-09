@@ -101,28 +101,29 @@ public class StockAddServlet extends HttpServlet {
 	private void insertIntoStockType(String type, StockForm form) throws Exception {
 		System.out.println("insertIntoStockType method" + type);
 		switch (type) {
-		case "Mobile":
+		case "mobile":
 			System.out.println("entered into switch case mobile  method");
 			stockDao.insertMobile(mobileForm);
 			System.out.println("inserted into switch case mobile  method");
 			break;
-		case "Charger":
+		case "charger":
 			System.out.println("entered into switch case charger method");
 			stockDao.insertCharger(chargerForm);
 			break;
-		case "PowerBank":
+		case "powerbank":
 			System.out.println("entered into switch case powerbank method");
 			stockDao.insertPowerBank(powerBankForm);
 			break;
-		case "HeadSet":
+		case "headset":
 			System.out.println("entered into switch case headset  method");
 			stockDao.insertHeadSet(headSetForm);
 			break;
-		case "BackCover":
+		case "backcover":
 			System.out.println("entered into switch case backcover  method");
 			stockDao.insertBackCover(backCoverForm);
 			break;
 		default:
+			System.out.println("invalid method type"); 
 			break;
 		}
 	}
