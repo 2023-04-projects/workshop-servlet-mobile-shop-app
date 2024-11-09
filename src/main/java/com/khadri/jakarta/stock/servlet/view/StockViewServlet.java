@@ -74,19 +74,19 @@ public class StockViewServlet extends HttpServlet {
 
 		if (type != null && !type.isEmpty()) {
 			switch (type) {
-			case "Mobile":
+			case "mobile":
 				listOfMobileForm = stockDao.viewMobileData(product_brand, product_model);
 				break;
-			case "Charger":
+			case "charger":
 				listOfChargerForm = stockDao.viewChargerData(product_brand, product_model);
 				break;
-			case "PowerBank":
+			case "powerbank":
 				listOfPowerBankForm = stockDao.viewPowerBankData(product_brand, product_model);
 				break;
-			case "HeadSet":
+			case "headset":
 				listOfHeadSetForm = stockDao.viewHeadSetData(product_brand, product_model);
 				break;
-			case "BackCover":
+			case "backcover":
 				listOfBackCoverForm = stockDao.viewBackCoverData(product_brand, product_model);
 				break;
 			default:

@@ -56,19 +56,19 @@ public class StockDeletePageServlet extends HttpServlet {
 
 			boolean isDeleted = false;
 			switch (type) {
-			case "Mobile":
+			case "mobile":
 				isDeleted = stockDao.deleteMobile(product_brand, product_model);
 				break;
-			case "Charger":
+			case "charger":
 				isDeleted = stockDao.deleteCharger(product_brand, product_model);
 				break;
-			case "PowerBank":
+			case "powerbank":
 				isDeleted = stockDao.deletePowerBank(product_brand, product_model);
 				break;
-			case "HeadSet":
+			case "headset":
 				isDeleted = stockDao.deleteHeadSet(product_brand, product_model);
 				break;
-			case "BackCover":
+			case "backcover":
 				isDeleted = stockDao.deleteBackCover(product_brand, product_model);
 				break;
 			default:
