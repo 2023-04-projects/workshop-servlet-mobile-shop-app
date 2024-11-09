@@ -22,7 +22,8 @@ public class ProductViewServlet extends HttpServlet {
 	@Override
 	public void init() throws ServletException {
 		ServletContext context = getServletContext();
-		dao = new ProductDao(context);	}
+		dao = new ProductDao(context);
+	}
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -30,23 +31,21 @@ public class ProductViewServlet extends HttpServlet {
 		System.out.println("Entered into ProductViewProductServlet dopost(-,-)");
 		String productId = req.getParameter("Id");
 		PrintWriter pw = resp.getWriter();
-		if (productId == null || productId.isEmpty()) {
-			StringBuffer sb = new StringBuffer();
-			sb.append("<html><body><table><thead><h2>Search Product</h2></thead>");
-			sb.append("<form action = 'productview' method = 'get'");
-			sb.append("<tbody><tr><td>ProductId :<input type= 'text' name ='Id'><td/></tr>");
-			sb.append("<tr><td><input type='submit' value='scarch'></td></tr>");
+		StringBuffer sb = new StringBuffer();
+		sb.append("<html>");
+		sb.append("<head>");
+		sb.append("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+		sb.append("</head>");
+		sb.append("<body>");
 
-			pw.println(sb);
+		sb.append("<table border=1>");
+		sb.append("<form action = 'productview' method = 'get'");
+		sb.append("<tbody><tr><td>ProductId :<input type= 'text' name ='Id'><td/></tr>");
+		sb.append("<tr><td><input type='submit' value='Product View Search'></td></tr>");
+		sb.append("</table>");
 
-		} else {
-			StringBuffer sb = new StringBuffer();
+		if (productId != null) {
 			listOfForms = dao.viewProductData(productId);
-			sb.append("<html><body><table><thead><h2>Search Product</h2></thead>");
-			sb.append("<form action = 'productview' method = 'get'");
-			sb.append("<tbody><tr><td>ProductId :<input type= 'text' name ='Id'><td/></tr>");
-			sb.append("<tr><td><input type='submit' value='scarch'></td></tr>");
-
 			sb.append("<table border='1'>");
 			sb.append("<thead>");
 			sb.append("<tr>");
@@ -55,15 +54,23 @@ public class ProductViewServlet extends HttpServlet {
 			sb.append("</tr>");
 			sb.append("</thead>");
 			sb.append("<tbody>");
-			listOfForms.stream().forEach(eachProduct -> {
+			if (!listOfForms.isEmpty()) {
+				listOfForms.stream().forEach(eachProduct -> {
+					sb.append("<tr>");
+					sb.append("<td>" + eachProduct.getId() + "</td>");
+					sb.append("<td>" + eachProduct.getName() + "</td>");
+					sb.append("</tr>");
+				});
+			} else {
 				sb.append("<tr>");
-				sb.append("<td>" + eachProduct.getId() + "</td>");
-				sb.append("<td>" + eachProduct.getName() + "</td>");
+				sb.append("<td colspan='2' id='nrf'>No Records Found</td>");
 				sb.append("</tr>");
-			});
+			}
 			sb.append("</tbody>");
 			sb.append("</table>");
-			pw.println(sb);
 		}
+		sb.append("</body>");
+		sb.append("</html>");
+		pw.println(sb);
 	}
 }

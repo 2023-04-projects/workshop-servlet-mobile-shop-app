@@ -14,18 +14,14 @@ import com.khadri.jakarta.stock.form.ChargerForm;
 import com.khadri.jakarta.stock.form.HeadSetForm;
 import com.khadri.jakarta.stock.form.MobileForm;
 import com.khadri.jakarta.stock.form.PowerBankForm;
+import com.khadri.jakarta.stock.form.ProductForm;
 import com.khadri.jakarta.stock.form.StockForm;
 
 import jakarta.servlet.ServletContext;
 
 public class StockDao {
-	Connection con;
-	PreparedStatement pstmt;
-	MobileForm mobileForm;
-	ChargerForm chargerForm;
-	PowerBankForm powerbankForm;
-	HeadSetForm headsetForm;
-	BackCoverForm backcoverForm;
+	private Connection con;
+	private PreparedStatement pstmt;
 	private String jdbcUrl;
 	private String jdbcUser;
 	private String jdbcPassword;
@@ -40,190 +36,243 @@ public class StockDao {
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		return DriverManager.getConnection(jdbcUrl, jdbcUser, jdbcPassword);
 	}
- 
+
 	public StockForm selectStockTypeRecord(String type) {
-		System.out.println("StockDao insertStock(-)");
+		System.out.println("Entered into StockDao selectStockTypeRecord(-)");
 		StockForm form = null;
+		Statement stmt = null;
 		int result = 0;
 		try {
-			Connection con = getConnection();
-			Statement stmt = con.createStatement();
+			con = getConnection();
+			stmt = con.createStatement();
 			ResultSet rs = stmt.executeQuery("SELECT * FROM stock WHERE type = '" + type + "'");
 			if (rs.next()) {
 				form = new StockForm(result, rs.getString("type"), rs.getInt("qty"));
 			}
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-			System.out.println("Exception Occured : " + e);
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				stmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 		return form;
-		
+
 	}
 
 	public void updateStockQty(String type, int qty) throws Exception {
-
-		PreparedStatement ps;
+		System.out.println("Entered into StockDao updateStockQty(-,-)");
 		try {
-			Connection con = getConnection();
-			ps = con.prepareStatement("UPDATE stock SET qty = ? WHERE type = ?");
-			ps.setInt(1, qty);
-			ps.setString(2, type);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("SQLException:" + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			con = getConnection();
+			pstmt = con.prepareStatement("UPDATE stock SET qty = ? WHERE type = ?");
+			pstmt.setInt(1, qty);
+			pstmt.setString(2, type);
+			pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
+		} catch (Exception e) {
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
 	public void insertIntoStock(String type, int qty) {
-
-		PreparedStatement ps;
+		System.out.println("Entered into StockDao insertIntoStock(-,-)");
 		try {
-			Connection con = getConnection();
-			ps = con.prepareStatement("INSERT INTO stock (type, qty) VALUES (?, ?)");
-			ps.setString(1, type);
-			ps.setInt(2, qty);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("SQLException:" + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			con = getConnection();
+			pstmt = con.prepareStatement("INSERT INTO stock (type, qty) VALUES (?, ?)");
+			pstmt.setString(1, type);
+			pstmt.setInt(2, qty);
+			pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
-	public void insertMobile(MobileForm mobileForm) {
-
+	public int insertMobile(MobileForm mobileForm) {
+		System.out.println("Entered into StockDao insertMobile(-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement(
+			con = getConnection();
+			pstmt = con.prepareStatement(
 					"INSERT INTO mobile (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
-			statement.setString(1, mobileForm.getProductBrand());
-			statement.setDouble(2, mobileForm.getProductPrice());
-			statement.setString(3, mobileForm.getProductModel());
-			statement.setDate(4, mobileForm.getArrivedDateTime());
+			pstmt.setString(1, mobileForm.getProductBrand());
+			pstmt.setDouble(2, mobileForm.getProductPrice());
+			pstmt.setString(3, mobileForm.getProductModel());
+			pstmt.setDate(4, mobileForm.getArrivedDateTime());
 
-			statement.executeUpdate();
+			result = pstmt.executeUpdate();
 
-		} catch (SQLException sqle) {
-			System.out.println("SqlException " + sqle);
-			sqle.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		return result;
 	}
 
-	public void insertCharger(ChargerForm chargerForm) {
+	public int insertCharger(ChargerForm chargerForm) {
+		System.out.println("Entered into StockDao insertCharger(-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement(
+			con = getConnection();
+			pstmt = con.prepareStatement(
 					"INSERT INTO charger(Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
-			statement.setString(1, chargerForm.getProductBrand());
-			statement.setDouble(2, chargerForm.getProductPrice());
-			statement.setString(3, chargerForm.getProductModel());
-			statement.setDate(4, chargerForm.getArrivedDateTime());
+			pstmt.setString(1, chargerForm.getProductBrand());
+			pstmt.setDouble(2, chargerForm.getProductPrice());
+			pstmt.setString(3, chargerForm.getProductModel());
+			pstmt.setDate(4, chargerForm.getArrivedDateTime());
 
-			statement.executeUpdate();
-		} catch (SQLException sqle) {
-			System.out.println("SqlException " + sqle);
-			sqle.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		return result;
+
 	}
 
-	public void insertHeadSet(HeadSetForm headSetForm) {
-
+	public int insertHeadSet(HeadSetForm headSetForm) {
+		System.out.println("Entered into StockDao insertHeadSet(-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement(
+			con = getConnection();
+			pstmt = con.prepareStatement(
 					"INSERT INTO headset (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
-			statement.setString(1, headSetForm.getProductBrand());
-			statement.setDouble(2, headSetForm.getProductPrice());
-			statement.setString(3, headSetForm.getProductModel());
-			statement.setDate(4, headSetForm.getArrivedDateTime());
+			pstmt.setString(1, headSetForm.getProductBrand());
+			pstmt.setDouble(2, headSetForm.getProductPrice());
+			pstmt.setString(3, headSetForm.getProductModel());
+			pstmt.setDate(4, headSetForm.getArrivedDateTime());
 
-			statement.executeUpdate();
-		} catch (SQLException sqle) {
-			System.out.println("SqlException " + sqle);
-			sqle.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		return result;
 	}
 
-	public void insertPowerBank(PowerBankForm powerBankForm) {
-
+	public int insertPowerBank(PowerBankForm powerBankForm) {
+		System.out.println("Entered into StockDao insertPowerBank(-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement(
+			con = getConnection();
+			pstmt = con.prepareStatement(
 					"INSERT INTO powerbank (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
-			statement.setString(1, powerBankForm.getProductBrand());
-			statement.setDouble(2, powerBankForm.getProductPrice());
-			statement.setString(3, powerBankForm.getProductModel());
-			statement.setDate(4, powerBankForm.getArrivedDateTime());
+			pstmt.setString(1, powerBankForm.getProductBrand());
+			pstmt.setDouble(2, powerBankForm.getProductPrice());
+			pstmt.setString(3, powerBankForm.getProductModel());
+			pstmt.setDate(4, powerBankForm.getArrivedDateTime());
 
-			statement.executeUpdate();
-		} catch (SQLException sqle) {
-			System.out.println("SqlException " + sqle);
-			sqle.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		return result;
 	}
 
-	public void insertBackCover(BackCoverForm backCoverForm) {
-
+	public int insertBackCover(BackCoverForm backCoverForm) {
+		System.out.println("Entered into StockDao insertBackCover(-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement(
+			con = getConnection();
+			pstmt = con.prepareStatement(
 					"INSERT INTO backcover (Product_brand, product_price, product_model, arrived_date_time) VALUES (?, ?, ?,?)");
-			statement.setString(1, backCoverForm.getProductBrand());
-			statement.setDouble(2, backCoverForm.getProductPrice());
-			statement.setString(3, backCoverForm.getProductModel());
-			statement.setDate(4, backCoverForm.getArrivedDateTime());
+			pstmt.setString(1, backCoverForm.getProductBrand());
+			pstmt.setDouble(2, backCoverForm.getProductPrice());
+			pstmt.setString(3, backCoverForm.getProductModel());
+			pstmt.setDate(4, backCoverForm.getArrivedDateTime());
 
-			statement.executeUpdate();
-		} catch (SQLException sqle) {
-			System.out.println("SqlException " + sqle);
-			sqle.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		return result;
 	}
 
 	public List<MobileForm> viewMobileData(String product_brand, String product_model) {
-		System.out.println("stockDao viewMobileData(-)");
+		System.out.println("Entered into StockDao insertBackCover(-,-)");
 		List<MobileForm> listOfData = new ArrayList<>();
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con
+			con = getConnection();
+			pstmt = con
 
 					.prepareStatement("SELECT * FROM mobile WHERE product_brand = ? AND product_model = ?");
 
@@ -241,26 +290,30 @@ public class StockDao {
 				listOfData.add(mobileForm);
 			}
 
-		} catch (SQLException e) {
-			System.out.println("SQLException: " + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return listOfData;
 	}
 
 	public List<ChargerForm> viewChargerData(String product_brand, String product_model) {
-		System.out.println("stockDao viewChargerData(-)");
+		System.out.println("Entered into StockDao viewChargerData(-,-)");
 		List<ChargerForm> listOfData = new ArrayList<>();
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con
+			con = getConnection();
+			pstmt = con
 
 					.prepareStatement("SELECT * FROM charger WHERE product_brand = ? AND product_model = ?");
 
@@ -277,26 +330,29 @@ public class StockDao {
 				listOfData.add(chargerForm);
 			}
 
-		} catch (SQLException sqle) {
-			System.out.println("SQLException: " + sqle);
-			sqle.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-
 		return listOfData;
 	}
 
 	public List<PowerBankForm> viewPowerBankData(String product_brand, String product_model) {
-		System.out.println("stockDao viewPowerBankData(-)");
+		System.out.println("Entered into StockDao viewPowerBankData(-,-)");
 		List<PowerBankForm> listOfData = new ArrayList<>();
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con
+			con = getConnection();
+			pstmt = con
 
 					.prepareStatement("SELECT * FROM powerbank WHERE product_brand = ? AND product_model = ?");
 
@@ -313,27 +369,30 @@ public class StockDao {
 				listOfData.add(powerbankForm);
 			}
 
-		} catch (SQLException e) {
-			System.out.println("SQLException: " + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return listOfData;
 	}
 
 	public List<HeadSetForm> viewHeadSetData(String product_brand, String product_model) {
-		System.out.println("stockDao viewPowerBankData(-)");
+		System.out.println("Entered into StockDao viewHeadSetData(-,-)");
 		List<HeadSetForm> listOfData = new ArrayList<>();
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con
-					.prepareStatement("SELECT * FROM headset WHERE product_brand = ? AND product_model = ?");
+			con = getConnection();
+			pstmt = con.prepareStatement("SELECT * FROM headset WHERE product_brand = ? AND product_model = ?");
 
 			pstmt.setString(1, product_brand);
 			pstmt.setString(2, product_model);
@@ -348,26 +407,30 @@ public class StockDao {
 				listOfData.add(headsetForm);
 			}
 
-		} catch (SQLException e) {
-			System.out.println("SQLException: " + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return listOfData;
 	}
 
 	public List<BackCoverForm> viewBackCoverData(String product_brand, String product_model) {
-		System.out.println("stockDao viewBackCoverData(-)");
+		System.out.println("Entered into StockDao viewBackCoverData(-,-)");
 		List<BackCoverForm> listOfData = new ArrayList<>();
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con
+			con = getConnection();
+			pstmt = con
 
 					.prepareStatement("SELECT * FROM backcover WHERE product_brand = ? AND product_model = ?");
 
@@ -384,266 +447,306 @@ public class StockDao {
 				listOfData.add(backcoverForm);
 			}
 
-		} catch (SQLException e) {
-			System.out.println("SQLException: " + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return listOfData;
 	}
 
-	public boolean deleteMobile(String product_brand, String product_model) {
-
-		boolean deleted = false;
+	public int deleteMobile(String product_brand, String product_model) {
+		System.out.println("Entered into StockDao deleteMobile(-,-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con
-					.prepareStatement("DELETE FROM mobile WHERE  product_brand = ? AND product_model = ?");
+			con = getConnection();
+			pstmt = con.prepareStatement("DELETE FROM mobile WHERE  product_brand = ? AND product_model = ?");
 			pstmt.setString(1, product_brand);
 			pstmt.setString(2, product_model);
 
-			int rowsAffected = pstmt.executeUpdate();
-			deleted = rowsAffected > 0;
-		} catch (SQLException e) {
-			System.out.println("SQLException occured:" + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
-		return deleted;
+		return result;
 
 	}
 
-	public boolean deleteCharger(String product_brand, String product_model) {
-
-		boolean deleted = false;
+	public int deleteCharger(String product_brand, String product_model) {
+		System.out.println("Entered into StockDao deleteCharger(-,-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con
-					.prepareStatement("DELETE FROM charger WHERE  product_brand = ? AND product_model = ?");
+			con = getConnection();
+			pstmt = con.prepareStatement("DELETE FROM charger WHERE  product_brand = ? AND product_model = ?");
 			pstmt.setString(1, product_brand);
 			pstmt.setString(2, product_model);
 
-			int rowsAffected = pstmt.executeUpdate();
-			deleted = rowsAffected > 0;
-		} catch (SQLException e) {
-			System.out.println("SQLException occured:" + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
-		return deleted;
+		return result;
 
 	}
 
-	public boolean deletePowerBank(String product_brand, String product_model) {
-
-		boolean deleted = false;
+	public int deletePowerBank(String product_brand, String product_model) {
+		System.out.println("Entered into StockDao deletePowerBank(-,-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con
-					.prepareStatement("DELETE FROM powerbank WHERE  product_brand = ? AND product_model = ?");
+			con = getConnection();
+			pstmt = con.prepareStatement("DELETE FROM powerbank WHERE  product_brand = ? AND product_model = ?");
 			pstmt.setString(1, product_brand);
 			pstmt.setString(2, product_model);
 
-			int rowsAffected = pstmt.executeUpdate();
-			deleted = rowsAffected > 0;
-		} catch (SQLException e) {
-			System.out.println("SQLException occured:" + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
-		return deleted;
+		return result;
 
 	}
 
-	public boolean deleteHeadSet(String product_brand, String product_model) {
-
-		boolean deleted = false;
+	public int deleteHeadSet(String product_brand, String product_model) {
+		System.out.println("Entered into StockDao deleteHeadSet(-,-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con
-					.prepareStatement("DELETE FROM headset WHERE  product_brand = ? AND product_model = ?");
+			con = getConnection();
+			pstmt = con.prepareStatement("DELETE FROM headset WHERE  product_brand = ? AND product_model = ?");
 			pstmt.setString(1, product_brand);
 			pstmt.setString(2, product_model);
 
-			int rowsAffected = pstmt.executeUpdate();
-			deleted = rowsAffected > 0;
-		} catch (SQLException e) {
-			System.out.println("SQLException occured:" + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
-		return deleted;
+		return result;
 
 	}
 
-	public boolean deleteBackCover(String product_brand, String product_model) {
-
-		boolean deleted = false;
+	public int deleteBackCover(String product_brand, String product_model) {
+		System.out.println("Entered into StockDao deleteBackCover(-,-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con
-					.prepareStatement("DELETE FROM backcover WHERE  product_brand = ? AND product_model = ?");
+			con = getConnection();
+			pstmt = con.prepareStatement("DELETE FROM backcover WHERE  product_brand = ? AND product_model = ?");
 			pstmt.setString(1, product_brand);
 			pstmt.setString(2, product_model);
 
-			int rowsAffected = pstmt.executeUpdate();
-			deleted = rowsAffected > 0;
-		} catch (SQLException e) {
-			System.out.println("SQLException occured:" + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
-		return deleted;
+		return result;
 
 	}
 
-	public void updateMobilePrice(Double productPrice, String productModel) {
-
-		PreparedStatement ps;
+	public int updateMobilePrice(Double productPrice, String productModel) {
+		System.out.println("Entered into StockDao updateMobilePrice(-,-)");
+		int executeUpdate = 0;
 		try {
-			Connection con = getConnection();
-			ps = con.prepareStatement("UPDATE mobile SET product_price = ? WHERE product_model = ?");
-			ps.setDouble(1, productPrice);
-			ps.setString(2, productModel);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("SQLException:" + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			con = getConnection();
+			pstmt = con.prepareStatement("UPDATE mobile SET product_price = ? WHERE product_model = ?");
+			pstmt.setDouble(1, productPrice);
+			pstmt.setString(2, productModel);
+			executeUpdate = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		return executeUpdate;
 	}
 
-	public void updateChargerPrice(Double productPrice, String productModel) {
-
-		PreparedStatement ps;
+	public int updateChargerPrice(Double productPrice, String productModel) {
+		System.out.println("Entered into StockDao updateChargerPrice(-,-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			ps = con.prepareStatement("UPDATE charger SET product_price = ? WHERE product_model = ?");
-			ps.setDouble(1, productPrice);
-			ps.setString(2, productModel);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("SQLException:" + e);
-
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			con = getConnection();
+			pstmt = con.prepareStatement("UPDATE charger SET product_price = ? WHERE product_model = ?");
+			pstmt.setDouble(1, productPrice);
+			pstmt.setString(2, productModel);
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+
+		return result;
 	}
 
-	public void updatePowerBankPrice(Double productPrice, String productModel) {
-
-		PreparedStatement ps;
+	public int updatePowerBankPrice(Double productPrice, String productModel) {
+		System.out.println("Entered into StockDao updatePowerBankPrice(-,-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			ps = con.prepareStatement("UPDATE powerbank SET product_price = ? WHERE product_model = ?");
-			ps.setDouble(1, productPrice);
-			ps.setString(2, productModel);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("SQLException:" + e);
-
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			con = getConnection();
+			pstmt = con.prepareStatement("UPDATE powerbank SET product_price = ? WHERE product_model = ?");
+			pstmt.setDouble(1, productPrice);
+			pstmt.setString(2, productModel);
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+
+		return result;
 	}
 
-	public void updateHeadSetPrice(Double productPrice, String productModel) {
-
-		PreparedStatement ps;
+	public int updateHeadSetPrice(Double productPrice, String productModel) {
+		System.out.println("Entered into StockDao updateHeadSetPrice(-,-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			ps = con.prepareStatement("UPDATE headset SET product_price = ? WHERE product_model = ?");
-			ps.setDouble(1, productPrice);
-			ps.setString(2, productModel);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("SQLException:" + e);
-
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			con = getConnection();
+			pstmt = con.prepareStatement("UPDATE headset SET product_price = ? WHERE product_model = ?");
+			pstmt.setDouble(1, productPrice);
+			pstmt.setString(2, productModel);
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		return result;
 	}
 
-	public void updateBackCoverPrice(Double productPrice, String productModel) {
-
-		PreparedStatement ps;
+	public int updateBackCoverPrice(Double productPrice, String productModel) {
+		System.out.println("Entered into StockDao updateBackCoverPrice(-,-)");
+		int result = 0;
 		try {
-			Connection con = getConnection();
-			ps = con.prepareStatement("UPDATE backcover SET product_price = ? WHERE product_model = ?");
-			ps.setDouble(1, productPrice);
-			ps.setString(2, productModel);
-			ps.executeUpdate();
-		} catch (SQLException e) {
-			System.out.println("SQLException:" + e);
-
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+			con = getConnection();
+			pstmt = con.prepareStatement("UPDATE backcover SET product_price = ? WHERE product_model = ?");
+			pstmt.setDouble(1, productPrice);
+			pstmt.setString(2, productModel);
+			result = pstmt.executeUpdate();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
+		return result;
 	}
 
 	public List<MobileForm> viewAllMobileData() {
-		System.out.println("stockDao ViewAllMobileData(-)");
+		System.out.println("Entered into StockDao viewAllMobileData(-,-)");
 		List<MobileForm> listOfData = new ArrayList<>();
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM mobile  ");
+			con = getConnection();
+			pstmt = con.prepareStatement("SELECT * FROM mobile  ");
 			ResultSet resultSet = pstmt.executeQuery();
 			System.out.println("Executing ViewAllMobileData ");
 
@@ -655,26 +758,30 @@ public class StockDao {
 				listOfData.add(mobileForm);
 			}
 
-		} catch (SQLException e) {
-			System.out.println("SQLException: " + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return listOfData;
 	}
 
 	public List<ChargerForm> viewAllChargerData() {
-		System.out.println("stockDao ViewAllChargerData(-)");
+		System.out.println("Entered into StockDao viewAllChargerData(-,-)");
 		List<ChargerForm> listOfData = new ArrayList<>();
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM charger ");
+			con = getConnection();
+			pstmt = con.prepareStatement("SELECT * FROM charger ");
 
 			ResultSet resultSet = pstmt.executeQuery();
 			System.out.println("Executing ViewAllChargerData query");
@@ -687,26 +794,30 @@ public class StockDao {
 				listOfData.add(chargerForm);
 			}
 
-		} catch (SQLException e) {
-			System.out.println("SQLException: " + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return listOfData;
 	}
 
 	public List<PowerBankForm> viewAllPowerBankData() {
-		System.out.println("stockDao ViewAllPowerBankData(-)");
+		System.out.println("Entered into StockDao viewAllPowerBankData()");
 		List<PowerBankForm> listOfData = new ArrayList<>();
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM powerbank ");
+			con = getConnection();
+			pstmt = con.prepareStatement("SELECT * FROM powerbank ");
 
 			ResultSet resultSet = pstmt.executeQuery();
 			System.out.println("Executing viewPowerBankData query");
@@ -719,26 +830,30 @@ public class StockDao {
 				listOfData.add(powerbankForm);
 			}
 
-		} catch (SQLException e) {
-			System.out.println("SQLException: " + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return listOfData;
 	}
 
 	public List<HeadSetForm> viewAllHeadSetData() {
-		System.out.println("stockDao viewPowerBankData(-)");
+		System.out.println("Entered into StockDao viewAllHeadSetData()");
 		List<HeadSetForm> listOfData = new ArrayList<>();
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con.prepareStatement("SELECT * FROM headset ");
+			con = getConnection();
+			pstmt = con.prepareStatement("SELECT * FROM headset ");
 
 			ResultSet resultSet = pstmt.executeQuery();
 			System.out.println("Executing viewHeadSetData query");
@@ -751,27 +866,30 @@ public class StockDao {
 				listOfData.add(headsetForm);
 			}
 
-		} catch (SQLException e) {
-			System.out.println("SQLException: " + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return listOfData;
 	}
 
 	public List<BackCoverForm> viewAllBackCoverData() {
-		System.out.println("stockDao ViewAllBackCoverData(-)");
+		System.out.println("Entered into StockDao viewAllBackCoverData()");
 		List<BackCoverForm> listOfData = new ArrayList<>();
 		try {
-			Connection con = getConnection();
-			PreparedStatement pstmt = con
-					.prepareStatement("SELECT * FROM backcover WHERE product_brand = ? AND product_model = ?");
+			con = getConnection();
+			pstmt = con.prepareStatement("SELECT * FROM backcover WHERE product_brand = ? AND product_model = ?");
 
 			ResultSet resultSet = pstmt.executeQuery();
 			System.out.println("Executing viewHeadSetData query");
@@ -784,16 +902,56 @@ public class StockDao {
 				listOfData.add(backcoverForm);
 			}
 
-		} catch (SQLException e) {
-			System.out.println("SQLException: " + e);
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
-			System.out.println("ClassNotFoundException:" + e);
-			e.printStackTrace();
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
 		}
 
 		return listOfData;
 	}
+
+	public List<ProductForm> selectStockByType(String type) {
+		System.out.println("Entered into StockDao selectStockByType()");
+		List<ProductForm> formsList = new ArrayList<>();
+		try {
+			con = getConnection();
+			pstmt = con.prepareStatement("SELECT * FROM " + type);
+
+			ResultSet resultSet = pstmt.executeQuery();
+
+			while (resultSet.next()) {
+
+				formsList.add(new ProductForm(resultSet.getString("product_brand"), resultSet.getDouble("product_price"),
+						resultSet.getString("product_model"), type, resultSet.getDate("arrived_date_time")));
+
+			}
+
+		} catch (SQLException | ClassNotFoundException sqlcnfe) {
+			System.out.println(" SQL | CNFE " + sqlcnfe);
+		} catch (Exception e) {
+			System.out.println("Exception " + e);
+		} finally {
+			System.out.println();
+			try {
+				pstmt.close();
+				if (con != null)
+					con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+
+		return formsList;
+	}
+
 }

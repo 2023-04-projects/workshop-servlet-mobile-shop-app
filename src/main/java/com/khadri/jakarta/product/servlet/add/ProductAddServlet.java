@@ -20,7 +20,7 @@ public class ProductAddServlet extends HttpServlet {
 	private ProductForm form;
 
 	public void init() throws ServletException {
-		form = new ProductForm();  
+		form = new ProductForm();
 		ServletContext context = getServletContext();
 		dao = new ProductDao(context);
 	}
@@ -29,17 +29,24 @@ public class ProductAddServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered into AddMobileServlet doPost(-,-)");
 		String name = req.getParameter("productName");
-		name=name.toLowerCase();
+		name = name.toLowerCase();
 		form.setName(name);
 		int result = dao.insertMobileData(form);
 
 		PrintWriter pw = resp.getWriter();
 
+		pw.println("<html>");
+		pw.println("<head>");
+		pw.println("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+		pw.println("</head>");
+		pw.println("<body>");
 		if (result == 1) {
 			pw.println(result + " Inserted Successfully!!!!!");
 		} else {
 			pw.println("@@@@@Something went wrong@@@@@");
 		}
+		pw.println("</body>");
+		pw.println("</html>");
 
 	}
 

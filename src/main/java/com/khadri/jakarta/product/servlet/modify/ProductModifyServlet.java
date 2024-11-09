@@ -41,12 +41,18 @@ public class ProductModifyServlet extends HttpServlet {
 		 
 
 		PrintWriter pw = resp.getWriter();
-
+		pw.println("<html>");
+		pw.println("<head>");
+		pw.println("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+		pw.println("</head>");
+		pw.println("<body>");
 		if (result == 1) {
 			pw.println(result + "  Modified sucessfully!!!! ");
 		} else {
 			pw.println("@@@@@Something went wrong@@@@@");
 		}
+		pw.println("</body>");
+		pw.println("</html>");
 	}
 
 }

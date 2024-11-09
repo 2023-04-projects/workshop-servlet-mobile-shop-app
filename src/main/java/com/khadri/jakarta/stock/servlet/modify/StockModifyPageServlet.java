@@ -33,24 +33,60 @@ public class StockModifyPageServlet extends HttpServlet {
 		String type = req.getParameter("type");
 		resp.setContentType("text/html");
 
+		sb.append("<html>");
+		sb.append("<head>");
+		sb.append("<title>Modify Stock Details</title>");
+		sb.append("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+		sb.append("</head>");
+		sb.append("<body>");
+
 		if (type == null || type.isEmpty()) {
 			sb.append("<form action='stockmodifysearchpage' method='get'>");
+			sb.append("<table border=1>");
+			sb.append("<tr>");
+			sb.append("<td>");
+
 			sb.append("<label>Type:</label>");
-			sb.append("<select name='type' id='type'>");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("<select name='type' id='type' name='type'>");
 			sb.append("<option value=''>--select--</option>");
 			listOfProducts.stream().forEach(eachProduct -> {
 				sb.append("<option value='" + eachProduct.getName() + "'>");
 				sb.append(eachProduct.getName());
 				sb.append("</option>");
 			});
-			sb.append("</select><br/>");
+			sb.append("</select>");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("<label>Product Brand:</label>");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("<input type='text' name='product_brand'>");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("<label>Product Model:</label>");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("<input type='text' name='product_model'>");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("<input type='submit' value='Modify Stock Search'>");
+			sb.append("</td>");
+			sb.append("</tr>");
 
-			sb.append("<label>Product Brand:</label><input type='text' name='product_brand'><br/>");
-			sb.append("<label>Product Model:</label><input type='text' name='product_model'><br/>");
-			sb.append("<input type='submit' value='search'>");
 			sb.append("</form>");
 			sb.append("</table>");
 		}
+
+		sb.append("</body>");
+		sb.append("</html>");
 
 		pw.println(sb);
 	}

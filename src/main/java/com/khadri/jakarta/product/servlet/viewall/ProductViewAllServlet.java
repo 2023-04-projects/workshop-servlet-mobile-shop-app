@@ -28,11 +28,17 @@ public class ProductViewAllServlet extends HttpServlet {
 
 		System.out.println("Entered into ProductViewProductServlet dopost(-,-)");
 
+		StringBuffer sb = new StringBuffer();
+		sb.append("<html>");
+		sb.append("<head>");
+		sb.append("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+		sb.append("</head>");
+		sb.append("<body>");
+		
 		String productId = req.getParameter("getId()");
 		PrintWriter pw = resp.getWriter();
 		if (productId == null || productId.isEmpty()) {
 			listOfForms = dao.selectProductData();
-			StringBuffer sb = new StringBuffer();
 			sb.append("<table border='1'>");
 			sb.append("<thead>");
 			sb.append("<tr>");
@@ -50,6 +56,9 @@ public class ProductViewAllServlet extends HttpServlet {
 			});
 			sb.append("</tbody>");
 			pw.println(sb);
+			
+			sb.append("</body>");
+			sb.append("</html>");
 
 		}
 

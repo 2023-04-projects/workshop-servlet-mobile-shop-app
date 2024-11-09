@@ -33,7 +33,11 @@ public class StockAddPageServlet extends HttpServlet {
 
 		StringBuffer stringBuffer = new StringBuffer();
 		stringBuffer.append("<html>");
-		stringBuffer.append("<head><title>Add Stock Details</title></head>");
+		stringBuffer.append("<head>");
+		stringBuffer.append("<title>Add Stock Details</title>");
+		stringBuffer.append("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+		stringBuffer.append("</head>");
+
 		stringBuffer.append("<body>");
 		stringBuffer.append("<script type='text/javascript'>");
 		stringBuffer.append("function formValidation() {");
@@ -70,8 +74,7 @@ public class StockAddPageServlet extends HttpServlet {
 		stringBuffer.append("}");
 		stringBuffer.append("</script>");
 		stringBuffer.append("<form action='stockadd' method='post' onsubmit='return formValidation()'>");
-		stringBuffer.append("<table>");
-		stringBuffer.append("<thead><h2>Add Stock Details</h2></thead>");
+		stringBuffer.append("<table border=1>");
 		stringBuffer.append("<tbody>");
 		stringBuffer.append("<tr><td><label>Type:</label><select name='type' id='type'>");
 		stringBuffer.append("<option>--select--</option>");
@@ -86,7 +89,7 @@ public class StockAddPageServlet extends HttpServlet {
 		stringBuffer.append("<tr><td>Product Brand:<input type='text' name='Product_brand' id='pb'></td></tr>");
 		stringBuffer.append("<tr><td>Product Price:<input type='text' name='product_price' id='pp'></td></tr>");
 		stringBuffer.append("<tr><td>Product Model:<input type='text' name='product_model' id='pm'></td></tr>");
-		stringBuffer.append("<tr><td><input type='submit' value='AddStock'></td></tr>");
+		stringBuffer.append("<tr><td><input type='submit' value='Add Stock'></td></tr>");
 		stringBuffer.append("</tbody>");
 		stringBuffer.append("</table>");
 		stringBuffer.append("</form>");

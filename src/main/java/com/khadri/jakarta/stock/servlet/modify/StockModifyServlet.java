@@ -25,39 +25,84 @@ public class StockModifyServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered into StockModifyServlet doGet(-,-)");
-		double productPrice;
 		String productModel = req.getParameter("product_model");
 		String productPriceStr = req.getParameter("product_price");
+		String productType = req.getParameter("type");
+		String mode = req.getParameter("mode_modify");
 		PrintWriter pw = resp.getWriter();
 		resp.setContentType("text/html");
 
-		if (productModel == null || productPriceStr == null) {
+		pw.println("<html>");
+		pw.println("<head>");
+		pw.println("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+		pw.println("</head>");
+		pw.println("<body>");
+
+		if (mode == null || mode.equals("")) {
 			StringBuffer sb = new StringBuffer();
 			sb.append("<form>");
-			sb.append("<label>Product Model:</label><input type='text' name='product_model'><br/>");
-			sb.append("<label>Product price:</label><input type='text' name='product_price'><br/>");
-			sb.append("<input type='submit' value='modify'>");
+			sb.append("<table border=1>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("<label>Product Model:</label>");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("<input type='text' name='product_model' value=" + productModel
+					+ ">");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("<label>Product price:</label>");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("<input type='text' name='product_price' value=" + productPriceStr
+					+ ">");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("<input type='hidden' name='type' value=" + productType + ">");
+			sb.append("<input type='hidden' name='mode_modify' value=modify>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("<input type='submit' value='Stock Modify'>");
+			sb.append("</td>");
+			sb.append("</tr>");
 			sb.append("</form>");
 			pw.println(sb);
 		} else {
-			try {
-				productPrice = Double.parseDouble(productPriceStr);
-			} catch (NumberFormatException e) {
-				pw.println("Error: Invalid product price. Please enter a numeric value.");
-				return;
+
+			if (mode != null) {
+				int result = 0;
+				switch (productType) {
+				case "mobile":
+					result = stockDao.updateMobilePrice(Double.valueOf(productPriceStr), productModel);
+					pw.println(result + " updated successfulyy");
+					break;
+				case "charger":
+					result = stockDao.updateChargerPrice(Double.valueOf(productPriceStr), productModel);
+					pw.println(result + " updated successfulyy");
+					break;
+				case "powerbank":
+					result = stockDao.updatePowerBankPrice(Double.valueOf(productPriceStr), productModel);
+					pw.println(result + " updated successfulyy");
+					break;
+				case "headset":
+					result = stockDao.updateHeadSetPrice(Double.valueOf(productPriceStr), productModel);
+					pw.println(result + " updated successfulyy");
+					break;
+				case "backcover":
+					result = stockDao.updateBackCoverPrice(Double.valueOf(productPriceStr), productModel);
+					pw.println(result + " updated successfulyy");
+					break;
+				default:
+					System.out.println("########################No Match Found########################");
+				}
 			}
 
-			try {
-				stockDao.updateMobilePrice(productPrice, productModel);
-				stockDao.updateChargerPrice(productPrice, productModel);
-				stockDao.updatePowerBankPrice(productPrice, productModel);
-				stockDao.updateHeadSetPrice(productPrice, productModel);
-				stockDao.updateBackCoverPrice(productPrice, productModel);
-				pw.println("Product price modified successfully!");
-			} catch (Exception e) {
-				pw.println("Error: Could not modify the product price.");
-				e.printStackTrace();
-			}
 		}
+
+		pw.println("</body>");
+		pw.println("</html>");
+
 	}
 }

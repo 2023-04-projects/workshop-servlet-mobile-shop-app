@@ -35,14 +35,17 @@ public class ProductDeleteSearchPageServlet extends HttpServlet {
 
 		sb.append("<html>");
 		sb.append("<body>");
-		sb.append("<thead><h2>Search Product</h2></thead>");
+		sb.append("<head>");
+		sb.append("<h2>Search Product</h2>");
+		sb.append("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+		sb.append("</head>");
 
 		if (productId == null || productId.isEmpty()) {
 			sb.append("<form action = 'productdeletesearchpage' method = 'get'");
 			sb.append("<table border='1'>");
 			sb.append("<tbody>");
 			sb.append("<tr><td>ProductId :<input type= 'text' name ='Id'><td/></tr>");
-			sb.append("<tr><td><input type='submit' value='search'></td></tr>");
+			sb.append("<tr><td><input type='submit' value='Delete Product Search'></td></tr>");
 			sb.append("</tbody>");
 			sb.append("</table>");
 			sb.append("<table border='1'>");
@@ -69,13 +72,20 @@ public class ProductDeleteSearchPageServlet extends HttpServlet {
 			sb.append("<th>ProductId</th>");
 			sb.append("<th>ProductName</th>");
 			sb.append("</tr>");
-			listOfForms.stream().forEach(eachProduct -> {
+			if(!listOfForms.isEmpty()) {
+				listOfForms.stream().forEach(eachProduct -> {
+					sb.append("<tr>");
+					sb.append("<td><a href='productdeletepage?ID=" + eachProduct.getId() + "&Name=" + eachProduct.getName()
+					+ "' target='bottom_right'> " + eachProduct.getId() + "</a></td>");
+					sb.append("<td>" + eachProduct.getName() + "</td>");
+					sb.append("</tr>");
+				});
+				
+			}else {
 				sb.append("<tr>");
-				sb.append("<td><a href='productdeletepage?ID=" + eachProduct.getId() + "&Name=" + eachProduct.getName()
-						+ "' target='bottom_right'> " + eachProduct.getId() + "</a></td>");
-				sb.append("<td>" + eachProduct.getName() + "</td>");
+				sb.append("<td colspan='2' id='nrf'>No Records Found</td>");
 				sb.append("</tr>");
-			});
+			}
 			sb.append("</table>");
 
 			pw.println(sb);

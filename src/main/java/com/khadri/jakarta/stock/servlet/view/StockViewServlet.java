@@ -51,11 +51,19 @@ public class StockViewServlet extends HttpServlet {
 		StringBuilder sb = new StringBuilder();
 
 		sb.append("<html>");
+		sb.append("<head>");
+		sb.append("<title>View Stock Details</title>");
+		sb.append("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+		sb.append("</head>");
 		sb.append("<body>");
-		sb.append("<h2>Search Type</h2>");
 
 		sb.append("<form action='StockViewServlet' method='get'>");
+		sb.append("<table border=1>");
+		sb.append("<tr>");
+		sb.append("<td>");
 		sb.append("<label>Type:</label>");
+		sb.append("</td>");
+		sb.append("<td>");
 		sb.append("<select name='type' id='type'>");
 		sb.append("<option value=''>--select--</option>");
 		listOfProducts.stream().forEach(eachProduct -> {
@@ -65,134 +73,144 @@ public class StockViewServlet extends HttpServlet {
 
 		});
 		sb.append("</select>");
-		sb.append("<br/>");
-
-		sb.append("Product Brand: <input type='text' name='product_brand'><br/>");
-		sb.append("Product Model: <input type='text' name='product_model'><br/>");
-		sb.append("<input type='submit' value='Search'>");
+		sb.append("</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>");
+		sb.append("Product Brand:");
+		sb.append("</td>");
+		sb.append("<td>");
+		sb.append("<input type='text' name='product_brand'>");
+		sb.append("</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>");
+		sb.append("Product Model:");
+		sb.append("</td>");
+		sb.append("<td>");
+		sb.append("<input type='text' name='product_model'>");
+		sb.append("</td>");
+		sb.append("</tr>");
+		sb.append("<tr>");
+		sb.append("<td>");
+		sb.append("<input type='submit' value='View Stock Search'>");
+		sb.append("</td>");
+		sb.append("</tr>");
 		sb.append("</form>");
-
+		sb.append("<table border='1'>");
+		sb.append("<thead>");
+		sb.append(
+				"<tr><th>Product Brand</th><th>Product Model</th><th>Product Price</th><th>ArrivedDateTime</th></tr>");
+		sb.append("</thead>");
+		sb.append("<tbody>");
 		if (type != null && !type.isEmpty()) {
 			switch (type) {
 			case "mobile":
 				listOfMobileForm = stockDao.viewMobileData(product_brand, product_model);
+				if (listOfMobileForm != null && !listOfMobileForm.isEmpty()) {
+					 
+					for (MobileForm eachProduct : listOfMobileForm) {
+						sb.append("<tr>");
+						sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
+						sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
+						sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
+						sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
+
+						sb.append("</tr>");
+					}
+
+				} else {
+					sb.append("<tr>");
+					sb.append("<td colspan='4' id='nrf'>No Records Found</td>");
+					sb.append("</tr>");
+				}
 				break;
 			case "charger":
 				listOfChargerForm = stockDao.viewChargerData(product_brand, product_model);
+				if (listOfChargerForm != null && !listOfChargerForm.isEmpty()) {
+				
+					for (ChargerForm eachProduct : listOfChargerForm) {
+						sb.append("<tr>");
+						sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
+						sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
+						sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
+						sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
+
+						sb.append("</tr>");
+					}
+
+				} else {
+					sb.append("<tr>");
+					sb.append("<td colspan='4' id='nrf'>No Records Found</td>");
+					sb.append("</tr>");
+				}
 				break;
 			case "powerbank":
 				listOfPowerBankForm = stockDao.viewPowerBankData(product_brand, product_model);
+
+				if (listOfPowerBankForm != null && !listOfPowerBankForm.isEmpty()) {
+				 
+					for (PowerBankForm eachProduct : listOfPowerBankForm) {
+						sb.append("<tr>");
+						sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
+						sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
+						sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
+						sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
+
+						sb.append("</tr>");
+					}
+
+				} else {
+					sb.append("<tr>");
+					sb.append("<td colspan='4' id='nrf'>No Records Found</td>");
+					sb.append("</tr>");
+				}
 				break;
 			case "headset":
 				listOfHeadSetForm = stockDao.viewHeadSetData(product_brand, product_model);
+				if (listOfHeadSetForm != null && !listOfHeadSetForm.isEmpty()) {
+				 
+					for (HeadSetForm eachProduct : listOfHeadSetForm) {
+						sb.append("<tr>");
+						sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
+						sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
+						sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
+						sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
+
+						sb.append("</tr>");
+					}
+					sb.append("</tbody>");
+					sb.append("</table>");
+				} else {
+					sb.append("<tr>");
+					sb.append("<td colspan='4' id='nrf'>No Records Found</td>");
+					sb.append("</tr>");
+				}
 				break;
 			case "backcover":
 				listOfBackCoverForm = stockDao.viewBackCoverData(product_brand, product_model);
+				if (listOfBackCoverForm != null && !listOfBackCoverForm.isEmpty()) {
+				 
+					for (BackCoverForm eachProduct : listOfBackCoverForm) {
+						sb.append("<tr>");
+						sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
+						sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
+						sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
+						sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
+
+						sb.append("</tr>");
+					}
+
+				} else {
+					sb.append("<tr>");
+					sb.append("<td colspan='4' id='nrf'>No Records Found</td>");
+					sb.append("</tr>");
+				}
+
 				break;
 			default:
 				listOfMobileForm = null;
 			}
-
-			if (listOfMobileForm != null && !listOfMobileForm.isEmpty()) {
-				sb.append("<table border='1'>");
-				sb.append("<thead>");
-				sb.append(
-						"<tr><th>Product Brand</th><th>Product Model</th><th>Product Price</th><th>ArrivedDateTime</th></tr>");
-				sb.append("</thead>");
-				sb.append("<tbody>");
-				for (MobileForm eachProduct : listOfMobileForm) {
-					sb.append("<tr>");
-					sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
-					sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
-					sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
-					sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
-
-					sb.append("</tr>");
-				}
-
-			} else {
-			}
-		}
-
-		if (listOfChargerForm != null && !listOfChargerForm.isEmpty()) {
-			sb.append("<table border='1'>");
-			sb.append("<thead>");
-			sb.append(
-					"<tr><th>Product Brand</th><th>Product Model</th><th>Product Price</th><th>ArrivedDateTime</th></tr>");
-			sb.append("</thead>");
-			sb.append("<tbody>");
-			for (ChargerForm eachProduct : listOfChargerForm) {
-				sb.append("<tr>");
-				sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
-				sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
-
-				sb.append("</tr>");
-			}
-
-		} else {
-		}
-
-		if (listOfPowerBankForm != null && !listOfPowerBankForm.isEmpty()) {
-			sb.append("<table border='1'>");
-			sb.append("<thead>");
-			sb.append(
-					"<tr><th>Product Brand</th><th>Product Model</th><th>Product Price</th><th>ArrivedDateTime</th></tr>");
-			sb.append("</thead>");
-			sb.append("<tbody>");
-			for (PowerBankForm eachProduct : listOfPowerBankForm) {
-				sb.append("<tr>");
-				sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
-				sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
-
-				sb.append("</tr>");
-			}
-
-		} else {
-		}
-
-		if (listOfHeadSetForm != null && !listOfHeadSetForm.isEmpty()) {
-			sb.append("<table border='1'>");
-			sb.append("<thead>");
-			sb.append(
-					"<tr><th>Product Brand</th><th>Product Model</th><th>Product Price</th><th>ArrivedDateTime</th></tr>");
-			sb.append("</thead>");
-			sb.append("<tbody>");
-			for (HeadSetForm eachProduct : listOfHeadSetForm) {
-				sb.append("<tr>");
-				sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
-				sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
-
-				sb.append("</tr>");
-			}
-			sb.append("</tbody>");
-			sb.append("</table>");
-		} else {
-		}
-
-		if (listOfBackCoverForm != null && !listOfBackCoverForm.isEmpty()) {
-			sb.append("<table border='1'>");
-			sb.append("<thead>");
-			sb.append(
-					"<tr><th>Product Brand</th><th>Product Model</th><th>Product Price</th><th>ArrivedDateTime</th></tr>");
-			sb.append("</thead>");
-			sb.append("<tbody>");
-			for (BackCoverForm eachProduct : listOfBackCoverForm) {
-				sb.append("<tr>");
-				sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
-				sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
-
-				sb.append("</tr>");
-			}
-
-		} else {
 		}
 
 		sb.append("</body>");

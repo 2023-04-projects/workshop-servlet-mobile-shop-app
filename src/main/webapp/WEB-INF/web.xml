@@ -115,7 +115,7 @@
 	</servlet-mapping>
 	<servlet>
 		<servlet-name>viewall</servlet-name>
-		<servlet-class>com.khadri.jakarta.product.servlet.view.ProductViewAllServlet</servlet-class>
+		<servlet-class>com.khadri.jakarta.product.servlet.viewall.ProductViewAllServlet</servlet-class>
 	</servlet>
 	<servlet-mapping>
 		<servlet-name>viewall</servlet-name>

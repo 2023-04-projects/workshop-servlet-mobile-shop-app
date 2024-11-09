@@ -1,6 +1,7 @@
 package com.khadri.jakarta.stock.servlet.add;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,7 +35,7 @@ public class StockAddServlet extends HttpServlet {
 	public void init() throws ServletException {
 		ServletContext context = getServletContext();
 		stockDao = new StockDao(context);
-		}
+	}
 
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered StockAddServlet doPost(-,-)");
@@ -87,7 +88,18 @@ public class StockAddServlet extends HttpServlet {
 					stockDao.insertIntoStock(type, 1);
 				}
 				System.out.println("inserted Successfully");
-				insertIntoStockType(type, form);
+				int result = insertIntoStockType(type, form);
+				if (result > 0) {
+					PrintWriter pw = resp.getWriter();
+					pw.println("<html>");
+					pw.println("<head>");
+					pw.println("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+					pw.println("</head>");
+					pw.println("<body>");
+					pw.println(result + " inserted successfully! ");
+					pw.println("</body>");
+					pw.println("</html>");
+				}
 
 			} catch (Exception e) {
 				System.out.println("@@@@@@@Something went wrong@@@@@@@");
@@ -98,33 +110,35 @@ public class StockAddServlet extends HttpServlet {
 
 	}
 
-	private void insertIntoStockType(String type, StockForm form) throws Exception {
+	private int insertIntoStockType(String type, StockForm form) throws Exception {
 		System.out.println("insertIntoStockType method" + type);
+		int result = 0;
 		switch (type) {
 		case "mobile":
 			System.out.println("entered into switch case mobile  method");
-			stockDao.insertMobile(mobileForm);
+			result = stockDao.insertMobile(mobileForm);
 			System.out.println("inserted into switch case mobile  method");
 			break;
 		case "charger":
 			System.out.println("entered into switch case charger method");
-			stockDao.insertCharger(chargerForm);
+			result = stockDao.insertCharger(chargerForm);
 			break;
 		case "powerbank":
 			System.out.println("entered into switch case powerbank method");
-			stockDao.insertPowerBank(powerBankForm);
+			result = stockDao.insertPowerBank(powerBankForm);
 			break;
 		case "headset":
 			System.out.println("entered into switch case headset  method");
-			stockDao.insertHeadSet(headSetForm);
+			result = stockDao.insertHeadSet(headSetForm);
 			break;
 		case "backcover":
 			System.out.println("entered into switch case backcover  method");
-			stockDao.insertBackCover(backCoverForm);
+			result = stockDao.insertBackCover(backCoverForm);
 			break;
 		default:
-			System.out.println("invalid method type"); 
+			System.out.println("invalid method type");
 			break;
 		}
+		return result;
 	}
 }

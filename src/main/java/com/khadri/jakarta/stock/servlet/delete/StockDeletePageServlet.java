@@ -39,50 +39,99 @@ public class StockDeletePageServlet extends HttpServlet {
 
 		StringBuffer sb = new StringBuffer();
 
+		sb.append("<html>");
+		sb.append("<head>");
+		sb.append("<title>Delete Stock Details</title>");
+		sb.append("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+		sb.append("</head>");
+		sb.append("<body>");
+
 		if (type == null || type.isEmpty()) {
 			sb.append("<form action='StockDeletePageServlet' method='get'>");
+			sb.append("<table border=1>");
+			sb.append("<tr>");
+			sb.append("<td>");
 			sb.append("<label>Type:</label>");
+			sb.append("</td>");
+			sb.append("<td>");
 			sb.append("<select name='type' id='type'>");
 			sb.append("<option value=''>--select--</option>");
-			listOfProducts.stream().forEach(eachProduct ->{
-				sb.append("<option value='"+eachProduct.getName()+"'>"+eachProduct.getName()+"</option>");
+			listOfProducts.stream().forEach(eachProduct -> {
+				sb.append("<option value='" + eachProduct.getName() + "'>" + eachProduct.getName() + "</option>");
 			});
-			sb.append("</select><br/>");
-			sb.append("<label>Product Brand:</label><input type='text' name='product_brand' required><br/>");
-			sb.append("<label>Product Model:</label><input type='text' name='product_model' required><br/>");
-			sb.append("<input type='submit' value='Delete Mobile'>");
+			sb.append("</select>");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("<label>Product Brand:</label>");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("<input type='text' name='product_brand' required>");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("<label>Product Model:</label>");
+			sb.append("</td>");
+			sb.append("<td>");
+			sb.append("<input type='text' name='product_model' required>");
+			sb.append("</td>");
+			sb.append("</tr>");
+			sb.append("<tr>");
+			sb.append("<td>");
+			sb.append("<input type='submit' value='Delete Stock'>");
+			sb.append("</td>");
+			sb.append("</tr>");
 			sb.append("</form>");
 		} else {
 
-			boolean isDeleted = false;
+			int result = 0;
 			switch (type) {
 			case "mobile":
-				isDeleted = stockDao.deleteMobile(product_brand, product_model);
+				result = stockDao.deleteMobile(product_brand, product_model);
 				break;
 			case "charger":
-				isDeleted = stockDao.deleteCharger(product_brand, product_model);
+				result = stockDao.deleteCharger(product_brand, product_model);
 				break;
 			case "powerbank":
-				isDeleted = stockDao.deletePowerBank(product_brand, product_model);
+				result = stockDao.deletePowerBank(product_brand, product_model);
 				break;
 			case "headset":
-				isDeleted = stockDao.deleteHeadSet(product_brand, product_model);
+				result = stockDao.deleteHeadSet(product_brand, product_model);
 				break;
 			case "backcover":
-				isDeleted = stockDao.deleteBackCover(product_brand, product_model);
+				result = stockDao.deleteBackCover(product_brand, product_model);
 				break;
 			default:
 				pw.println("Invalid product type selected.");
 				break;
 			}
 
-			if (isDeleted) {
-				pw.println(type + " entry deleted successfully.");
+			if (result > 0) {
+				pw.println("<html>");
+				pw.println("<head>");
+				pw.println("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+				pw.println("</head>");
+				pw.println("<body>");
+				pw.println(result + " deleted successfully.");
+
+				pw.println("</body>");
+				pw.println("</html>");
 			} else {
+				pw.println("<html>");
+				pw.println("<head>");
+				pw.println("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+				pw.println("</head>");
+				pw.println("<body>");
 				pw.println("Failed to delete " + type + " entry. Please check the details.");
+				pw.println("</body>");
+				pw.println("</html>");
 			}
 		}
 
+		sb.append("</body>");
+		sb.append("</html>");
 		pw.println(sb.toString());
 	}
 

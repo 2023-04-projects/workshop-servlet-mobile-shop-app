@@ -85,6 +85,24 @@ public class ProductDao {
 		return listOfData;
 	}
 
+	public List<String> selectProductNames() {
+		System.out.println("ProductDao selectProductNames(-)");
+		List<String> listOfProductNames = new ArrayList<>();
+
+		try (Connection con = getConnection();
+				Statement stmt = con.createStatement();
+				ResultSet resultSet = stmt.executeQuery("SELECT Name FROM product")) {
+
+			while (resultSet.next()) {
+				listOfProductNames.add(resultSet.getString(1));
+			}
+
+		} catch (Exception e) {
+			System.out.println("Exception occurred: " + e.getMessage());
+		}
+		return listOfProductNames;
+	}
+
 	public int updateProduct(ProductForm form) {
 		System.out.println("ProductDao updateProduct(-)");
 		int result = 0;

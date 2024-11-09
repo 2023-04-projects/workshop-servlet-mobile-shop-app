@@ -2,16 +2,12 @@ package com.khadri.jakarta.stock.servlet.viewall;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.khadri.jakarta.product.dao.ProductDao;
-import com.khadri.jakarta.product.form.ProductForm;
 import com.khadri.jakarta.stock.dao.StockDao;
-import com.khadri.jakarta.stock.form.BackCoverForm;
-import com.khadri.jakarta.stock.form.ChargerForm;
-import com.khadri.jakarta.stock.form.HeadSetForm;
-import com.khadri.jakarta.stock.form.MobileForm;
-import com.khadri.jakarta.stock.form.PowerBankForm;
+import com.khadri.jakarta.stock.form.ProductForm;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletException;
@@ -23,11 +19,6 @@ public class StockViewAllServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private StockDao stockDao;
 	private ProductDao productDao;
-	private List<MobileForm> listOfMobileForm;
-	private List<ChargerForm> listOfChargerForm;
-	private List<HeadSetForm> listOfHeadSetForm;
-	private List<PowerBankForm> listOfPowerBankForm;
-	private List<BackCoverForm> listOfBackCoverForm;
 
 	public void init() throws ServletException {
 		ServletContext context = getServletContext();
@@ -38,158 +29,55 @@ public class StockViewAllServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("Entered into StockViewAllServlet doGet(-,-)");
 
-		List<ProductForm> listOfProducts = productDao.selectProductData();
+		List<String> selectProductNames = productDao.selectProductNames();
 
-		String type = req.getParameter("type");
-		resp.setContentType("text/html");
-		PrintWriter pw = resp.getWriter();
+		List<List<ProductForm>> listOfLists = new ArrayList<>();
 
-		StringBuilder sb = new StringBuilder();
-
-		sb.append("<html>");
-		sb.append("<body>");
-		sb.append("<h2>Search Type</h2>");
-
-		sb.append("<form action='stockviewallservlet' method='get'>");
-		sb.append("<label>Type:</label>");
-		sb.append("<select name='type' id='type'>");
-		sb.append("<option value=''>--select--</option>");
-
-		listOfProducts.forEach(eachProduct -> {
-			sb.append("<option value='" + eachProduct.getName() + "'>" + eachProduct.getName() + "</option>");
+		selectProductNames.stream().forEach(eachName -> {
+			listOfLists.add(stockDao.selectStockByType(eachName));
 		});
-		sb.append("</select>");
-		sb.append("<br/>");
-		sb.append("<input type='submit' value='Search'>");
-		sb.append("</form>");
 
-		if (type != null && !type.isEmpty()) {
-			switch (type) {
-			case "mobile":
-				listOfMobileForm = stockDao.viewAllMobileData();
-				break;
-			case "charger":
-				listOfChargerForm = stockDao.viewAllChargerData();
-				break;
-			case "powerbank":
-				listOfPowerBankForm = stockDao.viewAllPowerBankData();
-				break;
-			case "headset":
-				listOfHeadSetForm = stockDao.viewAllHeadSetData();
-				break;
-			case "backcover":
-				listOfBackCoverForm = stockDao.viewAllBackCoverData();
-				break;
-			default:
-				listOfMobileForm = null;
-			}
+		PrintWriter pw = resp.getWriter();
+ 
+		pw.println("<html>");
+		pw.println("<head>");
+		pw.println("<link rel='stylesheet' type='text/css' href='styles.css'/>");
+		pw.println("</head>");
+		pw.println("<body>");
+		pw.println("<table border=1>");
+		pw.println("<thead>");
+		pw.println("<tr>");
+		pw.println("<th>");
+		pw.println("PRODUCT TYPE");
+		pw.println("</th>");
+		pw.println("<th>");
+		pw.println("PRODUCT BRAND");
+		pw.println("</th>");
+		pw.println("<th>");
+		pw.println("PRODUCT PRICE");
+		pw.println("</th>");
+		pw.println("<th>");
+		pw.println("PRODUCT MODEL");
+		pw.println("</th>");
+		pw.println("<th>");
+		pw.println("PRODUCT ARRIVED DATE AND TIME");
+		pw.println("</th>");
+		pw.println("</tr>");
+		pw.println("</thead>");
+		pw.println("<tbody>");
+		listOfLists.stream().flatMap(List::stream).forEach(eachProduct -> {
+			pw.println("<tr><td>" + eachProduct.getProductType() + "</td><td>" + eachProduct.getProductBrand()
+					+ "</td><td>" + eachProduct.getProductPrice() + "</td><td>" + eachProduct.getProductModel()
+					+ "</td><td>" + eachProduct.getArrivedDateTime() + "</td></tr>");
+		});
 
-			if (listOfMobileForm != null && !listOfMobileForm.isEmpty()) {
-				sb.append("<table border='1'>");
-				sb.append("<thead>");
-				sb.append(
-						"<tr><th>Product Brand</th><th>Product Model</th><th>Product Price</th><th>ArrivedDateTime</th></tr>");
-				sb.append("</thead>");
-				sb.append("<tbody>");
-				for (MobileForm eachProduct : listOfMobileForm) {
-					sb.append("<tr>");
-					sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
-					sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
-					sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
-					sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
+		pw.println("</tbody>");
 
-					sb.append("</tr>");
-				}
+		pw.println("</table>");
 
-			} else {
-			}
-		}
+		pw.println("</body>");
+		pw.println("</html>");
 
-		if (listOfChargerForm != null && !listOfChargerForm.isEmpty()) {
-			sb.append("<table border='1'>");
-			sb.append("<thead>");
-			sb.append(
-					"<tr><th>Product Brand</th><th>Product Model</th><th>Product Price</th><th>ArrivedDateTime</th></tr>");
-			sb.append("</thead>");
-			sb.append("<tbody>");
-			for (ChargerForm eachProduct : listOfChargerForm) {
-				sb.append("<tr>");
-				sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
-				sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
-
-				sb.append("</tr>");
-			}
-
-		} else {
-		}
-
-		if (listOfPowerBankForm != null && !listOfPowerBankForm.isEmpty()) {
-			sb.append("<table border='1'>");
-			sb.append("<thead>");
-			sb.append(
-					"<tr><th>Product Brand</th><th>Product Model</th><th>Product Price</th><th>ArrivedDateTime</th></tr>");
-			sb.append("</thead>");
-			sb.append("<tbody>");
-			for (PowerBankForm eachProduct : listOfPowerBankForm) {
-				sb.append("<tr>");
-				sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
-				sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
-
-				sb.append("</tr>");
-			}
-
-		} else {
-		}
-
-		if (listOfHeadSetForm != null && !listOfHeadSetForm.isEmpty()) {
-			sb.append("<table border='1'>");
-			sb.append("<thead>");
-			sb.append(
-					"<tr><th>Product Brand</th><th>Product Model</th><th>Product Price</th><th>ArrivedDateTime</th></tr>");
-			sb.append("</thead>");
-			sb.append("<tbody>");
-			for (HeadSetForm eachProduct : listOfHeadSetForm) {
-				sb.append("<tr>");
-				sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
-				sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
-
-				sb.append("</tr>");
-			}
-			sb.append("</tbody>");
-			sb.append("</table>");
-		} else {
-		}
-
-		if (listOfBackCoverForm != null && !listOfBackCoverForm.isEmpty()) {
-			sb.append("<table border='1'>");
-			sb.append("<thead>");
-			sb.append(
-					"<tr><th>Product Brand</th><th>Product Model</th><th>Product Price</th><th>ArrivedDateTime</th></tr>");
-			sb.append("</thead>");
-			sb.append("<tbody>");
-			for (BackCoverForm eachProduct : listOfBackCoverForm) {
-				sb.append("<tr>");
-				sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductModel()).append("</td>");
-				sb.append("<td>").append(eachProduct.getProductPrice()).append("</td>");
-				sb.append("<td>").append(eachProduct.getArrivedDateTime()).append("</td>");
-
-				sb.append("</tr>");
-			}
-
-		} else {
-		}
-
-		sb.append("</body>");
-		sb.append("</html>");
-
-		pw.println(sb.toString());
 	}
 
 }
