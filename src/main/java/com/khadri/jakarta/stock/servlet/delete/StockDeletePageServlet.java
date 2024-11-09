@@ -45,9 +45,32 @@ public class StockDeletePageServlet extends HttpServlet {
 		sb.append("<link rel='stylesheet' type='text/css' href='styles.css'/>");
 		sb.append("</head>");
 		sb.append("<body>");
+		sb.append("<body>");
+		sb.append("<script type='text/javascript'>");
+		sb.append("function formValidation() {");
+		sb.append("var selectBoxComponent = document.querySelector('#type');");
+		sb.append("var selectedIndex = selectBoxComponent.selectedIndex;");
+		sb.append("var productBrandComponent = document.getElementById('product_brand');");
+		sb.append("var productModelComponent = document.getElementById('product_model');");
+		sb.append("if (selectedIndex == 0) {");
+		sb.append("alert('Please select type.');");
+		sb.append("return false;");
+		sb.append("} ");
+		sb.append("if(productBrandComponent.value == '') {");
+		sb.append("alert('Please enter a product brand.');");
+		sb.append("productBrandComponent.focus();");
+		sb.append("return false;");
+		sb.append("} ");
+		sb.append("if (productModelComponent.value == '') {");
+		sb.append("alert('Please enter product model.');");
+		sb.append("productModelComponent.focus();");
+		sb.append("return false;");
+		sb.append("} ");
+		sb.append("}");
+		sb.append("</script>");
 
 		if (type == null || type.isEmpty()) {
-			sb.append("<form action='StockDeletePageServlet' method='get'>");
+			sb.append("<form action='StockDeletePageServlet' method='get' onsubmit='return formValidation()'>");
 			sb.append("<table border=1>");
 			sb.append("<tr>");
 			sb.append("<td>");
@@ -67,7 +90,7 @@ public class StockDeletePageServlet extends HttpServlet {
 			sb.append("<label>Product Brand:</label>");
 			sb.append("</td>");
 			sb.append("<td>");
-			sb.append("<input type='text' name='product_brand' required>");
+			sb.append("<input type='text' name='product_brand' id= 'product_brand'>");
 			sb.append("</td>");
 			sb.append("</tr>");
 			sb.append("<tr>");
@@ -75,7 +98,7 @@ public class StockDeletePageServlet extends HttpServlet {
 			sb.append("<label>Product Model:</label>");
 			sb.append("</td>");
 			sb.append("<td>");
-			sb.append("<input type='text' name='product_model' required>");
+			sb.append("<input type='text' name='product_model'  id='product_model'>");
 			sb.append("</td>");
 			sb.append("</tr>");
 			sb.append("<tr>");
