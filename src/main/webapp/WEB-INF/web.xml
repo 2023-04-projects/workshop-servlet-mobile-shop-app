@@ -160,7 +160,7 @@
 
 <context-param>
     <param-name>jdbcPassword</param-name>
-    <param-value>Wellcome@123</param-value>
+    <param-value>root</param-value>
 </context-param>
 	
 </web-app>
