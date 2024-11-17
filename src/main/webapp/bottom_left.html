@@ -2,67 +2,196 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Home Page</title>
+
 <style type="text/css">
+
+/* Main container styling */
+.vertical-menu {
+	width: 200px;
+	background-color: #edd5d6;
+	color: white;
+}
+
+/* Style for menu items */
+ .menu-item { 
+ 	cursor: pointer; 
+ 	color: white; 
+ 	display: block; 
+ } 
+
+.menu-item:hover {
+	background-color: #edd5d6;
+}
+
+.dropbtn {
+  background-color:#edd5d6;
+  color: black;
+  font-size: 16px;
+  cursor: dropdown;
+}
+.dropdown-content {
+  display: flex;
+  flex-direction: column; /* Stacks links vertically */
+  position: absolute;
+  background-color: #555;
+  width: 150px; /* Adjust width as needed */
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 10px 0;
+}
+
+.dropdown-content a {
+  color: white;
+  padding: 10px;
+  text-decoration: none;
+  display: block;
+}
+.dropdown-content {
+  position: absolute;
+  background-color: #555;
+  width: 150px;
+  box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+  z-index: 1;
+  padding: 10px 0;
+}
+
+.dropdown-content a {
+  display: block; /* Makes each link occupy full line */
+  color: grey;
+  padding: 10px;
+  text-decoration: none;
+}
+.dropdown-toggle {
+    background-color: #b1c4c9;
+    color: white;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    display: inline-flex;
+    align-items: center;
+}
+
+.arrow {
+    margin-left: 8px;
+    font-size: 16px;
+}
+
+.dropdown-toggle:hover .arrow {
+    color: #f1c40f; /* Change color on hover */
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #b1c4c9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+  display: none;
+  background-color: #262626;
+}
+.dropdown:hover 
+.dropdown-content {
+  display: block;
+}
+
+/* .dropdown:hover .dropbtn { */
+/* } */
+.arrow {
+  float: right;
+  font-size: 12px;
+  color: #ccc;
+}
+
+.dropbtn:hover .arrow {
+  color: white;
+}
 .vertical-menu {
 	width: 200px; /* Set a width if you like */
 }
 
 .vertical-menu a {
-	background-color: #eee; /* Grey background color */
+	background-color:#edd5d6; /* Grey background color */
 	color: black; /* Black text color */
 	display: block; /* Make the links appear below each other */
-	padding: 12px; /* Add some padding */
 	text-decoration: none; /* Remove underline from links */
+	height: 300px;
 }
 
 .vertical-menu a:hover {
-	background-color: #ccc; /* Dark grey background on mouse-over */
+	background-color: #edd5d6; /* Dark grey background on mouse-over */
 }
 
 .vertical-menu a.active {
-	background-color: #04AA6D;
-	/* Add a green color to the "active/current" link */
-	color: white;
+	background-color: #edd5d6;
+	color: black;
 }
-</style>
-</head>
-<body>
-
-	<div class="vertical-menu">
-		<a href="#" class="active">Product_Details</a>
-		<a href="add_product.html" target="bottom_right">Add</a>
-		<a href="productmodifysearchpage" target="bottom_right">Modify</a>
-		<a href="productview" target="bottom_right">View</a>
-		<a href="productviewall" target="bottom_right">ViewAll</a>
-	</div>
 
  
-	<table>
-		<thead>
-			<h2>Stock details</h2>
-		</thead>
-		<tbody>
-			<tr>
-				<td><a href="stockaddpage" target="bottom_right">add</a></td>
-			</tr>
-			<tr>
-				<td><a href="bottom_right_stock_modify.html"
-					target="bottom_right">modify</a></td>
-			</tr>
-			<tr>
-				<td><a href="bottom_right_stock_view.html"
-					target="bottom_right">view</a></td>
-			</tr>
-			<tr>
-				<td><a href="bottom_right_stock_viewall.html"
-					target="bottom_right">viewAll</a></td>
-			</tr>
-			<tr>
-				<td><a href="bottom_right_stock_delete.html"
-					target="bottom_right">delete</a></td>
-			</tr>
-		</tbody>
+</style>
+</head>
+<body style="background-image: url('UI_Image.gif'); background-size: cover; background-repeat: no-repeat; background-position: center; height: 98vh; width: 50%;">
+<div class="vertical_menu">
+<table>
+<div class="dropdown">
+  <button class="dropbtn" onclick="toggleDropdown()">Product_Details
+    <span style="color:black;font-weight:bold">&#129171;</span> 
+  </button>
+  <div class="dropdown-content" id = "dropdown-content">
+  
+			<a href= "add_product.html" target="bottom_right">Add</a> 
+			<a href= "productmodifysearchpage" target="bottom_right">Modify</a> 
+			<a href= "productview" target="bottom_right">View</a> 
+			<a href=  "productviewall" target="bottom_right">ViewAll</a> 
+			<a href=  "productdelete" target="bottom_right">Delete</a>
+  </div> 
+	</div>
+	
+	
+<div class="vertical_menu">
+		<div class="dropdown">
+  <button class="dropbtn" onclick="toggleDropdown()">Stock details
+<span style="color:black;font-weight:bold">&#129171;</span> 
+  </button>
+  <div class="dropdown-content" id = "dropdown-content">
+  
+			<a href= "stockaddpage" target="bottom_right">add</a>  
+			<a href= "stockmodify" target="bottom_right">modify</a>
+			<a href= "StockViewServlet" target="bottom_right">view</a>
+			<a href= "bottom_right_stock_viewall.html" target="bottom_right">viewAll</a>
+			<a href= "bottom_right_stock_delete.html" target="bottom_right">delete</a>
+		</div>
+	</div>
+	<script type="text/javascript">
+		
+		document.querySelector('.dropdown-toggle').addEventListener('click', function() {
+		    document.querySelector('.dropdown-menu').classList.toggle('show');
+		});
+
+		window.addEventListener('click', function(e) {
+		    if (!e.target.matches('.dropdown-toggle')) {
+		        var dropdowns = document.querySelectorAll('.dropdown-menu');
+		        dropdowns.forEach(menu => {
+		            if (menu.classList.contains('show')) {
+		                menu.classList.remove('show');
+		            }
+		        });
+		    }
+		});
+		
+	</script>
 	</table>
 </body>
 </html>
