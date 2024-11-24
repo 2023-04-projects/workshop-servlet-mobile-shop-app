@@ -56,8 +56,30 @@ public class StockViewServlet extends HttpServlet {
 		sb.append("<link rel='stylesheet' type='text/css' href='styles.css'/>");
 		sb.append("</head>");
 		sb.append("<body>");
+		sb.append("<script type='text/javascript'>");
+		sb.append("function formValidation() {");
+		sb.append("var selectBoxComponent = document.querySelector('#type');");
+		sb.append("var selectedIndex = selectBoxComponent.selectedIndex;");
+		sb.append("var productBrandComponent = document.getElementById('product_brand');");
+		sb.append("var productModelComponent = document.getElementById('product_model');");
+		sb.append("if (selectedIndex == 0) {");
+		sb.append("alert('Please select type.');");
+		sb.append("return false;");
+		sb.append("} ");
+		sb.append("if(productBrandComponent.value == '') {");
+		sb.append("alert('Please enter a product brand.');");
+		sb.append("productBrandComponent.focus();");
+		sb.append("return false;");
+		sb.append("} ");
+		sb.append("if (productModelComponent.value == '') {");
+		sb.append("alert('Please enter product model.');");
+		sb.append("productModelComponent.focus();");
+		sb.append("return false;");
+		sb.append("} ");
+		sb.append("}");
+		sb.append("</script>");
 
-		sb.append("<form action='StockViewServlet' method='get'>");
+		sb.append("<form action='StockViewServlet' method='get' onsubmit='return formValidation()'>");
 		sb.append("<table border=1>");
 		sb.append("<tr>");
 		sb.append("<td>");
@@ -80,7 +102,7 @@ public class StockViewServlet extends HttpServlet {
 		sb.append("Product Brand:");
 		sb.append("</td>");
 		sb.append("<td>");
-		sb.append("<input type='text' name='product_brand'>");
+		sb.append("<input type='text' name='product_brand' id= 'product_brand'>");
 		sb.append("</td>");
 		sb.append("</tr>");
 		sb.append("<tr>");
@@ -88,7 +110,7 @@ public class StockViewServlet extends HttpServlet {
 		sb.append("Product Model:");
 		sb.append("</td>");
 		sb.append("<td>");
-		sb.append("<input type='text' name='product_model'>");
+		sb.append("<input type='text' name='product_model' id= 'product_model'>");
 		sb.append("</td>");
 		sb.append("</tr>");
 		sb.append("<tr>");
@@ -108,7 +130,7 @@ public class StockViewServlet extends HttpServlet {
 			case "mobile":
 				listOfMobileForm = stockDao.viewMobileData(product_brand, product_model);
 				if (listOfMobileForm != null && !listOfMobileForm.isEmpty()) {
-					 
+
 					for (MobileForm eachProduct : listOfMobileForm) {
 						sb.append("<tr>");
 						sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
@@ -128,7 +150,7 @@ public class StockViewServlet extends HttpServlet {
 			case "charger":
 				listOfChargerForm = stockDao.viewChargerData(product_brand, product_model);
 				if (listOfChargerForm != null && !listOfChargerForm.isEmpty()) {
-				
+
 					for (ChargerForm eachProduct : listOfChargerForm) {
 						sb.append("<tr>");
 						sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
@@ -149,7 +171,7 @@ public class StockViewServlet extends HttpServlet {
 				listOfPowerBankForm = stockDao.viewPowerBankData(product_brand, product_model);
 
 				if (listOfPowerBankForm != null && !listOfPowerBankForm.isEmpty()) {
-				 
+
 					for (PowerBankForm eachProduct : listOfPowerBankForm) {
 						sb.append("<tr>");
 						sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
@@ -169,7 +191,7 @@ public class StockViewServlet extends HttpServlet {
 			case "headset":
 				listOfHeadSetForm = stockDao.viewHeadSetData(product_brand, product_model);
 				if (listOfHeadSetForm != null && !listOfHeadSetForm.isEmpty()) {
-				 
+
 					for (HeadSetForm eachProduct : listOfHeadSetForm) {
 						sb.append("<tr>");
 						sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");
@@ -190,7 +212,7 @@ public class StockViewServlet extends HttpServlet {
 			case "backcover":
 				listOfBackCoverForm = stockDao.viewBackCoverData(product_brand, product_model);
 				if (listOfBackCoverForm != null && !listOfBackCoverForm.isEmpty()) {
-				 
+
 					for (BackCoverForm eachProduct : listOfBackCoverForm) {
 						sb.append("<tr>");
 						sb.append("<td>").append(eachProduct.getProductBrand()).append("</td>");

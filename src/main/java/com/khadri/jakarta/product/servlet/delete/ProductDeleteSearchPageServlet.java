@@ -35,16 +35,26 @@ public class ProductDeleteSearchPageServlet extends HttpServlet {
 
 		sb.append("<html>");
 		sb.append("<body>");
+		sb.append("<script type='text/javascript'>");
+		sb.append("function formValidation() {");
+		sb.append("var productIdComponent = document.getElementById('productId');");
+		sb.append("if (productIdComponent.value == '') {");
+		sb.append("alert('Please Enter Product Id.');");
+		sb.append("productIdComponent.focus();");
+		sb.append("return false;"); 
+		sb.append("} ");
+		sb.append("} ");
+		sb.append("</script>");
 		sb.append("<head>");
 		sb.append("<h2>Search Product</h2>");
 		sb.append("<link rel='stylesheet' type='text/css' href='styles.css'/>");
 		sb.append("</head>");
 
 		if (productId == null || productId.isEmpty()) {
-			sb.append("<form action = 'productdeletesearchpage' method = 'get'");
+			sb.append("<form action = 'productdeletesearchpage' method = 'get' onsubmit= 'return formValidation()'>");
 			sb.append("<table border='1'>");
 			sb.append("<tbody>");
-			sb.append("<tr><td>ProductId :<input type= 'text' name ='Id'><td/></tr>");
+			sb.append("<tr><td>ProductId :<input type= 'text' name ='Id' id= 'productId' ><td/></tr>");
 			sb.append("<tr><td><input type='submit' value='Delete Product Search'></td></tr>");
 			sb.append("</tbody>");
 			sb.append("</table>");
